@@ -8,4 +8,9 @@
     <string name="plans_fragment">Plans fragment</string>
     <string name="qrcode_fragment">QR Code fragment</string>
     <string name="timetable_fragment">Timetable fragment</string>
+    <string name="horaires">Horaires</string>
+    <string name="plans">Plans</string>
+    <string name="favoris">favoris</string>
+    <string name="qr_code">QR Code</string>
+    <string name="train">Train</string>
 </resources>
