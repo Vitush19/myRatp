@@ -3,4 +3,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dashboard_fragment">Dashboard fragment</string>
+    <string name="saved_fragment">Saved fragment</string>
+    <string name="plans_fragment">Plans fragment</string>
+    <string name="qrcode_fragment">QR Code fragment</string>
+    <string name="timetable_fragment">Timetable fragment</string>
 </resources>
