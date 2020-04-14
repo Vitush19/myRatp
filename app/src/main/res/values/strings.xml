@@ -13,4 +13,10 @@
     <string name="favoris">favoris</string>
     <string name="qr_code">QR Code</string>
     <string name="train">Train</string>
+    <string name="bus">Bus</string>
+    <string name="metro">Métro</string>
+    <string name="rer">RER</string>
+    <string name="tramway">Tramway</string>
+    <string name="noctilien">Noctilien</string>
+    <string name="choix_mode_transport">Choisissez votre mode de transport</string>
 </resources>

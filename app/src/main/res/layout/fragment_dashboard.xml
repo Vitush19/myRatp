@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="30dp">
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -36,7 +36,7 @@
     </LinearLayout>
 
     <GridLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:alignmentMode="alignMargins"
@@ -45,9 +45,10 @@
         android:rowCount="2">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/timetable_button"
             android:layout_width="170dp"
             android:layout_height="170dp"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="20dp"
             app:cardBackgroundColor="@color/blueContrast"
             app:cardCornerRadius="12dp"
@@ -78,9 +79,10 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/plans_button"
             android:layout_width="170dp"
             android:layout_height="170dp"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="20dp"
             app:cardBackgroundColor="@color/blueContrast"
             app:cardCornerRadius="12dp"
@@ -111,9 +113,10 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/favoris_button"
             android:layout_width="170dp"
             android:layout_height="170dp"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="20dp"
             app:cardBackgroundColor="@color/blueContrast"
             app:cardCornerRadius="12dp"
@@ -144,9 +147,10 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/qr_code_button"
             android:layout_width="170dp"
             android:layout_height="170dp"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="20dp"
             app:cardBackgroundColor="@color/blueContrast"
             app:cardCornerRadius="12dp"
