@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myratp.R
 import com.example.myratp.model.BusLine
-import kotlinx.android.synthetic.main.buslines_view.view.*
+import kotlinx.android.synthetic.main.busline_view.view.*
 
 class BusLinesAdapter(val list_buslines: List<BusLine>) : RecyclerView.Adapter<BusLinesAdapter.BusLinesViewHolder>(){
     class BusLinesViewHolder(val buslinesView: View) : RecyclerView.ViewHolder(buslinesView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusLinesViewHolder {
         val layoutInflater : LayoutInflater = LayoutInflater.from(parent.context)
-        val view: View = layoutInflater.inflate(R.layout.buslines_view, parent, false)
+        val view: View = layoutInflater.inflate(R.layout.busline_view, parent, false)
         return BusLinesViewHolder(
             view
         )

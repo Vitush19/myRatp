@@ -8,7 +8,7 @@ import com.example.myratp.R
 import com.example.myratp.model.MetroLine
 import kotlinx.android.synthetic.main.metroline_view.view.*
 
-class MetroLinesAdapter(val list_metrolines: List<MetroLine>) : RecyclerView.Adapter<MetroLinesAdapter.MetroLinesViewHolder>(){
+class MetroLineAdapter(val list_metrolines: List<MetroLine>) : RecyclerView.Adapter<MetroLineAdapter.MetroLinesViewHolder>(){
     class MetroLinesViewHolder(val metrolinesView: View) : RecyclerView.ViewHolder(metrolinesView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MetroLinesViewHolder {

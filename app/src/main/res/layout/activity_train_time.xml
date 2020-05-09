@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.timetable.buslines.BusTimeActivity">
+    tools:context=".ui.timetable.trainlines.TrainTimeActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/activities_recyclerview_bus"
+            android:id="@+id/activities_recyclerview_train"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/busline_view" />
+            tools:listitem="@layout/trainline_view" />
 
     </RelativeLayout>
 

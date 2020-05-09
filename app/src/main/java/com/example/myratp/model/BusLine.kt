@@ -1,6 +1,5 @@
 package com.example.myratp.model
 
-import android.icu.text.CaseMap
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -12,7 +11,7 @@ data class BusLine(@PrimaryKey(autoGenerate = true) val id_bus: Int,
                      val id: Int){
     companion object{
         val all = (1..10).map{
-            MetroLine(it, "$it", "$it", "$it", 0)
+            TrainLine(it, "$it", "$it", "$it", 0)
         }.toMutableList()
     }
 }

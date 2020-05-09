@@ -25,14 +25,14 @@ class BusTimeActivity : AppCompatActivity() {
         var recyclerview_bus = findViewById(R.id.activities_recyclerview_bus) as RecyclerView
         recyclerview_bus.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        val database = Room.databaseBuilder(this, AppDatabase::class.java, "gestion_metros")
+        val database = Room.databaseBuilder(this, AppDatabase::class.java, "gestion_buses")
             .build()
         busLineDao = database.getBusLineDao()
 
         runBlocking {
             busLineDao?.deleteAllBusLines()
             val service = retrofit().create(BusLinesBySearch::class.java)
-            val resultat = service.getlistMetroLine()
+            val resultat = service.getlistBusLine()
             resultat.result.buses.map {
                 val m = BusLine(0, it.code, it.name, it.directions, it.id)
                 Log.d("CCC", "$m")

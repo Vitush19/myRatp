@@ -1,6 +1,5 @@
 package com.example.myratp.model
 
-import android.icu.text.CaseMap
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 

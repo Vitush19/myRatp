@@ -1,10 +1,9 @@
 package com.example.myratp.ui.timetable.buslines
 
-import com.example.myratp.data.BusLineDao
-
 import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
 import com.example.myratp.data.AppDatabase
+import com.example.myratp.data.TrainLineDao
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -14,15 +13,16 @@ import java.util.concurrent.TimeUnit
 
 // je rajoute la fonction clientDao à la classe AppcompactACtivity : retourne le DAO
 
-fun AppCompatActivity.busDao() : BusLineDao {
+fun AppCompatActivity.trainDao() : TrainLineDao {
     val database: AppDatabase =
         Room.databaseBuilder(this,
             AppDatabase::class.java,
-            "gestion_bus")
+            "gestion_train")
             .build()
-    return database.getBusLineDao()
+    return database.getTrainLineDao()
 }
-fun retrofit_bus(): Retrofit {
+
+fun retrofit_train(): Retrofit {
     val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }

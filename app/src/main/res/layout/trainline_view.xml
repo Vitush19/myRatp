@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="270dp"
     android:layout_margin="8dp">
@@ -11,27 +11,24 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/busline_code_textview"
+            android:id="@+id/trainline_code_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
             android:text="code : " />
 
         <TextView
-            android:id="@+id/busline_name_textview"
+            android:id="@+id/trainline_name_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
             android:text="nom ligne : "/>
 
         <TextView
-            android:id="@+id/busline_destination_textview"
+            android:id="@+id/trainline_destination_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
             android:text="destination : " />
-
     </LinearLayout>
-
-
 </androidx.cardview.widget.CardView>

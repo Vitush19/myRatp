@@ -6,11 +6,12 @@ import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.example.myratp.adapters.MetroLinesAdapter
+import com.example.myratp.adapters.MetroLineAdapter
 import com.example.myratp.R
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.MetroLineDao
 import com.example.myratp.model.MetroLine
+import com.example.myratp.ui.timetable.buslines.retrofit_bus
 import kotlinx.coroutines.runBlocking
 
 class MetroTimeActivity : AppCompatActivity() {
@@ -30,7 +31,7 @@ class MetroTimeActivity : AppCompatActivity() {
 
         runBlocking {
             metroLineDao?.deleteAllMetroLines()
-            val service = retrofit().create(MetroLinesBySearch::class.java)
+            val service = retrofit_bus().create(MetroLinesBySearch::class.java)
             val resultat = service.getlistMetroLine()
             resultat.result.metros.map {
                 val m = MetroLine(0, it.code, it.name, it.directions, it.id)
@@ -41,7 +42,7 @@ class MetroTimeActivity : AppCompatActivity() {
             val ms = metroLineDao?.getMetroLines()
             //val test = bs.isNullOrEmpty()
             recyclerview_metro.adapter =
-                MetroLinesAdapter(ms ?: emptyList())
+                MetroLineAdapter(ms ?: emptyList())
         }
     }
 }
