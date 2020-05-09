@@ -1,4 +1,4 @@
-package com.example.myratp.ui.plans
+package com.example.myratp.ui.timetable
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,20 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.example.myratp.R
-import com.example.myratp.data.MetroLineDao
 
 /**
  * A simple [Fragment] subclass.
  */
-class MetroPlansFragment : Fragment() {
-
-    private lateinit var metrolinesdao : MetroLineDao
+class TramwayTimetableFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_metro_plans, container, false)
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_tramway_timetable, container, false)
     }
 
 }
