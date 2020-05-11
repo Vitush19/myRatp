@@ -34,11 +34,12 @@ class MetroLineAdapter(val list_metrolines: List<MetroLine>, val list_traffic : 
         holder.metrolinesView.metroline_code_textview.text = "Ligne : ${metrolines.code}"
         holder.metrolinesView.metroline_destination_textview.text = "Destination : ${metrolines.direction}"
 
-        for (x in list_traffic.indices){
+
+        for (x in 0 until list_traffic.size){
             //Log.d("BBB", "$x")
-            Log.d("BBB", "avant metroline.code = $metrolines.code")
+            //Log.d("BBB", "avant metroline.code = $metrolines.code")
             if(metrolines.code == list_traffic[x].line){
-                Log.d("BBB", "apres metroline.code = $metrolines.code")
+                //Log.d("BBB", "apres metroline.code = $metrolines.code")
                 //Log.d("BBB", "$metrolines.code")
                 //Log.d("BBB", "$list_traffic[x]")
                 holder.metrolinesView.metroline_name_textview.text = list_traffic[x].message

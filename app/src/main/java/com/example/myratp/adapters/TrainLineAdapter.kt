@@ -1,11 +1,13 @@
 package com.example.myratp.adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myratp.R
 import com.example.myratp.model.TrainLine
+import com.example.myratp.ui.timetable.metrolines.TrainStationsActivity
 import kotlinx.android.synthetic.main.trainline_view.view.*
 
 class TrainLinesAdapter(val list_trainlines: List<TrainLine>) : RecyclerView.Adapter<TrainLinesAdapter.TrainLinesViewHolder>(){
@@ -27,5 +29,11 @@ class TrainLinesAdapter(val list_trainlines: List<TrainLine>) : RecyclerView.Ada
         holder.trainlinesView.trainline_code_textview.text = "Ligne : ${trainlines.code}"
         //holder.metrolinesView.metroline_name_textview.text = "${metrolines.name}"
         holder.trainlinesView.trainline_destination_textview.text = "Destination : ${trainlines.direction}"
+
+        holder.trainlinesView.setOnClickListener{
+            val intent = Intent(it.context, TrainStationsActivity::class.java)
+            intent.putExtra("code", trainlines.code)
+            it.context.startActivity(intent)
+        }
     }
 }
