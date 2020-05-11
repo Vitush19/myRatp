@@ -10,12 +10,15 @@ import com.example.myratp.adapters.MetroLineAdapter
 import com.example.myratp.R
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.MetroLineDao
+import com.example.myratp.data.TrafficDao
 import com.example.myratp.model.MetroLine
+import com.example.myratp.model.Traffic
 import kotlinx.coroutines.runBlocking
 
 class MetroTimeActivity : AppCompatActivity() {
 
     private var metroLineDao : MetroLineDao? = null
+    private var trafficDao : TrafficDao? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +31,30 @@ class MetroTimeActivity : AppCompatActivity() {
             .build()
         metroLineDao = database.getMetroLineDao()
 
+        val database_bis = Room.databaseBuilder(this, AppDatabase::class.java, "alltraffic")
+            .build()
+        trafficDao = database_bis.getTrafficDao()
+
+//        runBlocking {
+//
+//        }
+
         runBlocking {
+
+            trafficDao?.deleteAllTraffic()
+            val service_bis = retrofit().create(MetroLinesBySearch::class.java)
+            val resultat_bis = service_bis.getTrafficMetro("metros")
+            resultat_bis.result.metros.map {
+                val traffic = Traffic(0, it.line, it.slug, it.title, it.message)
+                trafficDao?.addTraffic(traffic)
+            }
+            trafficDao = database_bis.getTrafficDao()
+            val traf = trafficDao?.getTraffic()
+            //val test = bs.isNullOrEmpty()
+//            recyclerview_metro.adapter =
+//                MetroLineAdapter(traf ?: emptyList())
+
+
             metroLineDao?.deleteAllMetroLines()
             val service = retrofit().create(MetroLinesBySearch::class.java)
             val resultat = service.getlistMetroLine()
@@ -41,7 +67,9 @@ class MetroTimeActivity : AppCompatActivity() {
             val ms = metroLineDao?.getMetroLines()
             //val test = bs.isNullOrEmpty()
             recyclerview_metro.adapter =
-                MetroLineAdapter(ms ?: emptyList())
+                MetroLineAdapter(ms ?: emptyList(), traf!!)
         }
+
+
     }
 }

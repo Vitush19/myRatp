@@ -16,6 +16,11 @@ interface MetroLinesBySearch {
         @Path("type") type:String,
         @Path("code") code:String
     ): MetroStationsResponse
+
+    @GET("traffic/{type}")
+    suspend fun getTrafficMetro(
+        @Path("type") type:String
+    ): GetTraffic
 }
 
 data class MetroLinesResponse(val result : Destination = Destination())
@@ -28,3 +33,7 @@ data class MetroS(val code : String = "",
 data class MetroStationsResponse(val result: MetroStations = MetroStations())
 data class MetroStations(val stations:List<MetroStationName> = emptyList())
 data class MetroStationName(val name:String="",val slug:String="")
+
+data class GetTraffic(val result: MetroTraffic = MetroTraffic())
+data class MetroTraffic(val metros:List<MetroInfo> = emptyList())
+data class MetroInfo(val line:String="",val slug:String="",val title:String="",val message:String="")
