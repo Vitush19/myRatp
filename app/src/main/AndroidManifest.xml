@@ -14,6 +14,7 @@
         <activity android:name=".ui.timetable.metrolines.MetroTimeActivity"/>
         <activity android:name=".MetroPlansActivity" />
         <activity android:name=".ui.timetable.buslines.BusTimeActivity"/>
+        <activity android:name=".ui.timetable.metrolines.MetroStationsActivity"/>
         <activity
             android:name=".SplashScreenActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">

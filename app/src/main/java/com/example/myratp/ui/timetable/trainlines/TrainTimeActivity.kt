@@ -26,7 +26,7 @@ class TrainTimeActivity : AppCompatActivity() {
         var recyclerview_train = findViewById(R.id.activities_recyclerview_train) as RecyclerView
         recyclerview_train.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        val database = Room.databaseBuilder(this, AppDatabase::class.java, "gestion_trains")
+        val database = Room.databaseBuilder(this, AppDatabase::class.java, "alltrainlines")
             .build()
         trainLineDao = database.getTrainLineDao()
 
@@ -35,9 +35,9 @@ class TrainTimeActivity : AppCompatActivity() {
             val service = retrofit_train().create(TrainLinesBySearch::class.java)
             val resultat = service.getlistTrainLine()
             resultat.result.rers.map {
-                val t = TrainLine(0, it.code, it.name, it.directions, it.id)
-                Log.d("CCC", "$t")
-                trainLineDao?.addTrainLines(t)
+                val train = TrainLine(0, it.code, it.name, it.directions, it.id)
+                Log.d("CCC", "$train")
+                trainLineDao?.addTrainLines(train)
             }
             trainLineDao = database.getTrainLineDao()
             //val ts = busLineDao?.getBusLines()

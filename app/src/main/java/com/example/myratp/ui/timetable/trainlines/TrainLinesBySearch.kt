@@ -15,4 +15,4 @@ data class Destination(val rers : List<RerS> = emptyList())
 data class RerS(val code : String = "",
                  val name : String = "",
                  val directions : String = "",
-                 val id : Int = 0)
+                 val id : String = "")

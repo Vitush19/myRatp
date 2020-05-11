@@ -11,7 +11,6 @@ import com.example.myratp.adapters.BusLinesAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.BusLineDao
 import com.example.myratp.model.BusLine
-import com.example.myratp.ui.timetable.metrolines.retrofit
 import kotlinx.coroutines.runBlocking
 
 class BusTimeActivity : AppCompatActivity() {
@@ -25,18 +24,18 @@ class BusTimeActivity : AppCompatActivity() {
         var recyclerview_bus = findViewById(R.id.activities_recyclerview_bus) as RecyclerView
         recyclerview_bus.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        val database = Room.databaseBuilder(this, AppDatabase::class.java, "gestion_buses")
+        val database = Room.databaseBuilder(this, AppDatabase::class.java, "allbuslines")
             .build()
         busLineDao = database.getBusLineDao()
 
         runBlocking {
             busLineDao?.deleteAllBusLines()
-            val service = retrofit().create(BusLinesBySearch::class.java)
+            val service = retrofit_bus().create(BusLinesBySearch::class.java)
             val resultat = service.getlistBusLine()
             resultat.result.buses.map {
-                val m = BusLine(0, it.code, it.name, it.directions, it.id)
-                Log.d("CCC", "$m")
-                busLineDao?.addBusLines(m)
+                val bus = BusLine(0, it.code, it.name, it.directions, it.id)
+                Log.d("CCC", "$bus")
+                busLineDao?.addBusLines(bus)
             }
             busLineDao = database.getBusLineDao()
             //val bs = busLineDao?.getBusLines()

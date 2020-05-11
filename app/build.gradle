@@ -71,4 +71,5 @@ dependencies {
 
     //photoView
     implementation 'com.github.chrisbanes:PhotoView:2.1.4'
+
 }

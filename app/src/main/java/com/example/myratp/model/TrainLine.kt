@@ -8,10 +8,10 @@ data class TrainLine(@PrimaryKey(autoGenerate = true) val id_train: Int,
                    val code: String,
                    val name: String,
                    val direction: String,
-                   val id: Int){
+                   val id: String){
     companion object{
         val all = (1..10).map{
-            TrainLine(it, "$it", "$it", "$it", 0)
+            TrainLine(it, "$it", "$it", "$it", "$it")
         }.toMutableList()
     }
 }
