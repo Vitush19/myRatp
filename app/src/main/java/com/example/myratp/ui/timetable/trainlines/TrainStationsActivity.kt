@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.myratp.R
 import com.example.myratp.adapters.StationAdapter
+import com.example.myratp.adapters.TrainStationAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.StationsDao
 import com.example.myratp.model.Station
@@ -48,7 +49,7 @@ class TrainStationsActivity : AppCompatActivity(){
             val s = stationDao?.getStations()
             //val test = bs.isNullOrEmpty()
             recyclerview_train_station.adapter =
-                StationAdapter(s ?: emptyList())
+                TrainStationAdapter(s ?: emptyList())
         }
 
 

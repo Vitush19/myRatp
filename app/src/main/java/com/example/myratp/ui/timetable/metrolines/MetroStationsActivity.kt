@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.myratp.R
+import com.example.myratp.adapters.MetroStationAdapter
 import com.example.myratp.adapters.StationAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.StationsDao
@@ -20,7 +21,7 @@ class MetroStationsActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_bus_stations)
+        setContentView(R.layout.activity_metro_stations)
 
         code = intent.getStringExtra("code")
 
@@ -44,7 +45,7 @@ class MetroStationsActivity : AppCompatActivity(){
             val s = stationDao?.getStations()
             //val test = bs.isNullOrEmpty()
             recyclerview_metro_station.adapter =
-                StationAdapter(s ?: emptyList())
+                MetroStationAdapter(s ?: emptyList(), "$code")
         }
 
 

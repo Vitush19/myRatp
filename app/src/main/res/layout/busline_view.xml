@@ -2,12 +2,13 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="270dp"
+    android:layout_height="wrap_content"
     android:layout_margin="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:orientation="vertical">
 
         <TextView
@@ -18,17 +19,17 @@
             android:text="code : " />
 
         <TextView
-            android:id="@+id/busline_name_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="nom ligne : "/>
-
-        <TextView
             android:id="@+id/busline_destination_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
             android:text="destination : " />
+
+        <TextView
+            android:id="@+id/busline_name_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="nom ligne : "/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

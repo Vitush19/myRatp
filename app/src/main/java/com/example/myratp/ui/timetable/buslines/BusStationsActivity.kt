@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.myratp.R
+import com.example.myratp.adapters.BusStationAdapter
 import com.example.myratp.adapters.StationAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.StationsDao
@@ -45,7 +46,7 @@ class BusStationsActivity : AppCompatActivity(){
             stationDao = database.getStationsDao()
             val s = stationDao?.getStations()
             recyclerview_bus_station.adapter =
-                StationAdapter(s ?: emptyList())
+                BusStationAdapter(s ?: emptyList(), "$code")
         }
     }
 }
