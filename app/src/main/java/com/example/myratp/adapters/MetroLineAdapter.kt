@@ -49,6 +49,7 @@ class MetroLineAdapter(val list_metrolines: List<MetroLine>, val list_traffic : 
         holder.metrolinesView.setOnClickListener{
             val intent = Intent(it.context, MetroStationsActivity::class.java)
             intent.putExtra("code", metrolines.code)
+            intent.putExtra("id", metrolines.id_metro)
             it.context.startActivity(intent)
         }
     }

@@ -33,6 +33,7 @@ class TrainLinesAdapter(val list_trainlines: List<TrainLine>) : RecyclerView.Ada
         holder.trainlinesView.setOnClickListener{
             val intent = Intent(it.context, TrainStationsActivity::class.java)
             intent.putExtra("code", trainlines.code)
+            intent.putExtra("id", trainlines.id_train)
             it.context.startActivity(intent)
         }
     }

@@ -23,4 +23,7 @@ interface StationsDao {
 
     @Query("select * from allstations where id_station = :id")
     suspend fun getStations(id: Int) : Station
+
+    @Query("select * from allstations where name = :name")
+    suspend fun getStationByName(name :String) : Station
 }

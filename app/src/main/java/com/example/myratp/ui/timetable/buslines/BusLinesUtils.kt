@@ -23,7 +23,7 @@ fun AppCompatActivity.busDao() : BusLineDao {
     return database.getBusLineDao()
 }
 fun retrofit_bus(): Retrofit {
-    val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
+    val httpLoggingInterceptor  = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
     val client = OkHttpClient.Builder()

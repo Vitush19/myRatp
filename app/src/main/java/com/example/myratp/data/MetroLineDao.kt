@@ -22,4 +22,5 @@ interface MetroLineDao {
 
     @Query("select * from allmetrolines where id = :id")
     suspend fun getMetroLines(id: Int) : MetroLine
+
 }

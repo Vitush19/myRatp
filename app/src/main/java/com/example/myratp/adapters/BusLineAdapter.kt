@@ -33,6 +33,7 @@ class BusLinesAdapter(val list_buslines: List<BusLine>) : RecyclerView.Adapter<B
         holder.buslinesView.setOnClickListener{
             val intent = Intent(it.context, BusStationsActivity::class.java)
             intent.putExtra("code", buslines.code)
+            intent.putExtra("id", buslines.id_bus)
             it.context.startActivity(intent)
         }
     }

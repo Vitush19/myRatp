@@ -19,4 +19,8 @@
     <string name="tramway">Tramway</string>
     <string name="noctilien">Noctilien</string>
     <string name="choix_mode_transport">Choisissez votre mode de transport</string>
+    <string name="station">Station :</string>
+    <string name="code">code :</string>
+    <string name="destination">destination :</string>
+    <string name="nom_ligne">nom ligne :</string>
 </resources>
