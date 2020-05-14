@@ -2,6 +2,7 @@ package com.example.myratp.ui.timetable.metrolines
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
+import com.example.myratp.R
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.MetroLineDao
 import okhttp3.OkHttpClient
@@ -39,4 +40,30 @@ fun retrofit(): Retrofit {
         .addConverterFactory(MoshiConverterFactory.create())
         .client(client)
         .build()
+}
+
+fun ImageMetro(name:String):Int{
+    val imageMetro =
+        when(name){
+            "Métro 1"-> R.drawable.metro1
+            "Métro 2"-> R.drawable.metro2
+            "Métro 3"-> R.drawable.metro3
+            "Métro 3b"-> R.drawable.metro3bis
+            "Métro 4"-> R.drawable.metro4
+            "Métro 5"-> R.drawable.metro5
+            "Métro 6"-> R.drawable.metro6
+            "Métro 7"-> R.drawable.metro7
+            "Métro 7b"-> R.drawable.metro7bis
+            "Métro 8"-> R.drawable.metro8
+            "Métro 9"-> R.drawable.metro9
+            "Métro 10"-> R.drawable.metro10
+            "Métro 11"-> R.drawable.metro11
+            "Métro 12"-> R.drawable.metro12
+            "Métro 13"-> R.drawable.metro13
+            "Métro 14"-> R.drawable.metro14
+            "Métro Orv"-> R.drawable.orlyval
+            "Métro Fun"-> R.drawable.funiculaire
+            else-> R.drawable.metro_bleu
+        }
+    return imageMetro
 }

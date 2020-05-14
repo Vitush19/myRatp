@@ -5,12 +5,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myratp.MetroListActivity
 import com.example.myratp.R
 import com.example.myratp.model.MetroLine
 import com.example.myratp.model.Traffic
+import com.example.myratp.ui.timetable.metrolines.ImageMetro
 import com.example.myratp.ui.timetable.metrolines.MetroStationsActivity
 import kotlinx.android.synthetic.main.metroline_view.view.*
 
@@ -31,10 +30,10 @@ class MetroLineAdapter(val list_metrolines: List<MetroLine>, val list_traffic: L
     override fun onBindViewHolder(holder: MetroLinesViewHolder, position: Int) {
         val metrolines = list_metrolines[position]
 
-        holder.metrolinesView.metroline_code_textview.text = "Ligne : ${metrolines.code}"
-        holder.metrolinesView.metroline_destination_textview.text =
-            "Destination : ${metrolines.direction}"
+        //holder.metrolinesView.metroline_code_textview.text = "Ligne : ${metrolines.code}"
+        holder.metrolinesView.metroline_destination_textview.text = "Destination : ${metrolines.direction}"
 
+        holder.metrolinesView.metro_image_view.setBackgroundResource(ImageMetro("${metrolines.name}"))
         for (x in 0 until list_traffic.size) {
             if (metrolines.code == list_traffic[x].line) {
 
@@ -51,3 +50,4 @@ class MetroLineAdapter(val list_metrolines: List<MetroLine>, val list_traffic: L
     }
 
 }
+
