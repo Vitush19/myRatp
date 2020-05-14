@@ -32,7 +32,6 @@ class MetroLineAdapter(val list_metrolines: List<MetroLine>, val list_traffic: L
 
         //holder.metrolinesView.metroline_code_textview.text = "Ligne : ${metrolines.code}"
         holder.metrolinesView.metroline_destination_textview.text = "Destination : ${metrolines.direction}"
-
         holder.metrolinesView.metro_image_view.setBackgroundResource(ImageMetro("${metrolines.name}"))
         for (x in 0 until list_traffic.size) {
             if (metrolines.code == list_traffic[x].line) {
@@ -40,7 +39,6 @@ class MetroLineAdapter(val list_metrolines: List<MetroLine>, val list_traffic: L
                 holder.metrolinesView.metroline_name_textview.text = list_traffic[x].message
             }
         }
-
         holder.metrolinesView.setOnClickListener {
             val intent = Intent(it.context, MetroStationsActivity::class.java)
             intent.putExtra("code", metrolines.code)
