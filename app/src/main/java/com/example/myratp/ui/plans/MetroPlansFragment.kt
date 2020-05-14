@@ -19,7 +19,7 @@ class MetroPlansFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root =  inflater.inflate(R.layout.fragment_metro_plans, container, false)
+        val root = inflater.inflate(R.layout.fragment_metro_plans, container, false)
 
         val photoView = root.findViewById(R.id.photo_view_plan) as PhotoView
         photoView.setImageResource(R.drawable.carte_metro_paris)

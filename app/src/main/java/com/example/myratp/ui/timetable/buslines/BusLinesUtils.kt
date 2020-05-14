@@ -14,16 +14,19 @@ import java.util.concurrent.TimeUnit
 
 // je rajoute la fonction clientDao à la classe AppcompactACtivity : retourne le DAO
 
-fun AppCompatActivity.busDao() : BusLineDao {
+fun AppCompatActivity.busDao(): BusLineDao {
     val database: AppDatabase =
-        Room.databaseBuilder(this,
+        Room.databaseBuilder(
+            this,
             AppDatabase::class.java,
-            "gestion_bus")
+            "gestion_bus"
+        )
             .build()
     return database.getBusLineDao()
 }
+
 fun retrofit_bus(): Retrofit {
-    val httpLoggingInterceptor  = HttpLoggingInterceptor().apply {
+    val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
     val client = OkHttpClient.Builder()

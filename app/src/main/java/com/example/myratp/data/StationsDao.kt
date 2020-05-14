@@ -10,7 +10,7 @@ import com.example.myratp.model.Station
 @Dao
 interface StationsDao {
     @Query("select * from allstations")
-    suspend fun getStations() : List<Station>
+    suspend fun getStations(): List<Station>
 
     @Insert
     suspend fun addStations(station: Station)
@@ -22,8 +22,8 @@ interface StationsDao {
     suspend fun deleteAllStations()
 
     @Query("select * from allstations where id_station = :id")
-    suspend fun getStations(id: Int) : Station
+    suspend fun getStations(id: Int): Station
 
     @Query("select * from allstations where name = :name")
-    suspend fun getStationByName(name :String) : Station
+    suspend fun getStationByName(name: String): Station
 }

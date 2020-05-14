@@ -9,7 +9,7 @@ import com.example.myratp.model.Traffic
 @Dao
 interface TrafficDao {
     @Query("select * from alltraffic")
-    suspend fun getTraffic() : List<Traffic>
+    suspend fun getTraffic(): List<Traffic>
 
     @Insert
     suspend fun addTraffic(station: Traffic)
@@ -21,5 +21,5 @@ interface TrafficDao {
     suspend fun deleteAllTraffic()
 
     @Query("select * from alltraffic where id_traffic = :id")
-    suspend fun getTraffic(id: Int) : Traffic
+    suspend fun getTraffic(id: Int): Traffic
 }

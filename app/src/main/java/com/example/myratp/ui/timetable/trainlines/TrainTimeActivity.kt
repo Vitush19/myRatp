@@ -17,14 +17,15 @@ import kotlinx.coroutines.runBlocking
 
 class TrainTimeActivity : AppCompatActivity() {
 
-    private var trainLineDao : TrainLineDao? = null
+    private var trainLineDao: TrainLineDao? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_train_time)
 
         var recyclerview_train = findViewById(R.id.activities_recyclerview_train) as RecyclerView
-        recyclerview_train.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        recyclerview_train.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         val database = Room.databaseBuilder(this, AppDatabase::class.java, "alltrainlines")
             .build()
@@ -40,7 +41,6 @@ class TrainTimeActivity : AppCompatActivity() {
                 trainLineDao?.addTrainLines(train)
             }
             trainLineDao = database.getTrainLineDao()
-            //val ts = busLineDao?.getBusLines()
             val ts = trainLineDao?.getTrainLines()
             val test = ts.isNullOrEmpty()
             Log.d("CCC", "$test")

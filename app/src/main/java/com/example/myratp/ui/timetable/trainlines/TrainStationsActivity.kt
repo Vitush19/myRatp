@@ -15,11 +15,11 @@ import com.example.myratp.ui.timetable.buslines.TrainLinesBySearch
 import com.example.myratp.ui.timetable.buslines.retrofit_train
 import kotlinx.coroutines.runBlocking
 
-class TrainStationsActivity : AppCompatActivity(){
+class TrainStationsActivity : AppCompatActivity() {
 
-    private var code : String? = ""
-    private var id_train : String? = ""
-    private var stationDao : StationsDao? = null
+    private var code: String? = ""
+    private var id_train: String? = ""
+    private var stationDao: StationsDao? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +28,10 @@ class TrainStationsActivity : AppCompatActivity(){
         code = intent.getStringExtra("code")
         id_train = intent.getStringExtra("id")
 
-        var recyclerview_train_station = findViewById(R.id.activities_recyclerview_train_station) as RecyclerView
-        recyclerview_train_station.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        var recyclerview_train_station =
+            findViewById(R.id.activities_recyclerview_train_station) as RecyclerView
+        recyclerview_train_station.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         val database = Room.databaseBuilder(this, AppDatabase::class.java, "allbuslines")
             .build()
@@ -46,7 +48,6 @@ class TrainStationsActivity : AppCompatActivity(){
             }
             stationDao = database.getStationsDao()
             val s = stationDao?.getStations()
-            //val test = bs.isNullOrEmpty()
             recyclerview_train_station.adapter =
                 TrainStationAdapter(s ?: emptyList())
         }

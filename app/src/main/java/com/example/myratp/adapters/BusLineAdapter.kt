@@ -10,11 +10,12 @@ import com.example.myratp.model.BusLine
 import com.example.myratp.ui.timetable.metrolines.BusStationsActivity
 import kotlinx.android.synthetic.main.busline_view.view.*
 
-class BusLinesAdapter(val list_buslines: List<BusLine>) : RecyclerView.Adapter<BusLinesAdapter.BusLinesViewHolder>(){
+class BusLinesAdapter(val list_buslines: List<BusLine>) :
+    RecyclerView.Adapter<BusLinesAdapter.BusLinesViewHolder>() {
     class BusLinesViewHolder(val buslinesView: View) : RecyclerView.ViewHolder(buslinesView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusLinesViewHolder {
-        val layoutInflater : LayoutInflater = LayoutInflater.from(parent.context)
+        val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
         val view: View = layoutInflater.inflate(R.layout.busline_view, parent, false)
         return BusLinesViewHolder(
             view
@@ -27,10 +28,10 @@ class BusLinesAdapter(val list_buslines: List<BusLine>) : RecyclerView.Adapter<B
     override fun onBindViewHolder(holder: BusLinesViewHolder, position: Int) {
         val buslines = list_buslines[position]
         holder.buslinesView.busline_code_textview.text = "Ligne : ${buslines.code}"
-        //holder.metrolinesView.metroline_name_textview.text = "${metrolines.name}"
-        holder.buslinesView.busline_destination_textview.text = "Destination : ${buslines.direction}"
+        holder.buslinesView.busline_destination_textview.text =
+            "Destination : ${buslines.direction}"
 
-        holder.buslinesView.setOnClickListener{
+        holder.buslinesView.setOnClickListener {
             val intent = Intent(it.context, BusStationsActivity::class.java)
             intent.putExtra("code", buslines.code)
             intent.putExtra("id", buslines.id_bus)

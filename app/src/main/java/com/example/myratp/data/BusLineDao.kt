@@ -9,7 +9,7 @@ import com.example.myratp.model.BusLine
 @Dao
 interface BusLineDao {
     @Query("select * from allbuslines")
-    suspend fun getBusLines() : List<BusLine>
+    suspend fun getBusLines(): List<BusLine>
 
     @Insert
     suspend fun addBusLines(busLine: BusLine)
@@ -21,5 +21,5 @@ interface BusLineDao {
     suspend fun deleteAllBusLines()
 
     @Query("select * from allbuslines where id = :id")
-    suspend fun getBusLines(id: Int) : BusLine
+    suspend fun getBusLines(id: Int): BusLine
 }

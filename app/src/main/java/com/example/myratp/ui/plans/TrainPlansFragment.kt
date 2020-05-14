@@ -19,7 +19,7 @@ class TrainPlansFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val root =  inflater.inflate(R.layout.fragment_train_plans, container, false)
+        val root = inflater.inflate(R.layout.fragment_train_plans, container, false)
         val photoView = root.findViewById(R.id.photo_view_plan_rer) as PhotoView
         photoView.setImageResource(R.drawable.carte_rer_paris)
 

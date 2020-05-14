@@ -25,11 +25,11 @@ import kotlinx.android.synthetic.main.activity_bus_time.*
 import kotlinx.android.synthetic.main.activity_bus_time.progress_bar
 import kotlinx.coroutines.runBlocking
 
-class BusStationsActivity : AppCompatActivity(){
+class BusStationsActivity : AppCompatActivity() {
 
-    private var code : String? = ""
-    private var id_bus : String? = ""
-    private var stationDao : StationsDao? = null
+    private var code: String? = ""
+    private var id_bus: String? = ""
+    private var stationDao: StationsDao? = null
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,19 +39,22 @@ class BusStationsActivity : AppCompatActivity(){
         code = intent.getStringExtra("code")
         id_bus = intent.getStringExtra("id")
 
-        var recyclerview_bus_station = findViewById(R.id.activities_recyclerview_bus_station) as RecyclerView
-        recyclerview_bus_station.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        var recyclerview_bus_station =
+            findViewById(R.id.activities_recyclerview_bus_station) as RecyclerView
+        recyclerview_bus_station.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         val database = Room.databaseBuilder(this, AppDatabase::class.java, "allbuslines")
             .build()
         stationDao = database.getStationsDao()
-        if(isNetworkConnected()){
+        if (isNetworkConnected()) {
             runBlocking {
                 stationDao?.deleteAllStations()
                 val service = retrofit_bus().create(BusLinesBySearch::class.java)
                 val resultat = service.getBusStations("buses", "$code")
                 resultat.result.stations.map {
-                    val station = Station(0, it.name, it.slug, favoris = false, id_ligne = "$id_bus")
+                    val station =
+                        Station(0, it.name, it.slug, favoris = false, id_ligne = "$id_bus")
                     Log.d("CCC", "$station")
                     stationDao?.addStations(station)
                 }
@@ -61,17 +64,21 @@ class BusStationsActivity : AppCompatActivity(){
                 recyclerview_bus_station.adapter =
                     BusStationAdapter(s ?: emptyList(), "$code")
             }
-        }
-        else{
-            Toast.makeText(this, "Vérifiez votre connexion internet et réessayez à nouveau", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(
+                this,
+                "Vérifiez votre connexion internet et réessayez à nouveau",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun isNetworkConnected(): Boolean {
         var result = false
-        val connectivityManager = applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
-        connectivityManager?.let{
+        val connectivityManager =
+            applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        connectivityManager?.let {
             it.getNetworkCapabilities(connectivityManager.activeNetwork)?.apply {
                 result = when {
                     hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true

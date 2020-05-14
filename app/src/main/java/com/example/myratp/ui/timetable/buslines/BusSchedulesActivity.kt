@@ -1,6 +1,7 @@
 package com.example.myratp.ui.timetable.metrolines
 
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -25,11 +26,11 @@ import kotlinx.android.synthetic.main.activity_bus_time.*
 import kotlinx.android.synthetic.main.activity_bus_time.progress_bar
 import kotlinx.coroutines.runBlocking
 
-class BusSchedulesActivity : AppCompatActivity(){
+class BusSchedulesActivity : AppCompatActivity() {
 
-    private var code : String? = ""
-    private var name : String? = ""
-    private var scheduleDao : ScheduleDao? = null
+    private var code: String? = ""
+    private var name: String? = ""
+    private var scheduleDao: ScheduleDao? = null
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,16 +40,15 @@ class BusSchedulesActivity : AppCompatActivity(){
         code = intent.getStringExtra("code")
         name = intent.getStringExtra("name")
 
-        Log.d("AAA", "$code")
-        Log.d("AAA", "$name")
-
-        var recyclerview_vus_schedule = findViewById(R.id.activities_recyclerview_bus_schedule) as RecyclerView
-        recyclerview_vus_schedule.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        var recyclerview_vus_schedule =
+            findViewById(R.id.activities_recyclerview_bus_schedule) as RecyclerView
+        recyclerview_vus_schedule.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         val database = Room.databaseBuilder(this, AppDatabase::class.java, "allschedule")
             .build()
         scheduleDao = database.getScheduleDao()
-        if(isNetworkConnected()){
+        if (isNetworkConnected()) {
             runBlocking {
                 scheduleDao?.deleteAllSchedule()
                 val service = retrofit_bus().create(BusLinesBySearch::class.java)
@@ -64,18 +64,30 @@ class BusSchedulesActivity : AppCompatActivity(){
                 recyclerview_vus_schedule.adapter =
                     BusScheduleAdapter(s ?: emptyList())
             }
-        }
-        else{
-            Toast.makeText(this, "Vérifiez votre connexion internet et réessayez à nouveau", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(
+                this,
+                "Vérifiez votre connexion internet et réessayez à nouveau",
+                Toast.LENGTH_SHORT
+            ).show()
         }
 
+        pull_layout.setOnRefreshListener {
+            val intent = intent
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            finish()
+            overridePendingTransition(0, 0)
+            startActivity(getIntent())
+            overridePendingTransition(0, 0)
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun isNetworkConnected(): Boolean {
         var result = false
-        val connectivityManager = applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
-        connectivityManager?.let{
+        val connectivityManager =
+            applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        connectivityManager?.let {
             it.getNetworkCapabilities(connectivityManager.activeNetwork)?.apply {
                 result = when {
                     hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true

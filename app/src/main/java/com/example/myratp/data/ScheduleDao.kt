@@ -9,7 +9,7 @@ import com.example.myratp.model.Schedule
 @Dao
 interface ScheduleDao {
     @Query("select * from allschedule")
-    suspend fun getSchedule() : List<Schedule>
+    suspend fun getSchedule(): List<Schedule>
 
     @Insert
     suspend fun addSchedule(schedule: Schedule)
@@ -21,5 +21,5 @@ interface ScheduleDao {
     suspend fun deleteAllSchedule()
 
     @Query("select * from allschedule where id_schedule = :id")
-    suspend fun getSchedule(id: Int) : Schedule
+    suspend fun getSchedule(id: Int): Schedule
 }

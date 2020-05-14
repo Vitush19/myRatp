@@ -11,13 +11,13 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import java.util.concurrent.TimeUnit
 
-// je rajoute la fonction clientDao à la classe AppcompactACtivity : retourne le DAO
-
-fun AppCompatActivity.trainDao() : TrainLineDao {
+fun AppCompatActivity.trainDao(): TrainLineDao {
     val database: AppDatabase =
-        Room.databaseBuilder(this,
+        Room.databaseBuilder(
+            this,
             AppDatabase::class.java,
-            "gestion_train")
+            "gestion_train"
+        )
             .build()
     return database.getTrainLineDao()
 }

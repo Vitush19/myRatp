@@ -26,7 +26,7 @@ class TimetableFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val root =  inflater.inflate(R.layout.fragment_timetable, container, false)
+        val root = inflater.inflate(R.layout.fragment_timetable, container, false)
 
         val bMetro = root.findViewById<Button>(R.id.button_metro)
         val bBus = root.findViewById<Button>(R.id.button_bus)

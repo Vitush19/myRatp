@@ -8,11 +8,13 @@ import com.example.myratp.R
 import com.example.myratp.model.Schedule
 import kotlinx.android.synthetic.main.schedule_view.view.*
 
-class BusScheduleAdapter(val list_busSchedule: List<Schedule>) : RecyclerView.Adapter<BusScheduleAdapter.BusScheduleViewHolder>(){
-    class BusScheduleViewHolder(val busScheduleView: View) : RecyclerView.ViewHolder(busScheduleView)
+class BusScheduleAdapter(val list_busSchedule: List<Schedule>) :
+    RecyclerView.Adapter<BusScheduleAdapter.BusScheduleViewHolder>() {
+    class BusScheduleViewHolder(val busScheduleView: View) :
+        RecyclerView.ViewHolder(busScheduleView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusScheduleViewHolder {
-        val layoutInflater : LayoutInflater = LayoutInflater.from(parent.context)
+        val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
         val view: View = layoutInflater.inflate(R.layout.schedule_view, parent, false)
         return BusScheduleAdapter.BusScheduleViewHolder(
             view
@@ -24,15 +26,10 @@ class BusScheduleAdapter(val list_busSchedule: List<Schedule>) : RecyclerView.Ad
 
     override fun onBindViewHolder(holder: BusScheduleViewHolder, position: Int) {
         val schedule = list_busSchedule[position]
-        holder.busScheduleView.schedule_destination_textview.text = "Direction : ${schedule.destination}"
+        holder.busScheduleView.schedule_destination_textview.text =
+            "Direction : ${schedule.destination}"
         holder.busScheduleView.schedule_message_textview.text = "Temps estimé : ${schedule.message}"
-        //holder.metrolinesView.metroline_name_textview.text = "${metrolines.name}"
 
-//        holder.metrostationsView.setOnClickListener{
-//            val intent = Intent(it.context, MetroStationsActivity::class.java)
-//            intent.putExtra("code", metrolines.code)
-//            it.context.startActivity(intent)
-//        }
     }
 
 }

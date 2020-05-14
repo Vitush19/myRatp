@@ -11,16 +11,17 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import java.util.concurrent.TimeUnit
 
-// je rajoute la fonction clientDao à la classe AppcompactACtivity : retourne le DAO
-
-fun AppCompatActivity.metroDao() : MetroLineDao {
+fun AppCompatActivity.metroDao(): MetroLineDao {
     val database: AppDatabase =
-        Room.databaseBuilder(this,
+        Room.databaseBuilder(
+            this,
             AppDatabase::class.java,
-            "gestion_metro")
+            "gestion_metro"
+        )
             .build()
     return database.getMetroLineDao()
 }
+
 fun retrofit(): Retrofit {
     val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY

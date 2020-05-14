@@ -15,7 +15,7 @@ import com.example.myratp.R
 /**
  * A simple [Fragment] subclass.
  */
-class PlansFragment : Fragment() , View.OnClickListener{
+class PlansFragment : Fragment(), View.OnClickListener {
 
     lateinit var navController: NavController
 
@@ -38,7 +38,7 @@ class PlansFragment : Fragment() , View.OnClickListener{
     }
 
     override fun onClick(v: View?) {
-        when(v!!.id){
+        when (v!!.id) {
             R.id.button_metro -> navController!!.navigate(R.id.action_plansFragment_to_metroPlansFragment)
             R.id.button_bus -> navController!!.navigate(R.id.action_plansFragment_to_busPlansFragment)
             R.id.button_train -> navController!!.navigate(R.id.action_plansFragment_to_trainPlansFragment)

@@ -23,4 +23,13 @@
     <string name="code">code :</string>
     <string name="destination">destination :</string>
     <string name="nom_ligne">nom ligne :</string>
+    <string name="my_ratp">MyRatp</string>
+    <string name="logo_train">Logo Train</string>
+    <string name="code">code :</string>
+    <string name="destination">destination :</string>
+    <string name="nom_ligne">nom ligne :</string>
+    <string name="metrolist">MetroList</string>
+    <string name="code">code :</string>
+    <string name="nom_ligne">nom ligne :</string>
+    <string name="destination">destination :</string>
 </resources>

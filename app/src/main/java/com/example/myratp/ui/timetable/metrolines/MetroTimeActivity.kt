@@ -27,8 +27,8 @@ import kotlinx.coroutines.runBlocking
 
 class MetroTimeActivity : AppCompatActivity() {
 
-    private var metroLineDao : MetroLineDao? = null
-    private var trafficDao : TrafficDao? = null
+    private var metroLineDao: MetroLineDao? = null
+    private var trafficDao: TrafficDao? = null
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +36,8 @@ class MetroTimeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_metro_time)
 
         var recyclerview_metro = findViewById(R.id.activities_recyclerview_metro) as RecyclerView
-        recyclerview_metro.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        recyclerview_metro.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         val database = Room.databaseBuilder(this, AppDatabase::class.java, "allmetrolines")
             .build()
@@ -46,7 +47,7 @@ class MetroTimeActivity : AppCompatActivity() {
             .build()
         trafficDao = database_bis.getTrafficDao()
 
-        if(isNetworkConnected()){
+        if (isNetworkConnected()) {
             runBlocking {
 
                 trafficDao?.deleteAllTraffic()
@@ -74,9 +75,12 @@ class MetroTimeActivity : AppCompatActivity() {
                 recyclerview_metro.adapter =
                     MetroLineAdapter(ms ?: emptyList(), traf!!)
             }
-        }
-        else{
-            Toast.makeText(this, "Vérifiez votre connexion internet et réessayez à nouveau", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(
+                this,
+                "Vérifiez votre connexion internet et réessayez à nouveau",
+                Toast.LENGTH_SHORT
+            ).show()
         }
 
 
@@ -85,8 +89,9 @@ class MetroTimeActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.M)
     private fun isNetworkConnected(): Boolean {
         var result = false
-        val connectivityManager = applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
-        connectivityManager?.let{
+        val connectivityManager =
+            applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        connectivityManager?.let {
             it.getNetworkCapabilities(connectivityManager.activeNetwork)?.apply {
                 result = when {
                     hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
