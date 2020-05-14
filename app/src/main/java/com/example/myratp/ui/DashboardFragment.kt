@@ -37,10 +37,10 @@ class DashboardFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v!!.id) {
-            R.id.timetable_button -> navController!!.navigate(R.id.action_dashboardFragment_to_timetableFragment)
-            R.id.plans_button -> navController!!.navigate(R.id.action_dashboardFragment_to_plansFragment)
-            R.id.favoris_button -> navController!!.navigate(R.id.action_dashboardFragment_to_savedFragment)
-            R.id.qr_code_button -> navController!!.navigate(R.id.action_dashboardFragment_to_qrcodeFragment)
+            R.id.timetable_button -> navController.navigate(R.id.action_dashboardFragment_to_timetableFragment)
+            R.id.plans_button -> navController.navigate(R.id.action_dashboardFragment_to_plansFragment)
+            R.id.favoris_button -> navController.navigate(R.id.action_dashboardFragment_to_savedFragment)
+            R.id.qr_code_button -> navController.navigate(R.id.action_dashboardFragment_to_qrcodeFragment)
         }
     }
 

@@ -14,21 +14,21 @@
             android:id="@+id/busline_code_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/code"
+            android:text="@string/code_bus"
             android:textSize="15sp" />
 
         <TextView
             android:id="@+id/busline_destination_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/destination"
+            android:text="@string/destination_bus"
             android:textSize="15sp" />
 
         <TextView
             android:id="@+id/busline_name_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/nom_ligne"
+            android:text="@string/nom_ligne_bus"
             android:textSize="15sp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

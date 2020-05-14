@@ -58,7 +58,7 @@ class MetroStationsActivity : AppCompatActivity() {
                     val station =
                         Station(0, it.name, it.slug, favoris = false, id_ligne = "$id_metro")
                     Log.d("CCC", "$station")
-                    val check = stationDao?.getStations()
+//                    val check = stationDao?.getStations()
 //                for (x in check!!.indices){
 //                    if(check[x].name == station.name){
 //                        val a = check[x].id_ligne

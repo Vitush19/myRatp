@@ -39,11 +39,11 @@ class PlansFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v!!.id) {
-            R.id.button_metro -> navController!!.navigate(R.id.action_plansFragment_to_metroPlansFragment)
-            R.id.button_bus -> navController!!.navigate(R.id.action_plansFragment_to_busPlansFragment)
-            R.id.button_train -> navController!!.navigate(R.id.action_plansFragment_to_trainPlansFragment)
-            R.id.button_tram -> navController!!.navigate(R.id.action_plansFragment_to_tramwayPlansFragment)
-            R.id.button_noctilien -> navController!!.navigate(R.id.action_plansFragment_to_noctilienPlansFragment)
+            R.id.button_metro -> navController.navigate(R.id.action_plansFragment_to_metroPlansFragment)
+            R.id.button_bus -> navController.navigate(R.id.action_plansFragment_to_busPlansFragment)
+            R.id.button_train -> navController.navigate(R.id.action_plansFragment_to_trainPlansFragment)
+            R.id.button_tram -> navController.navigate(R.id.action_plansFragment_to_tramwayPlansFragment)
+            R.id.button_noctilien -> navController.navigate(R.id.action_plansFragment_to_noctilienPlansFragment)
         }
     }
 
