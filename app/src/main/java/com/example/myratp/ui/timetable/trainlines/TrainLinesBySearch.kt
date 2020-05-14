@@ -4,6 +4,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface TrainLinesBySearch {
+    @GET("lines/rers")
     suspend fun getlistTrainLine(
     ): TrainLinesResponse
 

@@ -10,7 +10,7 @@
     <string name="timetable_fragment">Timetable fragment</string>
     <string name="horaires">Horaires</string>
     <string name="plans">Plans</string>
-    <string name="favoris">favoris</string>
+    <string name="favoris">Favoris</string>
     <string name="qr_code">QR Code</string>
     <string name="train">Train</string>
     <string name="bus">Bus</string>
