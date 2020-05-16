@@ -1,9 +1,6 @@
 package com.example.myratp.data
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.example.myratp.model.MetroLine
 import com.example.myratp.model.Station
 
@@ -26,4 +23,10 @@ interface StationsDao {
 
     @Query("select * from allstations where name = :name")
     suspend fun getStationByName(name: String): Station
+
+    @Query("select * from allstations where favoris = :favoris")
+    suspend fun getStationFav(favoris: Boolean):List<Station>
+
+    @Update
+    suspend fun updateStations(station: Station)
 }

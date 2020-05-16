@@ -10,6 +10,7 @@
     app:cardBackgroundColor="@color/specialBlue"
     app:cardCornerRadius="10dp">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,4 +35,14 @@
             android:textStyle="bold" />
 
     </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fav_bouton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="350dp"
+        app:fabSize="mini"
+        app:layout_anchorGravity="bottom|end"
+        android:clickable="true"
+        app:srcCompat="@android:drawable/ic_input_add" />
 </androidx.cardview.widget.CardView>
