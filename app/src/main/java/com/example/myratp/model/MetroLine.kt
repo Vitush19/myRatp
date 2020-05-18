@@ -10,10 +10,11 @@ data class MetroLine(
     val name: String,
     val direction: String,
     val id: String
-) {
-    companion object {
-        val all = (1..10).map {
-            MetroLine(it, "$it", "$it", "$it", "$it")
-        }.toMutableList()
-    }
-}
+)
+//{
+//    companion object {
+//        val all = (1..10).map {
+//            MetroLine(it, "$it", "$it", "$it", "$it")
+//        }.toMutableList()
+//    }
+//}

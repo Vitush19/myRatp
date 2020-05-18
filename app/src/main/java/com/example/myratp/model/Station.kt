@@ -9,7 +9,7 @@ data class Station(
     val name: String,
     val slug: String,
     var favoris: Boolean,
-    val id_ligne: String?
+    val id_ligne: String
 ) {
 
 }

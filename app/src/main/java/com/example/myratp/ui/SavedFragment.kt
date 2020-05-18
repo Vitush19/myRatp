@@ -53,8 +53,6 @@ class SavedFragment : Fragment() {
 
             station_recyclerview.adapter = StationAdapter(stationfav)
         }
-
-
         return root
     }
 

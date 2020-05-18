@@ -49,8 +49,14 @@ class MetroStationAdapter(val list_stations: List<Station>, val code: String) :
             Room.databaseBuilder(context, AppDatabase::class.java, "allstations")
                 .build()
         stationsDao = databasesaved.getStationsDao()
+        if (!station.favoris) {
+            holder.stationsView.fav_bouton.setBackgroundResource(R.drawable.ic_favorite_border_blue_24dp)
+        }else if (station.favoris) {
+            holder.stationsView.fav_bouton.setBackgroundResource(R.drawable.ic_favorite_blue_24dp)
+        }
         holder.stationsView.fav_bouton.setOnClickListener {
-            if (station.favoris == false) {
+            if (!station.favoris) {
+                holder.stationsView.fav_bouton.setBackgroundResource(R.drawable.ic_favorite_blue_24dp)
                 station.favoris = true
                 runBlocking {
                     stationsDao?.updateStations(station)
@@ -63,7 +69,8 @@ class MetroStationAdapter(val list_stations: List<Station>, val code: String) :
                     Toast.LENGTH_SHORT
                 ).show()
 
-            } else if (station.favoris == true) {
+            } else if (station.favoris) {
+                holder.stationsView.fav_bouton.setBackgroundResource(R.drawable.ic_favorite_border_blue_24dp)
                 station.favoris = false
                 runBlocking {
                     stationsDao?.updateStations(station)

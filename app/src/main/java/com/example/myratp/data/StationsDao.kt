@@ -27,6 +27,8 @@ interface StationsDao {
     @Query("select * from allstations where favoris = :favoris")
     suspend fun getStationFav(favoris: Boolean):List<Station>
 
+
+
     @Update
     suspend fun updateStations(station: Station)
 }

@@ -35,4 +35,6 @@
     <string name="traffic">Info trafic</string>
     <string name="title_traffic">Statut :</string>
     <string name="message_traffic">Message : </string>
+    <string name="chevron_droit">chevron droit</string>
+    <string name="message">Message :</string>
 </resources>

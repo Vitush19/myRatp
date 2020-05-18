@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -46,6 +47,8 @@ class MetroSchedulesActivity : AppCompatActivity() {
         val txt_aller = findViewById<TextView>(R.id.metro_schedule_txt_aller)
         val txt_retour = findViewById<TextView>(R.id.metro_schedule_txt_retour)
         val txt_station = findViewById<TextView>(R.id.metro_schedule_txt_station)
+        val image_metro = findViewById<ImageView>(R.id.image_metro_schedule)
+        image_metro.setBackgroundResource(ImageMetro("$code"))
         txt_station.text = "$name"
         var recyclerview_metro_schedule =
             findViewById(R.id.activities_recyclerview_metro_schedule) as RecyclerView

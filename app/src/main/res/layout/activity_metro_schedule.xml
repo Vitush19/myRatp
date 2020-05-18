@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/pull_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <LinearLayout
@@ -17,25 +17,47 @@
             android:id="@+id/progress_bar"
             android:layout_width="100dp"
             android:layout_height="100dp" />
+
+        <ImageView
+            android:id="@+id/image_metro_schedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:contentDescription="@string/metro" />
+
         <TextView
             android:id="@+id/metro_schedule_txt_station"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:textStyle="bold"/>
+            android:textColor="@color/specialWhite"
+            android:textSize="21sp"
+            android:textStyle="bold" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_margin="20dp"
+            >
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                android:background="@color/specialGrey">
+
                 <TextView
                     android:id="@+id/metro_schedule_txt_aller"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/specialBlack"
+                    android:layout_gravity="center"
+                    android:textSize="17sp"
+                    android:background="@color/specialGreyDarker"/>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/activities_recyclerview_metro_schedule"
                     android:layout_width="match_parent"
@@ -43,15 +65,24 @@
                     tools:listitem="@layout/schedule_view" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_margin="10dp"
+                android:orientation="vertical"
+                android:background="@color/specialGrey">
+
                 <TextView
                     android:id="@+id/metro_schedule_txt_retour"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/specialBlack"
+                    android:textSize="17sp"
+                    android:layout_gravity="center"
+                    android:background="@color/specialGreyDarker"/>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/activities_recyclerview_metro_schedule_retour"
                     android:layout_width="match_parent"
