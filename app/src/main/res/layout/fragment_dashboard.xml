@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,51 +9,56 @@
     tools:context=".ui.DashboardFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
-        android:id="@+id/title_dashboard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:orientation="horizontal"
-        tools:ignore="UseCompoundDrawables">
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="20dp"
-            android:contentDescription="@string/train"
-            android:src="@drawable/subway" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="5dp"
-            android:text="@string/app_name"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/train"
+        android:src="@drawable/subway"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <GridLayout
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/app_name"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:alignmentMode="alignMargins"
         android:columnCount="2"
         android:columnOrderPreserved="false"
-        android:rowCount="2">
+        android:rowCount="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/timetable_button"
-            android:layout_width="170dp"
-            android:layout_height="170dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="20dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="10dp"
             app:cardBackgroundColor="@color/blueContrast"
             app:cardCornerRadius="12dp"
-            app:cardElevation="5dp">
+            app:cardElevation="5dp"
+            android:foreground="?android:attr/selectableItemBackground">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -82,13 +87,13 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/plans_button"
-            android:layout_width="170dp"
-            android:layout_height="170dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="20dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="10dp"
             app:cardBackgroundColor="@color/blueContrast"
             app:cardCornerRadius="12dp"
-            app:cardElevation="5dp">
+            app:cardElevation="5dp"
+            android:foreground="?android:attr/selectableItemBackground">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -117,13 +122,13 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/favoris_button"
-            android:layout_width="170dp"
-            android:layout_height="170dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="20dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="10dp"
             app:cardBackgroundColor="@color/blueContrast"
             app:cardCornerRadius="12dp"
-            app:cardElevation="5dp">
+            app:cardElevation="5dp"
+            android:foreground="?android:attr/selectableItemBackground">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -152,13 +157,13 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/qr_code_button"
-            android:layout_width="170dp"
-            android:layout_height="170dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="20dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="10dp"
             app:cardBackgroundColor="@color/blueContrast"
             app:cardCornerRadius="12dp"
-            app:cardElevation="5dp">
+            app:cardElevation="5dp"
+            android:foreground="?android:attr/selectableItemBackground">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -220,4 +225,4 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </GridLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

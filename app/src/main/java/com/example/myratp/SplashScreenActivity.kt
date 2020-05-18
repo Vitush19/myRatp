@@ -7,7 +7,7 @@ import android.os.Handler
 
 class SplashScreenActivity : AppCompatActivity() {
 
-    lateinit var handler: Handler
+    private lateinit var handler: Handler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,6 +18,6 @@ class SplashScreenActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
-        }, 3000)
+        }, 1500)
     }
 }
