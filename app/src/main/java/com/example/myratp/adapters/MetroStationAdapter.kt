@@ -50,12 +50,12 @@ class MetroStationAdapter(val list_stations: List<Station>, val code: String) :
                 .build()
         stationsDao = databasesaved.getStationsDao()
         holder.stationsView.fav_bouton.setOnClickListener {
-            if (lines.favoris == false) {
-                lines.favoris = true
+            if (station.favoris == false) {
+                station.favoris = true
                 runBlocking {
-                    stationsDao?.addStations(lines)
+                    stationsDao?.addStations(station)
                 }
-                Log.d("aaa", "$lines")
+                Log.d("aaa", "$station")
 
                 Toast.makeText(
                     context,
@@ -63,10 +63,10 @@ class MetroStationAdapter(val list_stations: List<Station>, val code: String) :
                     Toast.LENGTH_SHORT
                 ).show()
 
-            } else if (lines.favoris == true) {
-                lines.favoris = false
+            } else if (station.favoris == true) {
+                station.favoris = false
                 runBlocking {
-                    stationsDao?.deleteStations(lines)
+                    stationsDao?.deleteStations(station)
                 }
                 Toast.makeText(
                     context,
