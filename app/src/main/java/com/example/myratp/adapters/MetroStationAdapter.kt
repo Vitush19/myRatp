@@ -14,6 +14,7 @@ import com.example.myratp.R
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.StationsDao
 import com.example.myratp.model.Station
+import com.example.myratp.ui.timetable.metrolines.ImageMetro
 import com.example.myratp.ui.timetable.metrolines.MetroSchedulesActivity
 import kotlinx.android.synthetic.main.station_view.view.*
 import kotlinx.coroutines.runBlocking
@@ -40,8 +41,9 @@ class MetroStationAdapter(val list_stations: List<Station>, val code: String) :
 
 
     override fun onBindViewHolder(holder: MetroStationViewHolder, position: Int) {
-        val lines = list_stations[position]
-        holder.stationsView.station_name_textview.text = "Station : ${lines.name}"
+        val station = list_stations[position]
+        holder.stationsView.station_name_textview.text = "Station : ${station.name}"
+        holder.stationsView.station_image_view.setBackgroundResource(ImageMetro("$code"))
 
         val databasesaved =
             Room.databaseBuilder(context, AppDatabase::class.java, "favStation")
@@ -82,7 +84,7 @@ class MetroStationAdapter(val list_stations: List<Station>, val code: String) :
         holder.stationsView.setOnClickListener {
             val intent = Intent(it.context, MetroSchedulesActivity::class.java)
             intent.putExtra("code", code)
-            intent.putExtra("name", lines.name)
+            intent.putExtra("name", station.name)
             it.context.startActivity(intent)
         }
     }

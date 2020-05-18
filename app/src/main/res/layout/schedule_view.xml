@@ -18,12 +18,12 @@
             android:text="Message : "
             android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/schedule_destination_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Destination : "
-            android:textSize="15sp" />
+<!--        <TextView-->
+<!--            android:id="@+id/schedule_destination_textview"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Destination : "-->
+<!--            android:textSize="15sp" />-->
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

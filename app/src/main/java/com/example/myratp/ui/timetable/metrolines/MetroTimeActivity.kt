@@ -23,6 +23,7 @@ import com.example.myratp.model.Traffic
 import kotlinx.android.synthetic.main.activity_bus_time.*
 import kotlinx.android.synthetic.main.activity_bus_time.progress_bar
 import kotlinx.android.synthetic.main.activity_metro_time.*
+import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 
 class MetroTimeActivity : AppCompatActivity() {
@@ -49,31 +50,39 @@ class MetroTimeActivity : AppCompatActivity() {
 
         if (isNetworkConnected()) {
             runBlocking {
-
-                trafficDao?.deleteAllTraffic()
-                val service_bis = retrofit().create(MetroLinesBySearch::class.java)
-                val resultat_bis = service_bis.getTrafficMetro("metros")
-                resultat_bis.result.metros.map {
-                    val traffic = Traffic(0, it.line, it.slug, it.title, it.message)
-                    trafficDao?.addTraffic(traffic)
+                //trafficDao?.deleteAllTraffic()
+                if(trafficDao!!.getTraffic().isEmpty()){
+                    Log.d("DF", "traff null")
+                    val service_bis = retrofit().create(MetroLinesBySearch::class.java)
+                    val resultat_bis = service_bis.getTrafficMetro("metros")
+                    resultat_bis.result.metros.map {
+                        val traffic = Traffic(0, it.line, it.slug, it.title, it.message)
+                        trafficDao?.addTraffic(traffic)
+                    }
                 }
+
                 trafficDao = database_bis.getTrafficDao()
                 val traf = trafficDao?.getTraffic()
 
-
-                metroLineDao?.deleteAllMetroLines()
-                val service = retrofit().create(MetroLinesBySearch::class.java)
-                val resultat = service.getlistMetroLine()
-                resultat.result.metros.map {
-                    val metro = MetroLine(0, it.code, it.name, it.directions, it.id)
-                    Log.d("CCC", "$metro")
-                    metroLineDao?.addMetroLines(metro)
+                //metroLineDao?.deleteAllMetroLines()
+                if(metroLineDao!!.getMetroLines().isEmpty()){
+                    Log.d("DF", "null")
+                    val service = retrofit().create(MetroLinesBySearch::class.java)
+                    val resultat = service.getlistMetroLine()
+                    resultat.result.metros.map {
+                        val metro = MetroLine(0, it.code, it.name, it.directions, it.id)
+                        Log.d("CCC", "$metro")
+                        metroLineDao?.addMetroLines(metro)
+                    }
                 }
+
                 metroLineDao = database.getMetroLineDao()
                 val ms = metroLineDao?.getMetroLines()
+                Log.d("DF", "$ms")
                 progress_bar.visibility = View.GONE
                 recyclerview_metro.adapter =
                     MetroLineAdapter(ms ?: emptyList(), traf!!)
+
             }
         } else {
             Toast.makeText(

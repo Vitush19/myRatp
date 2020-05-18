@@ -1,6 +1,7 @@
 package com.example.myratp.adapters
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,6 +60,9 @@ class MetroLineAdapter(val list_metrolines: List<MetroLine>, val list_traffic: L
             val intent = Intent(it.context, MetroStationsActivity::class.java)
             intent.putExtra("code", metrolines.code)
             intent.putExtra("id", metrolines.id_metro)
+
+            Log.d("DF", "${metrolines.code}")
+            Log.d("DF", "${metrolines.id_metro}")
             it.context.startActivity(intent)
         }
     }

@@ -18,11 +18,11 @@ interface StationsDao {
     @Query("delete from allstations")
     suspend fun deleteAllStations()
 
-    @Query("select * from allstations where id_station = :id")
-    suspend fun getStations(id: Int): Station
+    @Query("select * from allstations where id_ligne = :id_ligne")
+    suspend fun getStationsByLine(id_ligne: String): List<Station>
 
     @Query("select * from allstations where name = :name")
-    suspend fun getStationByName(name: String): Station
+    suspend fun getStationsByName(name: String): List<Station>
 
     @Query("select * from allstations where favoris = :favoris")
     suspend fun getStationFav(favoris: Boolean):List<Station>
