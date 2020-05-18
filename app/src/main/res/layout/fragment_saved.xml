@@ -10,7 +10,7 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/activities_recyclerview_metro_station"
+            android:id="@+id/activities_recyclerview_metro_station_fav"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:listitem="@layout/station_view" />

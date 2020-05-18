@@ -37,20 +37,20 @@ class StationAdapter(val list_stations: List<Station>) :
 
 
     override fun onBindViewHolder(holder: StationViewHolder, position: Int) {
-        val lines = list_stations[position]
-        holder.stationsView.station_name_textview.text = "Station : ${lines.name}"
+        val station = list_stations[position]
+        holder.stationsView.station_name_textview.text = "Station : ${station.name}"
 
         val databasesaved =
-            Room.databaseBuilder(context, AppDatabase::class.java, "favStation")
+            Room.databaseBuilder(context, AppDatabase::class.java, "allstations")
                 .build()
         stationsDao = databasesaved.getStationsDao()
         holder.stationsView.fav_bouton.setOnClickListener {
-            if (lines.favoris == false) {
-                lines.favoris = true
+            if (station.favoris == false) {
+                station.favoris = true
                 runBlocking {
-                    stationsDao?.addStations(lines)
+                    stationsDao?.updateStations(station)
                 }
-                Log.d("aaa", "$lines")
+                Log.d("aaa", "$station")
 
                 Toast.makeText(
                     context,
@@ -58,10 +58,10 @@ class StationAdapter(val list_stations: List<Station>) :
                     Toast.LENGTH_SHORT
                 ).show()
 
-            } else if (lines.favoris == true) {
-                lines.favoris = false
+            } else if (station.favoris == true) {
+                station.favoris = false
                 runBlocking {
-                    stationsDao?.deleteStations(lines)
+                    stationsDao?.updateStations(station)
                 }
                 Toast.makeText(
                     context,
@@ -73,8 +73,8 @@ class StationAdapter(val list_stations: List<Station>) :
 
         holder.stationsView.setOnClickListener {
             val intent = Intent(it.context, MetroSchedulesActivity::class.java)
-            intent.putExtra("code", lines.id_ligne)
-            intent.putExtra("name", lines.name)
+            intent.putExtra("code", station.id_ligne)
+            intent.putExtra("name", station.name)
             it.context.startActivity(intent)
         }
 

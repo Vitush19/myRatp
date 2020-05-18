@@ -33,7 +33,7 @@ class SavedFragment : Fragment() {
     ): View? {
         val root: View = inflater.inflate(R.layout.fragment_saved, container, false)
         var station_recyclerview =
-            root.findViewById<View>(R.id.activities_recyclerview_metro_station) as RecyclerView
+            root.findViewById<View>(R.id.activities_recyclerview_metro_station_fav) as RecyclerView
         station_recyclerview.layoutManager = LinearLayoutManager(this.context,  LinearLayoutManager.VERTICAL, false)
 
 
@@ -41,17 +41,17 @@ class SavedFragment : Fragment() {
             Room.databaseBuilder(
                 requireActivity().baseContext,
                 AppDatabase::class.java,
-                "favStation"
+                "allstations"
             )
                 .build()
 
         stationsDao = database.getStationsDao()
         Log.d("aaa", "$stationsDao")
         runBlocking {
-            val stations = stationsDao!!.getStationFav(true)
-            Log.d("aaa", "$stations")
+            val stationfav = stationsDao!!.getStationFav(true)
+            Log.d("aaa", "favoooooo : $stationfav")
 
-            station_recyclerview.adapter = StationAdapter(stations)
+            station_recyclerview.adapter = StationAdapter(stationfav)
         }
 
 
@@ -62,9 +62,9 @@ class SavedFragment : Fragment() {
         super.onResume()
 
         runBlocking {
-            val stations  = stationsDao?.getStations()
+            val stations  = stationsDao?.getStationFav(true)
 
-            activities_recyclerview_metro_station.adapter = StationAdapter(stations ?: emptyList())
+            activities_recyclerview_metro_station_fav.adapter = StationAdapter(stations ?: emptyList())
 
         }
     }

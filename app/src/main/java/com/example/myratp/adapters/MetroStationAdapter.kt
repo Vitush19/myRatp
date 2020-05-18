@@ -46,14 +46,14 @@ class MetroStationAdapter(val list_stations: List<Station>, val code: String) :
         holder.stationsView.station_image_view.setBackgroundResource(ImageMetro("$code"))
 
         val databasesaved =
-            Room.databaseBuilder(context, AppDatabase::class.java, "favStation")
+            Room.databaseBuilder(context, AppDatabase::class.java, "allstations")
                 .build()
         stationsDao = databasesaved.getStationsDao()
         holder.stationsView.fav_bouton.setOnClickListener {
             if (station.favoris == false) {
                 station.favoris = true
                 runBlocking {
-                    stationsDao?.addStations(station)
+                    stationsDao?.updateStations(station)
                 }
                 Log.d("aaa", "$station")
 
@@ -66,7 +66,7 @@ class MetroStationAdapter(val list_stations: List<Station>, val code: String) :
             } else if (station.favoris == true) {
                 station.favoris = false
                 runBlocking {
-                    stationsDao?.deleteStations(station)
+                    stationsDao?.updateStations(station)
                 }
                 Toast.makeText(
                     context,
