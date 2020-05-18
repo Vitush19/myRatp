@@ -34,18 +34,22 @@ class SplashScreenActivity : AppCompatActivity() {
         trafficDao = database_bis.getTrafficDao()
 
         runBlocking {
-            val service_bis = retrofit().create(MetroLinesBySearch::class.java)
-            val resultat_bis = service_bis.getTrafficMetro("metros")
-            resultat_bis.result.metros.map {
-                val traffic = Traffic(0, it.line, it.slug, it.title, it.message)
-                trafficDao?.addTraffic(traffic)
+            if(trafficDao!!.getTraffic().isEmpty()) {
+                val service_bis = retrofit().create(MetroLinesBySearch::class.java)
+                val resultat_bis = service_bis.getTrafficMetro("metros")
+                resultat_bis.result.metros.map {
+                    val traffic = Traffic(0, it.line, it.slug, it.title, it.message)
+                    trafficDao?.addTraffic(traffic)
+                }
             }
-            val service = retrofit().create(MetroLinesBySearch::class.java)
-            val resultat = service.getlistMetroLine()
-            resultat.result.metros.map {
-                val metro = MetroLine(0, it.code, it.name, it.directions, it.id)
-                Log.d("CCC", "$metro")
-                metroLineDao?.addMetroLines(metro)
+            if(metroLineDao!!.getMetroLines().isEmpty()){
+                val service = retrofit().create(MetroLinesBySearch::class.java)
+                val resultat = service.getlistMetroLine()
+                resultat.result.metros.map {
+                    val metro = MetroLine(0, it.code, it.name, it.directions, it.id)
+                    Log.d("CCC", "$metro")
+                    metroLineDao?.addMetroLines(metro)
+                }
             }
         }
 

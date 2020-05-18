@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -20,6 +21,7 @@ import com.example.myratp.data.MetroLineDao
 import com.example.myratp.data.TrafficDao
 import com.example.myratp.model.MetroLine
 import com.example.myratp.model.Traffic
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_bus_time.*
 import kotlinx.android.synthetic.main.activity_bus_time.progress_bar
 import kotlinx.android.synthetic.main.activity_metro_time.*
@@ -47,6 +49,11 @@ class MetroTimeActivity : AppCompatActivity() {
         val database_bis = Room.databaseBuilder(this, AppDatabase::class.java, "alltraffic")
             .build()
         trafficDao = database_bis.getTrafficDao()
+
+        val bfloat = findViewById(R.id.floating_button_map_metroline) as FloatingActionButton
+        bfloat.setOnClickListener {
+            Toast.makeText(this, "Button listener", Toast.LENGTH_SHORT).show()
+        }
 
         if (isNetworkConnected()) {
             runBlocking {
