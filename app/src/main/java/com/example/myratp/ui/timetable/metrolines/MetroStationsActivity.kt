@@ -37,6 +37,9 @@ class MetroStationsActivity : AppCompatActivity() {
         code = intent.getStringExtra("code")
         id_metro = intent.getStringExtra("id")
 
+        Log.d("DF", "after ${code}")
+        Log.d("DF", "after ${id_metro}")
+
         var recyclerview_metro_station =
             findViewById(R.id.activities_recyclerview_metro_station) as RecyclerView
         recyclerview_metro_station.layoutManager =
@@ -51,27 +54,22 @@ class MetroStationsActivity : AppCompatActivity() {
 //        metroDao = database_bis.getMetroLineDao()
         if (isNetworkConnected()) {
             runBlocking {
-                stationDao?.deleteAllStations()
-                val service = retrofit().create(MetroLinesBySearch::class.java)
-                val resultat = service.getMetroStations("metros", "$code")
-                resultat.result.stations.map {
-                    val station =
-                        Station(0, it.name, it.slug, favoris = false, id_ligne = "$id_metro")
-                    Log.d("CCC", "$station")
-//                    val check = stationDao?.getStations()
-//                for (x in check!!.indices){
-//                    if(check[x].name == station.name){
-//                        val a = check[x].id_ligne
-//                        val x = station.stock_lignes?.plus(a)
-//                        Log.d("HHH", "$station.stock_lines")
-//                    }
-//                }
-                    stationDao?.addStations(station)
+                //stationDao?.deleteAllStations()
+                if(stationDao!!.getStationsByLine("$code").isEmpty()){
+                    Log.d("DF", "station null")
+                    val service = retrofit().create(MetroLinesBySearch::class.java)
+                    val resultat = service.getMetroStations("metros", "$code")
+                    resultat.result.stations.map {
+                        val station =
+                            Station(0, it.name, it.slug, favoris = false, id_ligne = "$code")
+                        Log.d("CCC", "$station")
+                        stationDao?.addStations(station)
+                    }
                 }
                 stationDao = database.getStationsDao()
 
-
-                val s = stationDao?.getStations()
+                val s = stationDao?.getStationsByLine("$code")
+                Log.d("DF", "$s")
                 progress_bar.visibility = View.GONE
                 recyclerview_metro_station.adapter =
                     MetroStationAdapter(s ?: emptyList(), "$code")

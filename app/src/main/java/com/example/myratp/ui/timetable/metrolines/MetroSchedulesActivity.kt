@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +23,9 @@ import com.example.myratp.model.Schedule
 import kotlinx.android.synthetic.main.activity_bus_time.*
 import kotlinx.android.synthetic.main.activity_bus_time.progress_bar
 import kotlinx.android.synthetic.main.activity_metro_schedule.*
+import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
+import org.w3c.dom.Text
 
 class MetroSchedulesActivity : AppCompatActivity() {
 
@@ -40,9 +43,17 @@ class MetroSchedulesActivity : AppCompatActivity() {
         Log.d("AAA", "$code")
         Log.d("AAA", "$name")
 
+        val txt_aller = findViewById<TextView>(R.id.metro_schedule_txt_aller)
+        val txt_retour = findViewById<TextView>(R.id.metro_schedule_txt_retour)
+        val txt_station = findViewById<TextView>(R.id.metro_schedule_txt_station)
+        txt_station.text = "$name"
         var recyclerview_metro_schedule =
             findViewById(R.id.activities_recyclerview_metro_schedule) as RecyclerView
         recyclerview_metro_schedule.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        var recyclerview_metro_schedule_retour =
+            findViewById(R.id.activities_recyclerview_metro_schedule_retour) as RecyclerView
+        recyclerview_metro_schedule_retour.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         val database = Room.databaseBuilder(this, AppDatabase::class.java, "allschedule")
@@ -51,19 +62,39 @@ class MetroSchedulesActivity : AppCompatActivity() {
 
         if (isNetworkConnected()) {
             runBlocking {
-                scheduleDao?.deleteAllSchedule()
-                val service = retrofit().create(MetroLinesBySearch::class.java)
-                val resultat = service.getScheduleMetro("metros", "$code", "$name", "A+R")
-                resultat.result.schedules.map {
-                    val metroSchedule = Schedule(0, it.message, it.destination)
-                    Log.d("CCC", "$metroSchedule")
-                    scheduleDao?.addSchedule(metroSchedule)
+                val deffered = async {
+                    scheduleDao?.deleteAllSchedule()
+                    val service = retrofit().create(MetroLinesBySearch::class.java)
+                    val resultat = service.getScheduleMetro("metros", "$code", "$name", "A")
+                    resultat.result.schedules.map {
+                        val metroSchedule = Schedule(0, it.message, it.destination)
+                        Log.d("CCC", "$metroSchedule")
+                        scheduleDao?.addSchedule(metroSchedule)
+                        txt_aller.text = it.destination
+                    }
+                    scheduleDao = database.getScheduleDao()
+                    val s = scheduleDao?.getSchedule()
+                    progress_bar.visibility = View.GONE
+                    recyclerview_metro_schedule.adapter =
+                        MetroScheduleAdapter(s ?: emptyList())
+
+
+                    scheduleDao?.deleteAllSchedule()
+                    //val service_bis = retrofit().create(MetroLinesBySearch::class.java)
+                    val resultat_bis = service.getScheduleMetro("metros", "$code", "$name", "R")
+                    resultat_bis.result.schedules.map {
+                        val metroSchedule = Schedule(0, it.message, it.destination)
+                        Log.d("CCC", "$metroSchedule")
+                        scheduleDao?.addSchedule(metroSchedule)
+                        txt_retour.text = it.destination
+                    }
+                    scheduleDao = database.getScheduleDao()
+                    val sta = scheduleDao?.getSchedule()
+                    progress_bar.visibility = View.GONE
+                    recyclerview_metro_schedule_retour.adapter =
+                        MetroScheduleAdapter(sta ?: emptyList())
                 }
-                scheduleDao = database.getScheduleDao()
-                val s = scheduleDao?.getSchedule()
-                progress_bar.visibility = View.GONE
-                recyclerview_metro_schedule.adapter =
-                    MetroScheduleAdapter(s ?: emptyList())
+
             }
         } else {
             Toast.makeText(

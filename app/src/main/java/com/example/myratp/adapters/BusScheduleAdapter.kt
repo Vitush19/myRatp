@@ -26,8 +26,8 @@ class BusScheduleAdapter(val list_busSchedule: List<Schedule>) :
 
     override fun onBindViewHolder(holder: BusScheduleViewHolder, position: Int) {
         val schedule = list_busSchedule[position]
-        holder.busScheduleView.schedule_destination_textview.text =
-            "Direction : ${schedule.destination}"
+//        holder.busScheduleView.schedule_destination_textview.text =
+//            "Direction : ${schedule.destination}"
         holder.busScheduleView.schedule_message_textview.text = "Temps estimé : ${schedule.message}"
 
     }
