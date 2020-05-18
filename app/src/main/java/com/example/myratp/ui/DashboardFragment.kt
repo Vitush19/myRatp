@@ -1,10 +1,12 @@
 package com.example.myratp.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.cardview.widget.CardView
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -23,7 +25,13 @@ class DashboardFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dashboard, container, false)
+        val root=  inflater.inflate(R.layout.fragment_dashboard, container, false)
+        val b_traffic = root.findViewById<CardView>(R.id.traffic_button)
+        b_traffic.setOnClickListener{
+            val intent = Intent(requireContext(),trafficActivity::class.java)
+            startActivity(intent)
+        }
+        return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,7 +41,6 @@ class DashboardFragment : Fragment(), View.OnClickListener {
         view.findViewById<CardView>(R.id.plans_button).setOnClickListener(this)
         view.findViewById<CardView>(R.id.favoris_button).setOnClickListener(this)
         view.findViewById<CardView>(R.id.qr_code_button).setOnClickListener(this)
-        view.findViewById<CardView>(R.id.traffic_button).setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -42,7 +49,6 @@ class DashboardFragment : Fragment(), View.OnClickListener {
             R.id.plans_button -> navController.navigate(R.id.action_dashboardFragment_to_plansFragment)
             R.id.favoris_button -> navController.navigate(R.id.action_dashboardFragment_to_savedFragment)
             R.id.qr_code_button -> navController.navigate(R.id.action_dashboardFragment_to_qrcodeFragment)
-//            R.id.traffic_button -> navController.navigate(R.id.)
         }
     }
 

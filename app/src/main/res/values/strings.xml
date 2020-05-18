@@ -32,5 +32,7 @@
     <string name="code_train">code :</string>
     <string name="nom_ligne_train">nom ligne :</string>
     <string name="destination_train">destination :</string>
-    <string name="traffic">info traffic</string>
+    <string name="traffic">Info trafic</string>
+    <string name="title_traffic">Statut :</string>
+    <string name="message_traffic">Message : </string>
 </resources>

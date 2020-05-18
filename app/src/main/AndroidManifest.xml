@@ -38,6 +38,7 @@
         <activity android:name=".ui.timetable.metrolines.BusStationsActivity" />
         <activity android:name=".ui.timetable.metrolines.MetroSchedulesActivity" />
         <activity android:name=".ui.timetable.metrolines.BusSchedulesActivity" />
+        <activity android:name=".ui.trafficActivity" />
     </application>
 
 </manifest>

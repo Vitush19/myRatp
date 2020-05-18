@@ -55,9 +55,9 @@ class MetroStationsActivity : AppCompatActivity() {
                 val service = retrofit().create(MetroLinesBySearch::class.java)
                 val resultat = service.getMetroStations("metros", "$code")
                 resultat.result.stations.map {
-//                    
+//
                     val station =
-                        Station(0, it.name, it.slug, favoris = false, id_ligne = "st")
+                        Station(0, it.name, it.slug, favoris = false, id_ligne = code)
                     Log.d("CCC", "$station")
 //                    val check = stationDao?.getStations()
 //                for (x in check!!.indices){

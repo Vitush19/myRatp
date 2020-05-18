@@ -24,27 +24,32 @@ import kotlinx.coroutines.runBlocking
  * A simple [Fragment] subclass.
  */
 class SavedFragment : Fragment() {
-    private var stationsDao : StationsDao? = null
+    private var stationsDao: StationsDao? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root : View = inflater.inflate(R.layout.fragment_saved, container, false)
-        var station_recyclerview = root.findViewById<View>(R.id.activities_recyclerview_metro_station) as RecyclerView
-        station_recyclerview.layoutManager = LinearLayoutManager(this.context)
+        val root: View = inflater.inflate(R.layout.fragment_saved, container, false)
+        var station_recyclerview =
+            root.findViewById<View>(R.id.activities_recyclerview_metro_station) as RecyclerView
+        station_recyclerview.layoutManager = LinearLayoutManager(this.context,  LinearLayoutManager.VERTICAL, false)
 
 
         val database =
-            Room.databaseBuilder(requireActivity().baseContext, AppDatabase::class.java, "favStation")
+            Room.databaseBuilder(
+                requireActivity().baseContext,
+                AppDatabase::class.java,
+                "favStation"
+            )
                 .build()
 
         stationsDao = database.getStationsDao()
-        Log.d ("aaa","$stationsDao")
+        Log.d("aaa", "$stationsDao")
         runBlocking {
-            val stations =stationsDao!!.getStationFav(true)
-            Log.d ("aaa","$stations")
+            val stations = stationsDao!!.getStationFav(true)
+            Log.d("aaa", "$stations")
 
             station_recyclerview.adapter = StationAdapter(stations)
         }
@@ -53,16 +58,16 @@ class SavedFragment : Fragment() {
         return root
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//
-//        runBlocking {
-//            val stations  = stationsDao?.getStations()
-//
-//            activities_recyclerview_metro_station.adapter = StationAdapter(stations ?: emptyList())
-//
-//        }
-//    }
+    override fun onResume() {
+        super.onResume()
+
+        runBlocking {
+            val stations  = stationsDao?.getStations()
+
+            activities_recyclerview_metro_station.adapter = StationAdapter(stations ?: emptyList())
+
+        }
+    }
 
 }
 

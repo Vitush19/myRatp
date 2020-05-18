@@ -63,6 +63,8 @@ fun ImageMetro(name:String):Int{
             "Métro 14"-> R.drawable.metro14
             "Métro Orv"-> R.drawable.orlyval
             "Métro Fun"-> R.drawable.funiculaire
+            "Métro 3B"-> R.drawable.metro3bis
+            "Métro 7B"-> R.drawable.metro7bis
             else-> R.drawable.metro_bleu
         }
     return imageMetro
