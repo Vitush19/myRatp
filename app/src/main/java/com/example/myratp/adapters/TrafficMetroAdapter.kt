@@ -32,7 +32,7 @@ class TrafficMetroAdapter(val list_traffic: List<Traffic>) :
     override fun onBindViewHolder(holder: TrafficMetroAdapter.trafficViewHolder, position: Int) {
         val traffic = list_traffic[position]
         Log.d("test", "$traffic")
-        holder.trafficView.title_traffic_textview.text = "statut : ${traffic.title}"
+        holder.trafficView.title_traffic_textview.text = "Statut : ${traffic.title}"
         holder.trafficView.metro_image_view.setBackgroundResource(ImageMetro("Métro ${traffic.line}"))
         holder.trafficView.message_traffic_textview.text = "Info : ${traffic.message}"
         if (traffic.slug == "normal") {

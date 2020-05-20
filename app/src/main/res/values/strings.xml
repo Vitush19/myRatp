@@ -37,4 +37,5 @@
     <string name="message_traffic">Message : </string>
     <string name="chevron_droit">chevron droit</string>
     <string name="message">Message :</string>
+    <string name="statut">statut</string>
 </resources>

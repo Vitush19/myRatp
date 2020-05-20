@@ -1,6 +1,5 @@
 package com.example.myratp.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -15,8 +14,6 @@ import com.example.myratp.R
 import com.example.myratp.adapters.StationAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.StationsDao
-import com.example.myratp.model.Station
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.fragment_saved.*
 import kotlinx.coroutines.runBlocking
 

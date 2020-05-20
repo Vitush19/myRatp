@@ -21,12 +21,10 @@ import com.example.myratp.adapters.MetroScheduleAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.ScheduleDao
 import com.example.myratp.model.Schedule
-import kotlinx.android.synthetic.main.activity_bus_time.*
 import kotlinx.android.synthetic.main.activity_bus_time.progress_bar
 import kotlinx.android.synthetic.main.activity_metro_schedule.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
-import org.w3c.dom.Text
 
 class MetroSchedulesActivity : AppCompatActivity() {
 
@@ -107,7 +105,7 @@ class MetroSchedulesActivity : AppCompatActivity() {
             ).show()
         }
 
-        pull_layout.setOnRefreshListener {
+        pull_layout_schedule_metro.setOnRefreshListener {
             val intent = intent
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             finish()

@@ -1,6 +1,7 @@
 package com.example.myratp.ui.timetable.metrolines
 
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -10,10 +11,10 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
+import com.example.myratp.MetroPlansActivity
 import com.example.myratp.adapters.MetroLineAdapter
 import com.example.myratp.R
 import com.example.myratp.data.AppDatabase
@@ -22,10 +23,7 @@ import com.example.myratp.data.TrafficDao
 import com.example.myratp.model.MetroLine
 import com.example.myratp.model.Traffic
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.activity_bus_time.*
 import kotlinx.android.synthetic.main.activity_bus_time.progress_bar
-import kotlinx.android.synthetic.main.activity_metro_time.*
-import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 
 class MetroTimeActivity : AppCompatActivity() {
@@ -37,6 +35,7 @@ class MetroTimeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_metro_time)
+
 
         var recyclerview_metro = findViewById(R.id.activities_recyclerview_metro) as RecyclerView
         recyclerview_metro.layoutManager =
@@ -52,27 +51,28 @@ class MetroTimeActivity : AppCompatActivity() {
 
         val bfloat = findViewById(R.id.floating_button_map_metroline) as FloatingActionButton
         bfloat.setOnClickListener {
-            Toast.makeText(this, "Button listener", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, MetroPlansActivity::class.java)
+            startActivity(intent)
         }
 
         if (isNetworkConnected()) {
             runBlocking {
                 //trafficDao?.deleteAllTraffic()
-                if(trafficDao!!.getTraffic().isEmpty()){
-                    Log.d("DF", "traff null")
-                    val service_bis = retrofit().create(MetroLinesBySearch::class.java)
-                    val resultat_bis = service_bis.getTrafficMetro("metros")
-                    resultat_bis.result.metros.map {
-                        val traffic = Traffic(0, it.line, it.slug, it.title, it.message)
-                        trafficDao?.addTraffic(traffic)
-                    }
+//                if (trafficDao!!.getTraffic().isEmpty()) {
+//
+//                }
+                Log.d("DF", "traff null")
+                val service_bis = retrofit().create(MetroLinesBySearch::class.java)
+                val resultat_bis = service_bis.getTrafficMetro("metros")
+                resultat_bis.result.metros.map {
+                    val traffic = Traffic(0, it.line, it.slug, it.title, it.message)
+                    trafficDao?.addTraffic(traffic)
                 }
-
                 trafficDao = database_bis.getTrafficDao()
                 val traf = trafficDao?.getTraffic()
 
                 //metroLineDao?.deleteAllMetroLines()
-                if(metroLineDao!!.getMetroLines().isEmpty()){
+                if (metroLineDao!!.getMetroLines().isEmpty()) {
                     Log.d("DF", "null")
                     val service = retrofit().create(MetroLinesBySearch::class.java)
                     val resultat = service.getlistMetroLine()
@@ -98,8 +98,6 @@ class MetroTimeActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         }
-
-
     }
 
     @RequiresApi(Build.VERSION_CODES.M)

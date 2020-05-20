@@ -12,4 +12,10 @@ data class Station(
     val id_ligne: String
 ) {
 
+    companion object {
+        val all = (1..10).map {
+            Station(it, "$it", "$it", false, "$it")
+        }.toMutableList()
+    }
+
 }

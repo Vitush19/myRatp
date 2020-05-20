@@ -5,7 +5,9 @@
     android:layout_height="170dp"
     android:animateLayoutChanges="true"
     android:elevation="5dp"
-    app:cardBackgroundColor="@color/colorPrimary"
+    android:layout_margin="3dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/specialWhite"
     app:cardCornerRadius="10dp">
 
     <LinearLayout
@@ -31,29 +33,36 @@
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="10dp"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
                     <ImageView
                         android:id="@+id/metro_image_view"
                         android:layout_width="50dp"
-                        android:layout_height="50dp"/>
+                        android:layout_height="50dp"
+                        android:contentDescription="@string/metro" />
+
                     <TextView
                         android:id="@+id/title_traffic_textview"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:layout_marginStart="5dp"
                         android:text="@string/title_traffic"
-                        android:textColor="@color/white"
+                        android:textColor="@color/specialBlack"
                         android:textSize="15sp"
                         android:textStyle="bold" />
+
                     <ImageView
                         android:id="@+id/traffic_image_view"
-                        android:layout_marginHorizontal="10dp"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"/>
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center|end"
+                        android:contentDescription="@string/statut" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -64,8 +73,9 @@
             android:layout_height="match_parent"
             android:layout_marginStart="5dp"
             android:text="@string/message_traffic"
-            android:textColor="@color/white"
-            android:textSize="15dp"
+            android:textColor="@color/specialBlack"
+            android:textSize="15sp"
+            android:gravity="center_vertical"
             android:textStyle="bold" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
