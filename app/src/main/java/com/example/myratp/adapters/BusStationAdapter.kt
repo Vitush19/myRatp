@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myratp.R
 import com.example.myratp.model.Station
 import com.example.myratp.ui.timetable.metrolines.BusSchedulesActivity
-import kotlinx.android.synthetic.main.station_view.view.*
+import kotlinx.android.synthetic.main.station_bus_view.view.*
 
 class BusStationAdapter(val list_stations: List<Station>, val code: String) :
     RecyclerView.Adapter<BusStationAdapter.BusStationViewHolder>() {
@@ -16,7 +16,7 @@ class BusStationAdapter(val list_stations: List<Station>, val code: String) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusStationViewHolder {
         val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
-        val view: View = layoutInflater.inflate(R.layout.station_view, parent, false)
+        val view: View = layoutInflater.inflate(R.layout.station_bus_view, parent, false)
         return BusStationAdapter.BusStationViewHolder(
             view
         )
@@ -27,7 +27,7 @@ class BusStationAdapter(val list_stations: List<Station>, val code: String) :
 
     override fun onBindViewHolder(holder: BusStationViewHolder, position: Int) {
         val lines = list_stations[position]
-        holder.stationsView.station_name_textview.text = "Station : ${lines.name}"
+        holder.stationsView.station_name_textview_bus.text = "Station : ${lines.name}"
 
         holder.stationsView.setOnClickListener {
             val intent = Intent(it.context, BusSchedulesActivity::class.java)

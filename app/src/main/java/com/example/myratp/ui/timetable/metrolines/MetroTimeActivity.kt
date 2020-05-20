@@ -86,6 +86,8 @@ class MetroTimeActivity : AppCompatActivity() {
                 metroLineDao = database.getMetroLineDao()
                 val ms = metroLineDao?.getMetroLines()
                 Log.d("DF", "$ms")
+                val stock = ms?.size
+                Log.d("POI","$stock")
                 progress_bar.visibility = View.GONE
                 recyclerview_metro.adapter =
                     MetroLineAdapter(ms ?: emptyList(), traf!!)

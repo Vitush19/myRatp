@@ -14,7 +14,7 @@ import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.StationsDao
 import com.example.myratp.model.Station
 import com.example.myratp.ui.timetable.metrolines.MetroSchedulesActivity
-import kotlinx.android.synthetic.main.station_view.view.*
+import kotlinx.android.synthetic.main.station_metro_view.view.*
 import kotlinx.coroutines.runBlocking
 
 class StationAdapter(val list_stations: List<Station>) :
@@ -26,7 +26,7 @@ class StationAdapter(val list_stations: List<Station>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StationViewHolder {
         val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
-        val view: View = layoutInflater.inflate(R.layout.station_view, parent, false)
+        val view: View = layoutInflater.inflate(R.layout.station_metro_view, parent, false)
         context = parent.context
         return StationAdapter.StationViewHolder(
             view

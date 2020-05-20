@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.myratp.R
@@ -16,7 +15,7 @@ import com.example.myratp.data.StationsDao
 import com.example.myratp.model.Station
 import com.example.myratp.ui.timetable.metrolines.ImageMetro
 import com.example.myratp.ui.timetable.metrolines.MetroSchedulesActivity
-import kotlinx.android.synthetic.main.station_view.view.*
+import kotlinx.android.synthetic.main.station_metro_view.view.*
 import kotlinx.coroutines.runBlocking
 
 class MetroStationAdapter(val list_stations: List<Station>, val code: String) :
@@ -29,7 +28,7 @@ class MetroStationAdapter(val list_stations: List<Station>, val code: String) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MetroStationViewHolder {
         val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
-        val view: View = layoutInflater.inflate(R.layout.station_view, parent, false)
+        val view: View = layoutInflater.inflate(R.layout.station_metro_view, parent, false)
         context = parent.context
 
         return MetroStationAdapter.MetroStationViewHolder(

@@ -7,12 +7,17 @@ import android.os.Handler
 import android.util.Log
 import androidx.room.Room
 import com.example.myratp.data.AppDatabase
+import com.example.myratp.data.BusLineDao
 import com.example.myratp.data.MetroLineDao
 import com.example.myratp.data.TrafficDao
+import com.example.myratp.model.BusLine
 import com.example.myratp.model.MetroLine
 import com.example.myratp.model.Traffic
+import com.example.myratp.ui.timetable.buslines.BusLinesBySearch
+import com.example.myratp.ui.timetable.buslines.retrofit_bus
 import com.example.myratp.ui.timetable.metrolines.MetroLinesBySearch
 import com.example.myratp.ui.timetable.metrolines.retrofit
+import kotlinx.android.synthetic.main.busline_view.*
 import kotlinx.coroutines.runBlocking
 
 class SplashScreenActivity : AppCompatActivity() {
@@ -20,6 +25,7 @@ class SplashScreenActivity : AppCompatActivity() {
     private lateinit var handler: Handler
     private var metroLineDao: MetroLineDao? = null
     private var trafficDao: TrafficDao? = null
+    private var busLineDao: BusLineDao? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,9 +35,13 @@ class SplashScreenActivity : AppCompatActivity() {
             .build()
         metroLineDao = database.getMetroLineDao()
 
-        val database_bis = Room.databaseBuilder(this, AppDatabase::class.java, "alltraffic")
+        val database_traffic = Room.databaseBuilder(this, AppDatabase::class.java, "alltraffic")
             .build()
-        trafficDao = database_bis.getTrafficDao()
+        trafficDao = database_traffic.getTrafficDao()
+
+        val database_bus = Room.databaseBuilder(this, AppDatabase::class.java, "allbuslines")
+            .build()
+        busLineDao = database_bus.getBusLineDao()
 
         runBlocking {
             if(trafficDao!!.getTraffic().isEmpty()) {
@@ -49,6 +59,19 @@ class SplashScreenActivity : AppCompatActivity() {
                     val metro = MetroLine(0, it.code, it.name, it.directions, it.id)
                     Log.d("CCC", "$metro")
                     metroLineDao?.addMetroLines(metro)
+                }
+            }
+//            busLineDao?.deleteAllBusLines()
+//            val test = busLineDao?.getBusLines()?.size
+//            Log.d("POI", "taille avant suppression splash : $test")
+            if(busLineDao!!.getBusLines().isEmpty()){
+                Log.d("POI", "bussplash isempty")
+                val service = retrofit_bus().create(BusLinesBySearch::class.java)
+                val resultat = service.getlistBusLine()
+                resultat.result.buses.map {
+                    val bus = BusLine(0, it.code, it.name, it.directions, it.id)
+                    Log.d("CCC", "$bus")
+                    busLineDao?.addBusLines(bus)
                 }
             }
         }

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myratp.R
 import com.example.myratp.model.Station
-import kotlinx.android.synthetic.main.station_view.view.*
+import kotlinx.android.synthetic.main.station_metro_view.view.*
 
 class TrainStationAdapter(val list_stations: List<Station>) :
     RecyclerView.Adapter<TrainStationAdapter.TrainStationViewHolder>() {
@@ -14,7 +14,7 @@ class TrainStationAdapter(val list_stations: List<Station>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrainStationViewHolder {
         val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
-        val view: View = layoutInflater.inflate(R.layout.station_view, parent, false)
+        val view: View = layoutInflater.inflate(R.layout.station_metro_view, parent, false)
         return TrainStationAdapter.TrainStationViewHolder(
             view
         )

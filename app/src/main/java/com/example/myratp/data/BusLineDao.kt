@@ -22,4 +22,7 @@ interface BusLineDao {
 
     @Query("select * from allbuslines where id = :id")
     suspend fun getBusLines(id: Int): BusLine
+
+    @Query("select * from allbuslines where code = :code")
+    suspend fun getBusLinesByCode(code: String): BusLine
 }

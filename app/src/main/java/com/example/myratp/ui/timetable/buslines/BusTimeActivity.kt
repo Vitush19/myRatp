@@ -20,6 +20,7 @@ import com.example.myratp.data.BusLineDao
 import com.example.myratp.model.BusLine
 import kotlinx.android.synthetic.main.activity_bus_time.*
 import kotlinx.coroutines.runBlocking
+import okhttp3.internal.notify
 
 class BusTimeActivity : AppCompatActivity() {
 
@@ -39,19 +40,27 @@ class BusTimeActivity : AppCompatActivity() {
 
         if(isNetworkConnected()){
             runBlocking {
-                busLineDao?.deleteAllBusLines()
-                val service = retrofit_bus().create(BusLinesBySearch::class.java)
-                val resultat = service.getlistBusLine()
-                resultat.result.buses.map {
-                    val bus = BusLine(0, it.code, it.name, it.directions, it.id)
-                    Log.d("CCC", "$bus")
-                    busLineDao?.addBusLines(bus)
+//                val test = busLineDao?.getBusLines()?.size
+//                Log.d("POI", "taille avant suppression time : $test")
+                if(busLineDao!!.getBusLines().isEmpty()){
+                    Log.d("POI", "bus isempty")
+                    val service = retrofit_bus().create(BusLinesBySearch::class.java)
+                    val resultat = service.getlistBusLine()
+                    resultat.result.buses.map {
+                        val bus = BusLine(0, it.code, it.name, it.directions, it.id)
+                        Log.d("CCC", "$bus")
+                    }
                 }
+
                 busLineDao = database.getBusLineDao()
                 val bs = busLineDao?.getBusLines()
+//                val stock = bs?.size
+//                Log.d("POI", "taille avant affichage$stock")
                 progress_bar.visibility = View.GONE
                 recyclerview_bus.adapter =
                     BusLinesAdapter(bs ?: emptyList())
+
+//                Log.d("POI", "taille après affichage$stock")
             }
         }
         else{
