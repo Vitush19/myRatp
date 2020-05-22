@@ -41,6 +41,7 @@
         <activity android:name=".ui.trafficActivity" />
         <activity android:name=".MetroPlansActivity" />
         <activity android:name=".BusPlansActivity" />
+        <activity android:name=".ui.timetable.trainlines.TrainScheduleActivity" />
     </application>
 
 </manifest>

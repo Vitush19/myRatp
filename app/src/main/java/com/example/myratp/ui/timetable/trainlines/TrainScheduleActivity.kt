@@ -1,4 +1,4 @@
-package com.example.myratp.ui.timetable.buslines
+package com.example.myratp.ui.timetable.trainlines
 
 import android.content.Context
 import android.content.Intent
@@ -16,15 +16,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.myratp.R
-import com.example.myratp.adapters.BusScheduleAdapter
+import com.example.myratp.adapters.TrainScheduleAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.ScheduleDao
 import com.example.myratp.model.Schedule
-import kotlinx.android.synthetic.main.activity_bus_schedule.*
+import kotlinx.android.synthetic.main.activity_train_schedule.*
 import kotlinx.coroutines.runBlocking
 
-class BusSchedulesActivity : AppCompatActivity() {
-
+class TrainScheduleActivity : AppCompatActivity(){
     private var code: String? = ""
     private var name: String? = ""
     private var scheduleDao: ScheduleDao? = null
@@ -32,19 +31,19 @@ class BusSchedulesActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_bus_schedule)
+        setContentView(R.layout.activity_train_schedule)
 
         code = intent.getStringExtra("code")
         name = intent.getStringExtra("name")
 
-        val toolbar: Toolbar = findViewById(R.id.toolbar_bus_schedule)
+        val toolbar: Toolbar = findViewById(R.id.toolbar_train_schedule)
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
         toolbar.title = "Station : $name"
         setSupportActionBar(toolbar)
 
-        val recyclerviewBusSchedule =
-            findViewById<RecyclerView>(R.id.activities_recyclerview_bus_schedule)
-        recyclerviewBusSchedule.layoutManager =
+        val recyclerviewTrainSchedule =
+            findViewById<RecyclerView>(R.id.activities_recyclerview_train_schedule)
+        recyclerviewTrainSchedule.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         val database = Room.databaseBuilder(this, AppDatabase::class.java, "allschedule")
@@ -54,17 +53,17 @@ class BusSchedulesActivity : AppCompatActivity() {
         if (isNetworkConnected()) {
             runBlocking {
                 scheduleDao?.deleteAllSchedule()
-                val service = retrofit_bus().create(BusLinesBySearch::class.java)
-                val resultat = service.getScheduleBus("buses", "$code", "$name", "A+R")
+                val service = retrofit_train().create(TrainLinesBySearch::class.java)
+                val resultat = service.getScheduleTrain("rers", "$code", "$name", "A+R")
                 resultat.result.schedules.map {
-                    val busSchedule = Schedule(0, it.message, it.destination)
-                    scheduleDao?.addSchedule(busSchedule)
+                    val trainSchedule = Schedule(0, it.message, it.destination)
+                    scheduleDao?.addSchedule(trainSchedule)
                 }
                 scheduleDao = database.getScheduleDao()
                 val schedule = scheduleDao?.getSchedule()
-                progress_bar_bus_schedule.visibility = View.GONE
-                recyclerviewBusSchedule.adapter =
-                    BusScheduleAdapter(schedule ?: emptyList())
+                progress_bar_train_schedule.visibility = View.GONE
+                recyclerviewTrainSchedule.adapter =
+                    TrainScheduleAdapter(schedule ?: emptyList())
             }
         } else {
             Toast.makeText(
@@ -74,7 +73,7 @@ class BusSchedulesActivity : AppCompatActivity() {
             ).show()
         }
 
-        pull_layout_bus_schedule.setOnRefreshListener {
+        pull_layout_train_schedule.setOnRefreshListener {
             val intent = intent
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             finish()

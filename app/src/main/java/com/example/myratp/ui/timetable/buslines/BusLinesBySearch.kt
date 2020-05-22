@@ -15,7 +15,7 @@ interface BusLinesBySearch {
     ): BusStationsResponse
 
     @GET("schedules/{type}/{line}/{station}/{way}")
-    suspend fun getScheduleMetro(
+    suspend fun getScheduleBus(
         @Path("type") type: String,
         @Path("line") line: String,
         @Path("station") station: String,

@@ -80,7 +80,7 @@ class MetroSchedulesActivity : AppCompatActivity() {
                     }
                     scheduleDao = database.getScheduleDao()
                     val schedule = scheduleDao?.getSchedule()
-                    progress_bar.visibility = View.GONE
+                    progress_bar_metro_schedule.visibility = View.GONE
                     recyclerviewMetroScheduleAller.adapter =
                         MetroScheduleAdapter(schedule ?: emptyList())
 
@@ -94,7 +94,7 @@ class MetroSchedulesActivity : AppCompatActivity() {
                     }
                     scheduleDao = database.getScheduleDao()
                     val sta = scheduleDao?.getSchedule()
-                    progress_bar.visibility = View.GONE
+                    progress_bar_metro_schedule.visibility = View.GONE
                     recyclerviewMetroScheduleRetour.adapter =
                         MetroScheduleAdapter(sta ?: emptyList())
                 }

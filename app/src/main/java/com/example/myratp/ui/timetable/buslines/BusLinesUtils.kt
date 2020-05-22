@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit
 
 // je rajoute la fonction clientDao à la classe AppcompactACtivity : retourne le DAO
 
-fun AppCompatActivity.busDao(): BusLineDao {
+fun AppCompatActivity.busTrain(): BusLineDao {
     val database: AppDatabase =
         Room.databaseBuilder(
             this,

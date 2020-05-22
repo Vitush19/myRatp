@@ -46,7 +46,7 @@ class TrainStationsActivity : AppCompatActivity() {
             stationDao = database.getStationsDao()
             val s = stationDao?.getStations()
             recyclerview_train_station.adapter =
-                TrainStationAdapter(s ?: emptyList())
+                TrainStationAdapter(s ?: emptyList(), "$code")
         }
 
 
