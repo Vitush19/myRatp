@@ -35,15 +35,13 @@ class TrainTimeActivity : AppCompatActivity() {
             val resultat = service.getlistTrainLine()
             resultat.result.rers.map {
                 val train = TrainLine(0, it.code, it.name, it.directions, it.id)
-                Log.d("CCC", "$train")
+                Log.d("tyui", "${train.code}")
                 trainLineDao?.addTrainLines(train)
             }
             trainLineDao = database.getTrainLineDao()
-            val ts = trainLineDao?.getTrainLines()
-            val test = ts.isNullOrEmpty()
-            Log.d("CCC", "$test")
+            val trainStation = trainLineDao?.getTrainLines()
             recyclerview_train.adapter =
-                TrainLinesAdapter(ts ?: emptyList())
+                TrainLinesAdapter(trainStation ?: emptyList())
         }
     }
 }

@@ -41,7 +41,6 @@ class TrainStationsActivity : AppCompatActivity() {
             val resultat = service.getTrainStations("rers", "$code")
             resultat.result.stations.map {
                 val station = Station(0, it.name, it.slug, favoris = false, id_ligne = "$id_train")
-                Log.d("CCC", "$station")
                 stationDao?.addStations(station)
             }
             stationDao = database.getStationsDao()

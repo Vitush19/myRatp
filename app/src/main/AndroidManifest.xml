@@ -40,6 +40,7 @@
         <activity android:name=".ui.timetable.buslines.BusSchedulesActivity" />
         <activity android:name=".ui.trafficActivity" />
         <activity android:name=".MetroPlansActivity" />
+        <activity android:name=".BusPlansActivity" />
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package com.example.myratp.ui.timetable.buslines
 
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -15,11 +16,13 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
+import com.example.myratp.BusPlansActivity
 import com.example.myratp.R
 import com.example.myratp.adapters.BusLinesAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.BusLineDao
 import com.example.myratp.model.BusLine
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_bus_time.*
 import kotlinx.coroutines.runBlocking
 
@@ -43,6 +46,12 @@ class BusTimeActivity : AppCompatActivity() {
         val database = Room.databaseBuilder(this, AppDatabase::class.java, "allbuslines")
             .build()
         busLineDao = database.getBusLineDao()
+
+        val bFloat = findViewById<FloatingActionButton>(R.id.floating_button_map_busLine)
+        bFloat.setOnClickListener {
+            val intent = Intent(this, BusPlansActivity::class.java)
+            startActivity(intent)
+        }
 
         if(isNetworkConnected()){
             runBlocking {

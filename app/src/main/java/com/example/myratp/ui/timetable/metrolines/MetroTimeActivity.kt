@@ -57,7 +57,7 @@ class MetroTimeActivity : AppCompatActivity() {
             .build()
         trafficDao = databaseBis.getTrafficDao()
 
-        val bFloat = findViewById<FloatingActionButton>(R.id.floating_button_map_metroline)
+        val bFloat = findViewById<FloatingActionButton>(R.id.floating_button_map_metroLine)
         bFloat.setOnClickListener {
             val intent = Intent(this, MetroPlansActivity::class.java)
             startActivity(intent)

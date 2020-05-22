@@ -32,11 +32,14 @@ class TrainLinesAdapter(private val list_trainLines: List<TrainLine>) :
         holder.trainLinesView.trainline_destination_textview.text =
             "Destination : ${trainLines.direction}"
 
-        holder.trainLinesView.setOnClickListener {
-            val intent = Intent(it.context, TrainStationsActivity::class.java)
-            intent.putExtra("code", trainLines.code)
-            intent.putExtra("id", trainLines.id_train)
-            it.context.startActivity(intent)
+        if(trainLines.code == "A" || trainLines.code == "B" || trainLines.code == "E"){
+            holder.trainLinesView.setOnClickListener {
+                val intent = Intent(it.context, TrainStationsActivity::class.java)
+                intent.putExtra("code", trainLines.code)
+                intent.putExtra("id", trainLines.id_train)
+                it.context.startActivity(intent)
+            }
         }
+
     }
 }
