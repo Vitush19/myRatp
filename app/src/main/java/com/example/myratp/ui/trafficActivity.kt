@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.myratp.R
-import com.example.myratp.adapters.MetroLineAdapter
 import com.example.myratp.adapters.TrafficMetroAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.TrafficDao
@@ -32,29 +31,29 @@ class trafficActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_traffic)
 
-        var recyclerview_metro = findViewById(R.id.activities_recyclerview_traffic) as RecyclerView
-        recyclerview_metro.layoutManager =
+        val recyclerviewMetro = findViewById<RecyclerView>(R.id.activities_recyclerview_traffic)
+        recyclerviewMetro.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
 
-        val database_bis = Room.databaseBuilder(this, AppDatabase::class.java, "alltraffic")
+        val database = Room.databaseBuilder(this, AppDatabase::class.java, "alltraffic")
             .build()
-        trafficDao = database_bis.getTrafficDao()
+        trafficDao = database.getTrafficDao()
 
         if (isNetworkConnected()) {
             runBlocking {
 
                 trafficDao?.deleteAllTraffic()
-                val service_bis = retrofit().create(MetroLinesBySearch::class.java)
-                val resultat_bis = service_bis.getTrafficMetro("metros")
-                resultat_bis.result.metros.map {
+                val service = retrofit().create(MetroLinesBySearch::class.java)
+                val resultat = service.getTrafficMetro("metros")
+                resultat.result.metros.map {
                     val traffic = Traffic(0, it.line, it.slug, it.title, it.message)
                     trafficDao?.addTraffic(traffic)
                 }
-                trafficDao = database_bis.getTrafficDao()
+                trafficDao = database.getTrafficDao()
                 val traf = trafficDao?.getTraffic()
                 progress_bar.visibility = View.GONE
-                recyclerview_metro.adapter =
+                recyclerviewMetro.adapter =
                     TrafficMetroAdapter ( traf!!)
 
             }

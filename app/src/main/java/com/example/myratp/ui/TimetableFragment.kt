@@ -19,8 +19,6 @@ import com.example.myratp.ui.timetable.trainlines.TrainTimeActivity
  */
 class TimetableFragment : Fragment() {
 
-    lateinit var navController: NavController
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,25 +43,5 @@ class TimetableFragment : Fragment() {
         }
         return root
     }
-
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//        navController = Navigation.findNavController(view)
-//        view.findViewById<Button>(R.id.button_metro).setOnClickListener(this)
-//        view.findViewById<Button>(R.id.button_bus).setOnClickListener(this)
-//        view.findViewById<Button>(R.id.button_train).setOnClickListener(this)
-//        view.findViewById<Button>(R.id.button_tram).setOnClickListener(this)
-//        view.findViewById<Button>(R.id.button_noctilien).setOnClickListener(this)
-//    }
-//
-//    override fun onClick(v: View?) {
-//        when(v!!.id){
-//            R.id.button_metro -> navController!!.navigate(R.id.action_timetableFragment_to_metroTimetableFragment)
-//            R.id.button_bus -> navController!!.navigate(R.id.action_timetableFragment_to_busTimetableFragment)
-//            R.id.button_train -> navController!!.navigate(R.id.action_timetableFragment_to_trainTimetableFragment2)
-//            R.id.button_tram -> navController!!.navigate(R.id.action_timetableFragment_to_tramwayTimetableFragment)
-//            R.id.button_noctilien -> navController!!.navigate(R.id.action_timetableFragment_to_noctilienTimetableFragment)
-//        }
-//    }
 
 }

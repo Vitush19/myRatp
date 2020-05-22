@@ -1,5 +1,6 @@
 package com.example.myratp.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,7 @@ import com.example.myratp.R
 import com.example.myratp.model.Schedule
 import kotlinx.android.synthetic.main.schedule_view.view.*
 
-class BusScheduleAdapter(val list_busSchedule: List<Schedule>) :
+class BusScheduleAdapter(private val listBusSchedule: List<Schedule>) :
     RecyclerView.Adapter<BusScheduleAdapter.BusScheduleViewHolder>() {
     class BusScheduleViewHolder(val busScheduleView: View) :
         RecyclerView.ViewHolder(busScheduleView)
@@ -21,15 +22,13 @@ class BusScheduleAdapter(val list_busSchedule: List<Schedule>) :
         )
     }
 
-    override fun getItemCount(): Int = list_busSchedule.size
+    override fun getItemCount(): Int = listBusSchedule.size
 
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: BusScheduleViewHolder, position: Int) {
-        val schedule = list_busSchedule[position]
-//        holder.busScheduleView.schedule_destination_textview.text =
-//            "Direction : ${schedule.destination}"
+        val schedule = listBusSchedule[position]
         holder.busScheduleView.schedule_message_textview.text = "Temps estimé : ${schedule.message}"
-
     }
 
 }

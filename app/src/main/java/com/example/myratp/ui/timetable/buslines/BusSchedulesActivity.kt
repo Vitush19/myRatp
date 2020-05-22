@@ -6,11 +6,12 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -37,13 +38,19 @@ class BusSchedulesActivity : AppCompatActivity() {
         code = intent.getStringExtra("code")
         name = intent.getStringExtra("name")
 
-        var recyclerview_vus_schedule =
-            findViewById(R.id.activities_recyclerview_bus_schedule) as RecyclerView
-        recyclerview_vus_schedule.layoutManager =
+        val toolbar: Toolbar = findViewById(R.id.toolbar_bus_schedule)
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
+        toolbar.title = "Station : $name"
+        setSupportActionBar(toolbar)
+
+        val recyclerviewBusSchedule =
+            findViewById<RecyclerView>(R.id.activities_recyclerview_bus_schedule)
+        recyclerviewBusSchedule.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         val database = Room.databaseBuilder(this, AppDatabase::class.java, "allschedule")
             .build()
+
         scheduleDao = database.getScheduleDao()
         if (isNetworkConnected()) {
             runBlocking {
@@ -52,14 +59,13 @@ class BusSchedulesActivity : AppCompatActivity() {
                 val resultat = service.getScheduleMetro("buses", "$code", "$name", "A+R")
                 resultat.result.schedules.map {
                     val busSchedule = Schedule(0, it.message, it.destination)
-                    Log.d("CCC", "$busSchedule")
                     scheduleDao?.addSchedule(busSchedule)
                 }
                 scheduleDao = database.getScheduleDao()
-                val s = scheduleDao?.getSchedule()
+                val schedule = scheduleDao?.getSchedule()
                 progress_bar.visibility = View.GONE
-                recyclerview_vus_schedule.adapter =
-                    BusScheduleAdapter(s ?: emptyList())
+                recyclerviewBusSchedule.adapter =
+                    BusScheduleAdapter(schedule ?: emptyList())
             }
         } else {
             Toast.makeText(
@@ -76,6 +82,16 @@ class BusSchedulesActivity : AppCompatActivity() {
             overridePendingTransition(0, 0)
             startActivity(getIntent())
             overridePendingTransition(0, 0)
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

@@ -1,5 +1,6 @@
 package com.example.myratp.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.util.Log
@@ -18,7 +19,7 @@ import com.example.myratp.ui.timetable.metrolines.MetroSchedulesActivity
 import kotlinx.android.synthetic.main.station_metro_view.view.*
 import kotlinx.coroutines.runBlocking
 
-class MetroStationAdapter(val list_stations: List<Station>, val code: String) :
+class MetroStationAdapter(private val list_stations: List<Station>, val code: String) :
     RecyclerView.Adapter<MetroStationAdapter.MetroStationViewHolder>() {
     class MetroStationViewHolder(val stationsView: View) : RecyclerView.ViewHolder(stationsView)
 
@@ -39,18 +40,21 @@ class MetroStationAdapter(val list_stations: List<Station>, val code: String) :
     override fun getItemCount(): Int = list_stations.size
 
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MetroStationViewHolder, position: Int) {
         val station = list_stations[position]
         holder.stationsView.station_name_textview.text = "Station : ${station.name}"
-        holder.stationsView.station_image_view.setBackgroundResource(ImageMetro("$code"))
+        holder.stationsView.station_image_view.setBackgroundResource(ImageMetro(code))
 
-        val databasesaved =
+        val databaseSaved =
             Room.databaseBuilder(context, AppDatabase::class.java, "allstations")
                 .build()
-        stationsDao = databasesaved.getStationsDao()
+
+        stationsDao = databaseSaved.getStationsDao()
+
         if (!station.favoris) {
             holder.stationsView.fav_bouton.setBackgroundResource(R.drawable.ic_favorite_border_blue_24dp)
-        }else if (station.favoris) {
+        } else if (station.favoris) {
             holder.stationsView.fav_bouton.setBackgroundResource(R.drawable.ic_favorite_blue_24dp)
         }
         holder.stationsView.fav_bouton.setOnClickListener {
@@ -60,8 +64,6 @@ class MetroStationAdapter(val list_stations: List<Station>, val code: String) :
                 runBlocking {
                     stationsDao?.updateStations(station)
                 }
-                Log.d("aaa", "$station")
-
                 Toast.makeText(
                     context,
                     "La station a bien été ajouté des favoris",
@@ -80,11 +82,6 @@ class MetroStationAdapter(val list_stations: List<Station>, val code: String) :
                     Toast.LENGTH_SHORT
                 ).show()
             }
-
-            runBlocking {
-            val s = stationsDao?.getStations()
-            Log.d("aaa", "$s")
-            }
         }
 
         holder.stationsView.setOnClickListener {
@@ -94,5 +91,4 @@ class MetroStationAdapter(val list_stations: List<Station>, val code: String) :
             it.context.startActivity(intent)
         }
     }
-
 }

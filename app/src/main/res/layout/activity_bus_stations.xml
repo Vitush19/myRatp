@@ -5,6 +5,10 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
 
+    <include
+        android:id="@+id/toolbar_bus_station"
+        layout="@layout/toolbar"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,6 +21,7 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:layout_marginTop="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

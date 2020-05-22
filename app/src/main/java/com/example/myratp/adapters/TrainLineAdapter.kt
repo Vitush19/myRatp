@@ -1,5 +1,6 @@
 package com.example.myratp.adapters
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +11,9 @@ import com.example.myratp.model.TrainLine
 import com.example.myratp.ui.timetable.trainlines.TrainStationsActivity
 import kotlinx.android.synthetic.main.trainline_view.view.*
 
-class TrainLinesAdapter(val list_trainlines: List<TrainLine>) :
+class TrainLinesAdapter(private val list_trainLines: List<TrainLine>) :
     RecyclerView.Adapter<TrainLinesAdapter.TrainLinesViewHolder>() {
-    class TrainLinesViewHolder(val trainlinesView: View) : RecyclerView.ViewHolder(trainlinesView)
+    class TrainLinesViewHolder(val trainLinesView: View) : RecyclerView.ViewHolder(trainLinesView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrainLinesViewHolder {
         val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
@@ -22,19 +23,19 @@ class TrainLinesAdapter(val list_trainlines: List<TrainLine>) :
         )
     }
 
-    override fun getItemCount(): Int = list_trainlines.size
+    override fun getItemCount(): Int = list_trainLines.size
 
-
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: TrainLinesViewHolder, position: Int) {
-        val trainlines = list_trainlines[position]
-        holder.trainlinesView.trainline_code_textview.text = "Ligne : ${trainlines.code}"
-        holder.trainlinesView.trainline_destination_textview.text =
-            "Destination : ${trainlines.direction}"
+        val trainLines = list_trainLines[position]
+        holder.trainLinesView.trainline_code_textview.text = "Ligne : ${trainLines.code}"
+        holder.trainLinesView.trainline_destination_textview.text =
+            "Destination : ${trainLines.direction}"
 
-        holder.trainlinesView.setOnClickListener {
+        holder.trainLinesView.setOnClickListener {
             val intent = Intent(it.context, TrainStationsActivity::class.java)
-            intent.putExtra("code", trainlines.code)
-            intent.putExtra("id", trainlines.id_train)
+            intent.putExtra("code", trainLines.code)
+            intent.putExtra("id", trainLines.id_train)
             it.context.startActivity(intent)
         }
     }

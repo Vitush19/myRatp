@@ -7,8 +7,6 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -55,9 +53,9 @@ class MetroTimeActivity : AppCompatActivity() {
             .build()
         metroLineDao = database.getMetroLineDao()
 
-        val database_bis = Room.databaseBuilder(this, AppDatabase::class.java, "alltraffic")
+        val databaseBis = Room.databaseBuilder(this, AppDatabase::class.java, "alltraffic")
             .build()
-        trafficDao = database_bis.getTrafficDao()
+        trafficDao = databaseBis.getTrafficDao()
 
         val bFloat = findViewById<FloatingActionButton>(R.id.floating_button_map_metroline)
         bFloat.setOnClickListener {
@@ -67,41 +65,30 @@ class MetroTimeActivity : AppCompatActivity() {
 
         if (isNetworkConnected()) {
             runBlocking {
-                //trafficDao?.deleteAllTraffic()
-//                if (trafficDao!!.getTraffic().isEmpty()) {
-//
-//                }
-                Log.d("DF", "traff null")
-                val service_bis = retrofit().create(MetroLinesBySearch::class.java)
-                val resultat_bis = service_bis.getTrafficMetro("metros")
-                resultat_bis.result.metros.map {
+                val service = retrofit().create(MetroLinesBySearch::class.java)
+                val resultat = service.getTrafficMetro("metros")
+                resultat.result.metros.map {
                     val traffic = Traffic(0, it.line, it.slug, it.title, it.message)
                     trafficDao?.addTraffic(traffic)
                 }
-                trafficDao = database_bis.getTrafficDao()
-                val traf = trafficDao?.getTraffic()
+                trafficDao = databaseBis.getTrafficDao()
+                val traffic = trafficDao?.getTraffic()
 
-                //metroLineDao?.deleteAllMetroLines()
                 if (metroLineDao!!.getMetroLines().isEmpty()) {
                     Log.d("DF", "null")
-                    val service = retrofit().create(MetroLinesBySearch::class.java)
-                    val resultat = service.getlistMetroLine()
-                    resultat.result.metros.map {
+                    val serviceBis = retrofit().create(MetroLinesBySearch::class.java)
+                    val resultatBis = serviceBis.getlistMetroLine()
+                    resultatBis.result.metros.map {
                         val metro = MetroLine(0, it.code, it.name, it.directions, it.id)
                         Log.d("CCC", "$metro")
                         metroLineDao?.addMetroLines(metro)
                     }
                 }
-
                 metroLineDao = database.getMetroLineDao()
                 val ms = metroLineDao?.getMetroLines()
-                Log.d("DF", "$ms")
-                val stock = ms?.size
-                Log.d("POI","$stock")
                 progress_bar.visibility = View.GONE
                 recyclerviewMetro.adapter =
-                    MetroLineAdapter(ms ?: emptyList(), traf!!)
-
+                    MetroLineAdapter(ms ?: emptyList(), traffic!!)
             }
         } else {
             Toast.makeText(

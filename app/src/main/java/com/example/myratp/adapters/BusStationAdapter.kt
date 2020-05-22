@@ -1,5 +1,6 @@
 package com.example.myratp.adapters
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,7 @@ import com.example.myratp.model.Station
 import com.example.myratp.ui.timetable.buslines.BusSchedulesActivity
 import kotlinx.android.synthetic.main.station_bus_view.view.*
 
-class BusStationAdapter(val list_stations: List<Station>, val code: String) :
+class BusStationAdapter(private val list_stations: List<Station>, val code: String) :
     RecyclerView.Adapter<BusStationAdapter.BusStationViewHolder>() {
     class BusStationViewHolder(val stationsView: View) : RecyclerView.ViewHolder(stationsView)
 
@@ -25,6 +26,7 @@ class BusStationAdapter(val list_stations: List<Station>, val code: String) :
     override fun getItemCount(): Int = list_stations.size
 
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: BusStationViewHolder, position: Int) {
         val lines = list_stations[position]
         holder.stationsView.station_name_textview_bus.text = "Station : ${lines.name}"

@@ -1,5 +1,6 @@
 package com.example.myratp.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.util.Log
@@ -17,7 +18,7 @@ import com.example.myratp.ui.timetable.metrolines.MetroSchedulesActivity
 import kotlinx.android.synthetic.main.station_metro_view.view.*
 import kotlinx.coroutines.runBlocking
 
-class StationAdapter(val list_stations: List<Station>) :
+class StationAdapter(private val list_stations: List<Station>) :
     RecyclerView.Adapter<StationAdapter.StationViewHolder>() {
     class StationViewHolder(val stationsView: View) : RecyclerView.ViewHolder(stationsView)
 
@@ -36,17 +37,19 @@ class StationAdapter(val list_stations: List<Station>) :
     override fun getItemCount(): Int = list_stations.size
 
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: StationViewHolder, position: Int) {
         val station = list_stations[position]
         holder.stationsView.station_name_textview.text = "Station : ${station.name}"
 
-        val databasesaved =
+        val databaseSaved =
             Room.databaseBuilder(context, AppDatabase::class.java, "allstations")
                 .build()
-        stationsDao = databasesaved.getStationsDao()
+        stationsDao = databaseSaved.getStationsDao()
+
         if (!station.favoris) {
             holder.stationsView.fav_bouton.setBackgroundResource(R.drawable.ic_favorite_border_blue_24dp)
-        }else if (station.favoris) {
+        } else if (station.favoris) {
             holder.stationsView.fav_bouton.setBackgroundResource(R.drawable.ic_favorite_blue_24dp)
         }
         holder.stationsView.fav_bouton.setOnClickListener {
@@ -56,14 +59,11 @@ class StationAdapter(val list_stations: List<Station>) :
                 runBlocking {
                     stationsDao?.updateStations(station)
                 }
-                Log.d("aaa", "$station")
-
                 Toast.makeText(
                     context,
                     "La station a bien été ajouté des favoris",
                     Toast.LENGTH_SHORT
                 ).show()
-
             } else if (station.favoris) {
                 holder.stationsView.fav_bouton.setBackgroundResource(R.drawable.ic_favorite_border_blue_24dp)
                 station.favoris = false
@@ -84,7 +84,5 @@ class StationAdapter(val list_stations: List<Station>) :
             intent.putExtra("name", station.name)
             it.context.startActivity(intent)
         }
-
     }
-
 }

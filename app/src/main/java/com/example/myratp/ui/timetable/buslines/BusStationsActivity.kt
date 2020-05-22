@@ -5,11 +5,12 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -35,6 +36,11 @@ class BusStationsActivity : AppCompatActivity() {
         code = intent.getStringExtra("code")
         idBus = intent.getStringExtra("id")
 
+        val toolbar: Toolbar = findViewById(R.id.toolbar_bus_station)
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
+        toolbar.title = "Ligne : $code"
+        setSupportActionBar(toolbar)
+
         val recyclerviewBusStation =
             findViewById<RecyclerView>(R.id.activities_recyclerview_bus_station)
         recyclerviewBusStation.layoutManager =
@@ -45,21 +51,19 @@ class BusStationsActivity : AppCompatActivity() {
         stationDao = database.getStationsDao()
         if (isNetworkConnected()) {
             runBlocking {
-                //stationDao?.deleteAllStations()
                 if (stationDao!!.getStationsByLine("$code").isEmpty()) {
                     val service = retrofit_bus().create(BusLinesBySearch::class.java)
                     val resultat = service.getBusStations("buses", "$code")
                     resultat.result.stations.map {
                         val station =
                             Station(0, it.name, it.slug, favoris = false, id_ligne = "$idBus")
-                        Log.d("CCC", "$station")
                         stationDao?.addStations(station)
                     }
                     stationDao = database.getStationsDao()
-                    val s = stationDao?.getStations()
+                    val schedule = stationDao?.getStations()
                     progress_bar.visibility = View.GONE
                     recyclerviewBusStation.adapter =
-                        BusStationAdapter(s ?: emptyList(), "$code")
+                        BusStationAdapter(schedule ?: emptyList(), "$code")
                 }
             }
         } else {
@@ -68,6 +72,16 @@ class BusStationsActivity : AppCompatActivity() {
                 "Vérifiez votre connexion internet et réessayez à nouveau",
                 Toast.LENGTH_SHORT
             ).show()
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

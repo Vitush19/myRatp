@@ -1,5 +1,6 @@
 package com.example.myratp.adapters
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +11,9 @@ import com.example.myratp.model.BusLine
 import com.example.myratp.ui.timetable.buslines.BusStationsActivity
 import kotlinx.android.synthetic.main.busline_view.view.*
 
-class BusLinesAdapter(val list_buslines: List<BusLine>) :
+class BusLinesAdapter(private val listBusLines: List<BusLine>) :
     RecyclerView.Adapter<BusLinesAdapter.BusLinesViewHolder>() {
-    class BusLinesViewHolder(val buslinesView: View) : RecyclerView.ViewHolder(buslinesView)
+    class BusLinesViewHolder(val busLinesView: View) : RecyclerView.ViewHolder(busLinesView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusLinesViewHolder {
         val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
@@ -22,19 +23,20 @@ class BusLinesAdapter(val list_buslines: List<BusLine>) :
         )
     }
 
-    override fun getItemCount(): Int = list_buslines.size
+    override fun getItemCount(): Int = listBusLines.size
 
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: BusLinesViewHolder, position: Int) {
-        val buslines = list_buslines[position]
-        holder.buslinesView.busline_code_textview.text = "Ligne : ${buslines.code}"
-        holder.buslinesView.busline_destination_textview.text =
-            "Destination : ${buslines.direction}"
+        val busLines = listBusLines[position]
+        holder.busLinesView.busline_code_textview.text = "Ligne : ${busLines.code}"
+        holder.busLinesView.busline_destination_textview.text =
+            "Destination : ${busLines.direction}"
 
-        holder.buslinesView.setOnClickListener {
+        holder.busLinesView.setOnClickListener {
             val intent = Intent(it.context, BusStationsActivity::class.java)
-            intent.putExtra("code", buslines.code)
-            intent.putExtra("id", buslines.id_bus)
+            intent.putExtra("code", busLines.code)
+            intent.putExtra("id", busLines.id_bus)
             it.context.startActivity(intent)
         }
     }

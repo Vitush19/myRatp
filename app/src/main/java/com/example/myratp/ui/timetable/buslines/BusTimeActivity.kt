@@ -7,9 +7,11 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -20,7 +22,6 @@ import com.example.myratp.data.BusLineDao
 import com.example.myratp.model.BusLine
 import kotlinx.android.synthetic.main.activity_bus_time.*
 import kotlinx.coroutines.runBlocking
-import okhttp3.internal.notify
 
 class BusTimeActivity : AppCompatActivity() {
 
@@ -31,8 +32,13 @@ class BusTimeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bus_time)
 
-        var recyclerview_bus = findViewById(R.id.activities_recyclerview_bus) as RecyclerView
-        recyclerview_bus.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        val toolbar: Toolbar = findViewById(R.id.toolbar_bus_time)
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
+        toolbar.title = "Bus"
+        setSupportActionBar(toolbar)
+
+        val recyclerviewBus = findViewById<RecyclerView>(R.id.activities_recyclerview_bus)
+        recyclerviewBus.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         val database = Room.databaseBuilder(this, AppDatabase::class.java, "allbuslines")
             .build()
@@ -40,33 +46,33 @@ class BusTimeActivity : AppCompatActivity() {
 
         if(isNetworkConnected()){
             runBlocking {
-//                val test = busLineDao?.getBusLines()?.size
-//                Log.d("POI", "taille avant suppression time : $test")
                 if(busLineDao!!.getBusLines().isEmpty()){
-                    Log.d("POI", "bus isempty")
                     val service = retrofit_bus().create(BusLinesBySearch::class.java)
                     val resultat = service.getlistBusLine()
                     resultat.result.buses.map {
                         val bus = BusLine(0, it.code, it.name, it.directions, it.id)
-                        Log.d("CCC", "$bus")
                     }
                 }
-
                 busLineDao = database.getBusLineDao()
                 val bs = busLineDao?.getBusLines()
-//                val stock = bs?.size
-//                Log.d("POI", "taille avant affichage$stock")
                 progress_bar.visibility = View.GONE
-                recyclerview_bus.adapter =
+                recyclerviewBus.adapter =
                     BusLinesAdapter(bs ?: emptyList())
-
-//                Log.d("POI", "taille après affichage$stock")
             }
         }
         else{
             Toast.makeText(this, "Vérifiez votre connexion internet et réessayez à nouveau", Toast.LENGTH_SHORT).show()
         }
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.M)

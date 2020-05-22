@@ -42,11 +42,6 @@ class MetroStationsActivity : AppCompatActivity() {
         toolbar.title = "Ligne : $code"
         setSupportActionBar(toolbar)
 
-
-
-        Log.d("DF", "after $code")
-        Log.d("DF", "after $idMetro")
-
         val recyclerviewMetroStation =
             findViewById<RecyclerView>(R.id.activities_recyclerview_metro_station)
         recyclerviewMetroStation.layoutManager =
@@ -63,20 +58,17 @@ class MetroStationsActivity : AppCompatActivity() {
             runBlocking {
                 //stationDao?.deleteAllStations()
                 if(stationDao!!.getStationsByLine("$code").isEmpty()){
-                    Log.d("DF", "station null")
                     val service = retrofit().create(MetroLinesBySearch::class.java)
                     val resultat = service.getMetroStations("metros", "$code")
                     resultat.result.stations.map {
                         val station =
                             Station(0, it.name, it.slug, favoris = false, id_ligne = "$code")
-                        Log.d("CCC", "$station")
                         stationDao?.addStations(station)
                     }
                 }
                 stationDao = database.getStationsDao()
 
                 val s = stationDao?.getStationsByLine("$code")
-                Log.d("DF", "$s")
                 progress_bar.visibility = View.GONE
                 recyclerviewMetroStation.adapter =
                     MetroStationAdapter(s ?: emptyList(), "$code")
