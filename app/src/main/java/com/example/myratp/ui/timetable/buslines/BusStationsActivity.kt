@@ -25,7 +25,7 @@ import kotlinx.coroutines.runBlocking
 class BusStationsActivity : AppCompatActivity() {
 
     private var code: String? = ""
-    private var idBus: String? = ""
+    private var idBus: Int? = 0
     private var stationDao: StationsDao? = null
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -34,7 +34,7 @@ class BusStationsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_bus_stations)
 
         code = intent.getStringExtra("code")
-        idBus = intent.getStringExtra("id")
+        idBus = intent.getIntExtra("id", 0)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_bus_station)
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)

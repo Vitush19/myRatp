@@ -5,7 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".ui.timetable.trainlines.TrainTimeActivity">
 
+    <include
+        android:id="@+id/toolbar_train_time"
+        layout="@layout/toolbar"/>
+
     <RelativeLayout
+        android:layout_marginTop="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

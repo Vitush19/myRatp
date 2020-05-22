@@ -26,7 +26,7 @@ import kotlinx.coroutines.runBlocking
 class MetroStationsActivity : AppCompatActivity() {
 
     private var code: String? = ""
-    private var idMetro: String? = ""
+    private var idMetro: Int? = 0
     private var stationDao: StationsDao? = null
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -35,7 +35,7 @@ class MetroStationsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_metro_stations)
 
         code = intent.getStringExtra("code")
-        idMetro = intent.getStringExtra("id")
+        idMetro = intent.getIntExtra("id", 0)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_metro_station)
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)

@@ -4,7 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include
+        android:id="@+id/toolbar_train_station"
+        layout="@layout/toolbar" />
+
     <RelativeLayout
+        android:layout_marginTop="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
