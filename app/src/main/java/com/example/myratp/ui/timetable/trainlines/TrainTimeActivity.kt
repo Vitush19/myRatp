@@ -11,8 +11,6 @@ import com.example.myratp.adapters.TrainLinesAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.TrainLineDao
 import com.example.myratp.model.TrainLine
-import com.example.myratp.ui.timetable.buslines.TrainLinesBySearch
-import com.example.myratp.ui.timetable.buslines.retrofit_train
 import kotlinx.coroutines.runBlocking
 
 class TrainTimeActivity : AppCompatActivity() {

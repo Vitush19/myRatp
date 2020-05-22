@@ -5,25 +5,29 @@ import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.myratp.MetroPlansActivity
-import com.example.myratp.adapters.MetroLineAdapter
 import com.example.myratp.R
+import com.example.myratp.adapters.MetroLineAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.MetroLineDao
 import com.example.myratp.data.TrafficDao
 import com.example.myratp.model.MetroLine
 import com.example.myratp.model.Traffic
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.activity_bus_time.progress_bar
+import kotlinx.android.synthetic.main.activity_bus_time.*
 import kotlinx.coroutines.runBlocking
 
 class MetroTimeActivity : AppCompatActivity() {
@@ -36,9 +40,15 @@ class MetroTimeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_metro_time)
 
+        val toolbar: Toolbar = findViewById(R.id.toolbar_metro_time)
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
+        toolbar.title = "Métro"
+        setSupportActionBar(toolbar)
+        //supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        var recyclerview_metro = findViewById(R.id.activities_recyclerview_metro) as RecyclerView
-        recyclerview_metro.layoutManager =
+
+        val recyclerviewMetro = findViewById<RecyclerView>(R.id.activities_recyclerview_metro)
+        recyclerviewMetro.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         val database = Room.databaseBuilder(this, AppDatabase::class.java, "allmetrolines")
@@ -49,8 +59,8 @@ class MetroTimeActivity : AppCompatActivity() {
             .build()
         trafficDao = database_bis.getTrafficDao()
 
-        val bfloat = findViewById(R.id.floating_button_map_metroline) as FloatingActionButton
-        bfloat.setOnClickListener {
+        val bFloat = findViewById<FloatingActionButton>(R.id.floating_button_map_metroline)
+        bFloat.setOnClickListener {
             val intent = Intent(this, MetroPlansActivity::class.java)
             startActivity(intent)
         }
@@ -89,7 +99,7 @@ class MetroTimeActivity : AppCompatActivity() {
                 val stock = ms?.size
                 Log.d("POI","$stock")
                 progress_bar.visibility = View.GONE
-                recyclerview_metro.adapter =
+                recyclerviewMetro.adapter =
                     MetroLineAdapter(ms ?: emptyList(), traf!!)
 
             }
@@ -99,6 +109,16 @@ class MetroTimeActivity : AppCompatActivity() {
                 "Vérifiez votre connexion internet et réessayez à nouveau",
                 Toast.LENGTH_SHORT
             ).show()
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

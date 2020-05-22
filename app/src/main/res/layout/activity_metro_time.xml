@@ -8,6 +8,10 @@
     android:orientation="vertical"
     tools:context=".ui.timetable.metrolines.MetroTimeActivity">
 
+    <include
+        android:id="@+id/toolbar_metro_time"
+        layout="@layout/toolbar"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,6 +24,7 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:layout_marginTop="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -35,7 +40,7 @@
         android:id="@+id/floating_button_map_metroline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|end"
+        android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:backgroundTint="@color/white"
         android:clickable="true"

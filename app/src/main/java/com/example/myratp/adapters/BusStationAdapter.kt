@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myratp.R
 import com.example.myratp.model.Station
-import com.example.myratp.ui.timetable.metrolines.BusSchedulesActivity
+import com.example.myratp.ui.timetable.buslines.BusSchedulesActivity
 import kotlinx.android.synthetic.main.station_bus_view.view.*
 
 class BusStationAdapter(val list_stations: List<Station>, val code: String) :

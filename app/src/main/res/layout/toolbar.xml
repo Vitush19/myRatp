@@ -6,4 +6,6 @@
     android:layout_height="?attr/actionBarSize"
     android:background="?attr/colorPrimaryDark"
     android:elevation="4dp"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+
+</androidx.appcompat.widget.Toolbar>

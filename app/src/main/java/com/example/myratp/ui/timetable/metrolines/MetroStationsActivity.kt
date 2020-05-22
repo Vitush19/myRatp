@@ -6,17 +6,18 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.myratp.R
 import com.example.myratp.adapters.MetroStationAdapter
 import com.example.myratp.data.AppDatabase
-import com.example.myratp.data.MetroLineDao
 import com.example.myratp.data.StationsDao
 import com.example.myratp.model.Station
 import kotlinx.android.synthetic.main.activity_metro_stations.*
@@ -25,9 +26,8 @@ import kotlinx.coroutines.runBlocking
 class MetroStationsActivity : AppCompatActivity() {
 
     private var code: String? = ""
-    private var id_metro: String? = ""
+    private var idMetro: String? = ""
     private var stationDao: StationsDao? = null
-    private var metroDao: MetroLineDao? = null
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,14 +35,21 @@ class MetroStationsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_metro_stations)
 
         code = intent.getStringExtra("code")
-        id_metro = intent.getStringExtra("id")
+        idMetro = intent.getStringExtra("id")
 
-        Log.d("DF", "after ${code}")
-        Log.d("DF", "after ${id_metro}")
+        val toolbar: Toolbar = findViewById(R.id.toolbar_metro_station)
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
+        toolbar.title = "Ligne : $code"
+        setSupportActionBar(toolbar)
 
-        var recyclerview_metro_station =
-            findViewById(R.id.activities_recyclerview_metro_station) as RecyclerView
-        recyclerview_metro_station.layoutManager =
+
+
+        Log.d("DF", "after $code")
+        Log.d("DF", "after $idMetro")
+
+        val recyclerviewMetroStation =
+            findViewById<RecyclerView>(R.id.activities_recyclerview_metro_station)
+        recyclerviewMetroStation.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         val database = Room.databaseBuilder(this, AppDatabase::class.java, "allstations")
@@ -71,7 +78,7 @@ class MetroStationsActivity : AppCompatActivity() {
                 val s = stationDao?.getStationsByLine("$code")
                 Log.d("DF", "$s")
                 progress_bar.visibility = View.GONE
-                recyclerview_metro_station.adapter =
+                recyclerviewMetroStation.adapter =
                     MetroStationAdapter(s ?: emptyList(), "$code")
             }
         } else {
@@ -82,6 +89,16 @@ class MetroStationsActivity : AppCompatActivity() {
             ).show()
         }
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.M)

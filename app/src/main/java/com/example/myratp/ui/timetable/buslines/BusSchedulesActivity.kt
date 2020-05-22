@@ -1,4 +1,4 @@
-package com.example.myratp.ui.timetable.metrolines
+package com.example.myratp.ui.timetable.buslines
 
 import android.content.Context
 import android.content.Intent
@@ -19,10 +19,7 @@ import com.example.myratp.adapters.BusScheduleAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.ScheduleDao
 import com.example.myratp.model.Schedule
-import com.example.myratp.ui.timetable.buslines.BusLinesBySearch
-import com.example.myratp.ui.timetable.buslines.retrofit_bus
 import kotlinx.android.synthetic.main.activity_bus_schedule.*
-import kotlinx.android.synthetic.main.activity_bus_time.*
 import kotlinx.android.synthetic.main.activity_bus_time.progress_bar
 import kotlinx.coroutines.runBlocking
 

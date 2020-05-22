@@ -1,4 +1,4 @@
-package com.example.myratp.ui.timetable.buslines
+package com.example.myratp.ui.timetable.trainlines
 
 import retrofit2.http.GET
 import retrofit2.http.Path

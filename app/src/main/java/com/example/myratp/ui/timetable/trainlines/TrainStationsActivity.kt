@@ -1,4 +1,4 @@
-package com.example.myratp.ui.timetable.metrolines
+package com.example.myratp.ui.timetable.trainlines
 
 import android.os.Bundle
 import android.util.Log
@@ -11,8 +11,6 @@ import com.example.myratp.adapters.TrainStationAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.StationsDao
 import com.example.myratp.model.Station
-import com.example.myratp.ui.timetable.buslines.TrainLinesBySearch
-import com.example.myratp.ui.timetable.buslines.retrofit_train
 import kotlinx.coroutines.runBlocking
 
 class TrainStationsActivity : AppCompatActivity() {

@@ -7,12 +7,14 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -37,8 +39,15 @@ class MetroSchedulesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_metro_schedule)
 
+
         code = intent.getStringExtra("code")
         name = intent.getStringExtra("name")
+
+        val toolbar: Toolbar = findViewById(R.id.toolbar_metro_schedule)
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
+        toolbar.title = "Station : $name"
+        setSupportActionBar(toolbar)
+
         Log.d("AAA", "$code")
         Log.d("AAA", "$name")
 
@@ -114,6 +123,16 @@ class MetroSchedulesActivity : AppCompatActivity() {
             overridePendingTransition(0, 0)
         }
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.M)

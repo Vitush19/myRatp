@@ -48,9 +48,8 @@
 
                     <TextView
                         android:id="@+id/title_traffic_textview"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginStart="5dp"
                         android:text="@string/title_traffic"
                         android:textColor="@color/specialBlack"
@@ -59,8 +58,8 @@
 
                     <ImageView
                         android:id="@+id/traffic_image_view"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_gravity="center|end"
                         android:contentDescription="@string/statut" />
                 </LinearLayout>

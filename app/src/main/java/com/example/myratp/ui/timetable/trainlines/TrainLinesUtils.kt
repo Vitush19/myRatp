@@ -1,4 +1,4 @@
-package com.example.myratp.ui.timetable.buslines
+package com.example.myratp.ui.timetable.trainlines
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room

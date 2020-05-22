@@ -1,4 +1,4 @@
-package com.example.myratp.ui.timetable.metrolines
+package com.example.myratp.ui.timetable.buslines
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -18,17 +18,13 @@ import com.example.myratp.adapters.BusStationAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.StationsDao
 import com.example.myratp.model.Station
-import com.example.myratp.ui.timetable.buslines.BusLinesBySearch
-import com.example.myratp.ui.timetable.buslines.retrofit_bus
-import kotlinx.android.synthetic.main.activity_bus_stations.*
-import kotlinx.android.synthetic.main.activity_bus_time.*
 import kotlinx.android.synthetic.main.activity_bus_time.progress_bar
 import kotlinx.coroutines.runBlocking
 
 class BusStationsActivity : AppCompatActivity() {
 
     private var code: String? = ""
-    private var id_bus: String? = ""
+    private var idBus: String? = ""
     private var stationDao: StationsDao? = null
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -37,11 +33,11 @@ class BusStationsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_bus_stations)
 
         code = intent.getStringExtra("code")
-        id_bus = intent.getStringExtra("id")
+        idBus = intent.getStringExtra("id")
 
-        var recyclerview_bus_station =
-            findViewById(R.id.activities_recyclerview_bus_station) as RecyclerView
-        recyclerview_bus_station.layoutManager =
+        val recyclerviewBusStation =
+            findViewById<RecyclerView>(R.id.activities_recyclerview_bus_station)
+        recyclerviewBusStation.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         val database = Room.databaseBuilder(this, AppDatabase::class.java, "allbuslines")
@@ -49,20 +45,22 @@ class BusStationsActivity : AppCompatActivity() {
         stationDao = database.getStationsDao()
         if (isNetworkConnected()) {
             runBlocking {
-                stationDao?.deleteAllStations()
-                val service = retrofit_bus().create(BusLinesBySearch::class.java)
-                val resultat = service.getBusStations("buses", "$code")
-                resultat.result.stations.map {
-                    val station =
-                        Station(0, it.name, it.slug, favoris = false, id_ligne = "$id_bus")
-                    Log.d("CCC", "$station")
-                    stationDao?.addStations(station)
+                //stationDao?.deleteAllStations()
+                if (stationDao!!.getStationsByLine("$code").isEmpty()) {
+                    val service = retrofit_bus().create(BusLinesBySearch::class.java)
+                    val resultat = service.getBusStations("buses", "$code")
+                    resultat.result.stations.map {
+                        val station =
+                            Station(0, it.name, it.slug, favoris = false, id_ligne = "$idBus")
+                        Log.d("CCC", "$station")
+                        stationDao?.addStations(station)
+                    }
+                    stationDao = database.getStationsDao()
+                    val s = stationDao?.getStations()
+                    progress_bar.visibility = View.GONE
+                    recyclerviewBusStation.adapter =
+                        BusStationAdapter(s ?: emptyList(), "$code")
                 }
-                stationDao = database.getStationsDao()
-                val s = stationDao?.getStations()
-                progress_bar.visibility = View.GONE
-                recyclerview_bus_station.adapter =
-                    BusStationAdapter(s ?: emptyList(), "$code")
             }
         } else {
             Toast.makeText(
