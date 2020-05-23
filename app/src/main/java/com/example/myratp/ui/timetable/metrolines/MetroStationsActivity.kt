@@ -61,8 +61,21 @@ class MetroStationsActivity : AppCompatActivity() {
                     val service = retrofit().create(MetroLinesBySearch::class.java)
                     val resultat = service.getMetroStations("metros", "$code")
                     resultat.result.stations.map {
+                        var co = ""
+                        val list_station = stationDao?.getStationsByName(it.name)
+                        if(list_station!!.isNotEmpty()){
+                            for(x in list_station.indices){
+                                if("$code" != list_station[x].id_ligne){
+                                    val newLine: String = list_station[x].id_ligne
+                                    Log.d("tyui", "dans le if $newLine")
+                                    co = co + "$newLine-"
+                                    Log.d("tyui", "apres la conca : $co")
+                                }
+                            }
+                        }
                         val station =
-                            Station(0, it.name, it.slug, favoris = false, id_ligne = "$code")
+                            Station(0, it.name, it.slug, favoris = false, id_ligne = "$code", correspondance = co)
+
                         stationDao?.addStations(station)
                     }
                 }

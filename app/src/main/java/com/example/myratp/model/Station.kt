@@ -9,12 +9,13 @@ data class Station(
     val name: String,
     val slug: String,
     var favoris: Boolean,
-    val id_ligne: String
+    val id_ligne: String,
+    val correspondance: String
 ) {
 
     companion object {
         val all = (1..10).map {
-            Station(it, "$it", "$it", false, "$it")
+            Station(it, "$it", "$it", false, "$it","$it")
         }.toMutableList()
     }
 

@@ -49,6 +49,7 @@ class BusStationsActivity : AppCompatActivity() {
         val database = Room.databaseBuilder(this, AppDatabase::class.java, "allbuslines")
             .build()
         stationDao = database.getStationsDao()
+        val co = ""
         if (isNetworkConnected()) {
             runBlocking {
                 if (stationDao!!.getStationsByLine("$code").isEmpty()) {
@@ -56,7 +57,7 @@ class BusStationsActivity : AppCompatActivity() {
                     val resultat = service.getBusStations("buses", "$code")
                     resultat.result.stations.map {
                         val station =
-                            Station(0, it.name, it.slug, favoris = false, id_ligne = "$idBus")
+                            Station(0, it.name, it.slug, favoris = false, id_ligne = "$idBus", correspondance = co)
                         stationDao?.addStations(station)
                     }
                     stationDao = database.getStationsDao()

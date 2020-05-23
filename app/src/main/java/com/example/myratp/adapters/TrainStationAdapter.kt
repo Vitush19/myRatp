@@ -2,6 +2,7 @@ package com.example.myratp.adapters
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.telephony.mbms.StreamingServiceInfo
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

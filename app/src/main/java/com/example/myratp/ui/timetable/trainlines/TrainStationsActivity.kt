@@ -34,7 +34,6 @@ class TrainStationsActivity : AppCompatActivity() {
 
         code = intent.getStringExtra("code")
         idTrain = intent.getIntExtra("id", 0)
-        Log.d("tyui", "$idTrain")
         val toolbar: Toolbar = findViewById(R.id.toolbar_train_station)
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
         toolbar.title = "Ligne : $code"
@@ -49,14 +48,14 @@ class TrainStationsActivity : AppCompatActivity() {
             .build()
         stationDao = database.getStationsDao()
 
-
+        val co = ""
         if (isNetworkConnected()) {
             runBlocking {
                 stationDao?.deleteAllStations()
                 val service = retrofit_train().create(TrainLinesBySearch::class.java)
                 val resultat = service.getTrainStations("rers", "$code")
                 resultat.result.stations.map {
-                    val station = Station(0, it.name, it.slug, favoris = false, id_ligne = "$idTrain")
+                    val station = Station(0, it.name, it.slug, favoris = false, id_ligne = "$idTrain", correspondance = co)
                     stationDao?.addStations(station)
                 }
                 stationDao = database.getStationsDao()

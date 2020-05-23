@@ -28,8 +28,8 @@ class TrainLinesAdapter(private val list_trainLines: List<TrainLine>) :
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: TrainLinesViewHolder, position: Int) {
         val trainLines = list_trainLines[position]
-        holder.trainLinesView.trainline_code_textview.text = "Ligne : ${trainLines.code}"
-        holder.trainLinesView.trainline_destination_textview.text =
+        holder.trainLinesView.train_code_textview.text = "Ligne : ${trainLines.code}"
+        holder.trainLinesView.train_destination_textview.text =
             "Destination : ${trainLines.direction}"
 
         if(trainLines.code == "A" || trainLines.code == "B" || trainLines.code == "E"){

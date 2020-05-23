@@ -66,7 +66,6 @@ class SplashScreenActivity : AppCompatActivity() {
                 val resultat = service.getlistBusLine()
                 resultat.result.buses.map {
                     val bus = BusLine(0, it.code, it.name, it.directions, it.id)
-                    val stock = busLineDao?.getBusLinesByCode(it.code)?.code
                     if(bus.code != busLineDao?.getBusLinesByCode(it.code)?.code) {
                         busLineDao?.addBusLines(bus)
                     }

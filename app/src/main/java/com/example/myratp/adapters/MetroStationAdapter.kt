@@ -88,6 +88,7 @@ class MetroStationAdapter(private val list_stations: List<Station>, val code: St
             val intent = Intent(it.context, MetroSchedulesActivity::class.java)
             intent.putExtra("code", code)
             intent.putExtra("name", station.name)
+            intent.putExtra("correspondance", station.correspondance)
             it.context.startActivity(intent)
         }
     }

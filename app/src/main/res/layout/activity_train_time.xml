@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.timetable.trainlines.TrainTimeActivity">
+    tools:context=".ui.timetable.trainlines.TrainTimeActivity"
+    android:background="@color/colorPrimary">
 
     <include
         android:id="@+id/toolbar_train_time"

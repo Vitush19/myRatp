@@ -60,6 +60,7 @@ class BusTimeActivity : AppCompatActivity() {
                     val resultat = service.getlistBusLine()
                     resultat.result.buses.map {
                         val bus = BusLine(0, it.code, it.name, it.directions, it.id)
+                        busLineDao?.addBusLines(bus)
                     }
                 }
                 busLineDao = database.getBusLineDao()

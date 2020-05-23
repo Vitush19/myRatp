@@ -32,6 +32,8 @@ class MetroSchedulesActivity : AppCompatActivity() {
 
     private var code: String? = ""
     private var name: String? = ""
+    private var parts: List<String> = emptyList()
+    private var correspondance: String? = ""
     private var scheduleDao: ScheduleDao? = null
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -41,6 +43,12 @@ class MetroSchedulesActivity : AppCompatActivity() {
 
         code = intent.getStringExtra("code")
         name = intent.getStringExtra("name")
+        correspondance = intent.getStringExtra("correspondance") ?: ""
+
+        val delimiter = "-"
+        if(correspondance != null){
+            parts = correspondance!!.split(delimiter)
+        }
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_metro_schedule)
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
@@ -98,7 +106,13 @@ class MetroSchedulesActivity : AppCompatActivity() {
                     recyclerviewMetroScheduleRetour.adapter =
                         MetroScheduleAdapter(sta ?: emptyList())
                 }
+                val deffered1 = async {
+                    for (x in parts.indices){
+                        if(parts[x].isNotEmpty()){
 
+                        }
+                    }
+                }
             }
         } else {
             Toast.makeText(
