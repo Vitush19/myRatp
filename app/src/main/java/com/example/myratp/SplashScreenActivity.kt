@@ -6,12 +6,10 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import androidx.room.Room
-import com.example.myratp.data.AppDatabase
-import com.example.myratp.data.BusLineDao
-import com.example.myratp.data.MetroLineDao
-import com.example.myratp.data.TrafficDao
+import com.example.myratp.data.*
 import com.example.myratp.model.BusLine
 import com.example.myratp.model.MetroLine
+import com.example.myratp.model.Station
 import com.example.myratp.model.Traffic
 import com.example.myratp.ui.timetable.buslines.BusLinesBySearch
 import com.example.myratp.ui.timetable.buslines.retrofit_bus
@@ -25,6 +23,7 @@ class SplashScreenActivity : AppCompatActivity() {
     private var metroLineDao: MetroLineDao? = null
     private var trafficDao: TrafficDao? = null
     private var busLineDao: BusLineDao? = null
+    private var stationDao: StationsDao? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +40,10 @@ class SplashScreenActivity : AppCompatActivity() {
         val databaseBus = Room.databaseBuilder(this, AppDatabase::class.java, "allbuslines")
             .build()
         busLineDao = databaseBus.getBusLineDao()
+
+        val databaseStation = Room.databaseBuilder(this, AppDatabase::class.java, "allstations")
+            .build()
+        stationDao = databaseStation.getStationsDao()
 
         runBlocking {
             if(trafficDao!!.getTraffic().isEmpty()) {
@@ -70,6 +73,20 @@ class SplashScreenActivity : AppCompatActivity() {
                         busLineDao?.addBusLines(bus)
                     }
                 }
+            }
+
+            for(x in 1..14){
+                if(stationDao!!.getStationsByLine("$x").isEmpty()){
+                    val service = retrofit().create(MetroLinesBySearch::class.java)
+                    val resultat = service.getMetroStations("metros", "$x")
+                    val co = ""
+                    resultat.result.stations.map {
+                        val station =
+                            Station(0, it.name, it.slug, favoris = false, id_ligne = "$x", correspondance = co)
+                        stationDao?.addStations(station)
+                    }
+                }
+                Log.d("tyui","$x")
             }
         }
 

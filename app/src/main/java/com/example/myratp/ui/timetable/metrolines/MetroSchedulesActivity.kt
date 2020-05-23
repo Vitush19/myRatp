@@ -49,6 +49,7 @@ class MetroSchedulesActivity : AppCompatActivity() {
         if(correspondance != null){
             parts = correspondance!!.split(delimiter)
         }
+        Log.d("tyui", "affichage des correspondance : $parts")
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_metro_schedule)
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
@@ -109,7 +110,7 @@ class MetroSchedulesActivity : AppCompatActivity() {
                 val deffered1 = async {
                     for (x in parts.indices){
                         if(parts[x].isNotEmpty()){
-
+                            
                         }
                     }
                 }

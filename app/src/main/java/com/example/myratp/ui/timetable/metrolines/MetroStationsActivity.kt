@@ -57,7 +57,8 @@ class MetroStationsActivity : AppCompatActivity() {
         if (isNetworkConnected()) {
             runBlocking {
                 //stationDao?.deleteAllStations()
-                if(stationDao!!.getStationsByLine("$code").isEmpty()){
+                //if(stationDao!!.getStationsByLine("$code").isEmpty()){
+                var id = 0
                     val service = retrofit().create(MetroLinesBySearch::class.java)
                     val resultat = service.getMetroStations("metros", "$code")
                     resultat.result.stations.map {
@@ -71,14 +72,18 @@ class MetroStationsActivity : AppCompatActivity() {
                                     co = co + "$newLine-"
                                     Log.d("tyui", "apres la conca : $co")
                                 }
+                                if("$code" == list_station[x].id_ligne){
+                                    id = list_station[x].id_station
+                                }
                             }
                         }
                         val station =
-                            Station(0, it.name, it.slug, favoris = false, id_ligne = "$code", correspondance = co)
+                            Station(id, it.name, it.slug, favoris = false, id_ligne = "$code", correspondance = co)
 
-                        stationDao?.addStations(station)
+                        stationDao?.updateStations(station)
+                        Log.d("tyui", "$station")
                     }
-                }
+                //}
                 stationDao = database.getStationsDao()
 
                 val s = stationDao?.getStationsByLine("$code")
