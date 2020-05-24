@@ -2,6 +2,7 @@ package com.example.myratp.ui.timetable.metrolines
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -9,9 +10,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -23,9 +22,7 @@ import com.example.myratp.adapters.MetroScheduleAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.ScheduleDao
 import com.example.myratp.model.Schedule
-import kotlinx.android.synthetic.main.activity_bus_time.progress_bar
 import kotlinx.android.synthetic.main.activity_metro_schedule.*
-import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 
 class MetroSchedulesActivity : AppCompatActivity() {
@@ -78,7 +75,7 @@ class MetroSchedulesActivity : AppCompatActivity() {
 
         if (isNetworkConnected()) {
             runBlocking {
-                val deffered = async {
+//                val deffered = async {
                     scheduleDao?.deleteAllSchedule()
                     val service = retrofit().create(MetroLinesBySearch::class.java)
                     val resultat = service.getScheduleMetro("metros", "$code", "$name", "A")
@@ -106,14 +103,15 @@ class MetroSchedulesActivity : AppCompatActivity() {
                     progress_bar_metro_schedule.visibility = View.GONE
                     recyclerviewMetroScheduleRetour.adapter =
                         MetroScheduleAdapter(sta ?: emptyList())
-                }
-                val deffered1 = async {
-                    for (x in parts.indices){
-                        if(parts[x].isNotEmpty()){
-                            
-                        }
+//                }
+
+                for (x in parts.indices){
+                    if(parts[x].isNotEmpty()){
+                        val num = parts[x]
+                        schedule(num)
                     }
                 }
+
             }
         } else {
             Toast.makeText(
@@ -130,6 +128,48 @@ class MetroSchedulesActivity : AppCompatActivity() {
             overridePendingTransition(0, 0)
             startActivity(getIntent())
             overridePendingTransition(0, 0)
+        }
+
+    }
+
+    private fun schedule(num : String){
+        val context = applicationContext
+        val database = Room.databaseBuilder(this, AppDatabase::class.java, "allschedule")
+            .build()
+        scheduleDao = database.getScheduleDao()
+        val myLayout = LinearLayout(this)
+        val directions = listOf("A", "R")
+        linear_adding_schedules.addView(myLayout)
+        myLayout.layoutParams.width=LinearLayout.LayoutParams.MATCH_PARENT
+        myLayout.layoutParams.height= LinearLayout.LayoutParams.WRAP_CONTENT
+        myLayout.setBackgroundColor(Color.parseColor("#FFFFFF"))
+        myLayout.setPadding(10,10,10,10)
+        myLayout.orientation=LinearLayout.HORIZONTAL
+        for (x in directions) {
+            val myLinearBis = LinearLayout(this)
+            val recyclerview = RecyclerView(this)
+            recyclerview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            myLayout.addView(myLinearBis)
+            val midwidth = (myLayout.width) / 2
+            myLinearBis.layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT
+            myLinearBis.layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT
+            myLinearBis.orientation = LinearLayout.VERTICAL
+            myLinearBis.setBackgroundColor(Color.parseColor("#000000"))
+            myLinearBis.setPadding(10,10,10,10)
+            myLinearBis.addView(recyclerview)
+            runBlocking {
+                scheduleDao?.deleteAllSchedule()
+                val service = retrofit().create(MetroLinesBySearch::class.java)
+                val resultat = service.getScheduleMetro("metros", "$num", "$name", "$x")
+                resultat.result.schedules.map {
+                    val metroSchedule = Schedule(0, it.message, it.destination)
+                    scheduleDao?.addSchedule(metroSchedule)
+                }
+                scheduleDao = database.getScheduleDao()
+                val schedule = scheduleDao?.getSchedule()
+                recyclerview.adapter =
+                    MetroScheduleAdapter(schedule ?: emptyList())
+            }
         }
 
     }

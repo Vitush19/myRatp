@@ -17,93 +17,102 @@
         android:background="@color/colorPrimary"
         android:orientation="vertical">
 
-
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ProgressBar
-                android:id="@+id/progress_bar_metro_schedule"
-                android:layout_width="100dp"
-                android:layout_height="100dp" />
-
-            <ImageView
-                android:id="@+id/image_metro_schedule"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:contentDescription="@string/metro" />
-
-            <TextView
-                android:id="@+id/metro_schedule_txt_station"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/specialWhite"
-                android:textSize="21sp"
-                android:textStyle="bold" />
-
+            android:layout_height="match_parent">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="20dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:background="@color/specialGrey"
-                    android:orientation="vertical">
+                <ProgressBar
+                    android:id="@+id/progress_bar_metro_schedule"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp" />
 
-                    <TextView
-                        android:id="@+id/metro_schedule_txt_aller"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:background="@color/specialGreyDarker"
-                        android:textColor="@color/specialBlack"
-                        android:textSize="17sp" />
+                <ImageView
+                    android:id="@+id/image_metro_schedule"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:contentDescription="@string/metro" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/activities_recyclerview_metro_schedule"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        tools:listitem="@layout/schedule_view" />
-
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/metro_schedule_txt_station"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/specialWhite"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:background="@color/specialGrey"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:background="@color/specialGrey"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/metro_schedule_txt_aller"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@color/specialGreyDarker"
+                            android:textColor="@color/specialBlack"
+                            android:textSize="17sp" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/activities_recyclerview_metro_schedule"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            tools:listitem="@layout/schedule_view" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:background="@color/specialGrey"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/metro_schedule_txt_retour"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@color/specialGreyDarker"
+                            android:textColor="@color/specialBlack"
+                            android:textSize="17sp" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/activities_recyclerview_metro_schedule_retour"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            tools:listitem="@layout/schedule_view" />
+
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/linear_adding_schedules"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/metro_schedule_txt_retour"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:background="@color/specialGreyDarker"
-                        android:textColor="@color/specialBlack"
-                        android:textSize="17sp" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/activities_recyclerview_metro_schedule_retour"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        tools:listitem="@layout/schedule_view" />
-
                 </LinearLayout>
+
             </LinearLayout>
-
-        </LinearLayout>
-
+        </ScrollView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>
