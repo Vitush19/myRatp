@@ -5,7 +5,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -35,7 +34,7 @@ class TrainStationsActivity : AppCompatActivity() {
         code = intent.getStringExtra("code")
         idTrain = intent.getIntExtra("id", 0)
         val toolbar: Toolbar = findViewById(R.id.toolbar_train_station)
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
         toolbar.title = "Ligne : $code"
         setSupportActionBar(toolbar)
 

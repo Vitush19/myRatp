@@ -38,7 +38,7 @@ class DashboardFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
         view.findViewById<CardView>(R.id.timetable_button).setOnClickListener(this)
-        view.findViewById<CardView>(R.id.plans_button).setOnClickListener(this)
+        //view.findViewById<CardView>(R.id.plans_button).setOnClickListener(this)
         view.findViewById<CardView>(R.id.favoris_button).setOnClickListener(this)
         view.findViewById<CardView>(R.id.qr_code_button).setOnClickListener(this)
     }
@@ -46,7 +46,7 @@ class DashboardFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.timetable_button -> navController.navigate(R.id.action_dashboardFragment_to_timetableFragment)
-            R.id.plans_button -> navController.navigate(R.id.action_dashboardFragment_to_plansFragment)
+            //R.id.plans_button -> navController.navigate(R.id.action_dashboardFragment_to_plansFragment)
             R.id.favoris_button -> navController.navigate(R.id.action_dashboardFragment_to_savedFragment)
             R.id.qr_code_button -> navController.navigate(R.id.action_dashboardFragment_to_qrcodeFragment)
         }

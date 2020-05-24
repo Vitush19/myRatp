@@ -38,7 +38,7 @@ class BusSchedulesActivity : AppCompatActivity() {
         name = intent.getStringExtra("name")
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_bus_schedule)
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
         toolbar.title = "Station : $name"
         setSupportActionBar(toolbar)
 

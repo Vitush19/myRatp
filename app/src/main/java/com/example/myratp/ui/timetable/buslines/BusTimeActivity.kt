@@ -7,7 +7,6 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -36,7 +35,7 @@ class BusTimeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_bus_time)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_bus_time)
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
         toolbar.title = "Bus"
         setSupportActionBar(toolbar)
 

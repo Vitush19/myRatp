@@ -39,7 +39,7 @@ class MetroTimeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_metro_time)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_metro_time)
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
         toolbar.title = "Métro"
         setSupportActionBar(toolbar)
         //supportActionBar?.setDisplayHomeAsUpEnabled(true)
