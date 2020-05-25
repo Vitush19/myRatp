@@ -38,7 +38,7 @@ class BusStationsActivity : AppCompatActivity() {
         idBus = intent.getIntExtra("id", 0)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_bus_station)
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
         toolbar.title = "Ligne : $code"
         setSupportActionBar(toolbar)
 

@@ -83,7 +83,6 @@ class SplashScreenActivity : AppCompatActivity() {
                         stationDao?.addStations(station)
                     }
                 }
-                Log.d("tyui","$x")
             }
         }
 

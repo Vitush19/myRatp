@@ -6,7 +6,6 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -31,7 +30,7 @@ class TrainTimeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_train_time)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_train_time)
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
         toolbar.title = "RER"
         setSupportActionBar(toolbar)
 

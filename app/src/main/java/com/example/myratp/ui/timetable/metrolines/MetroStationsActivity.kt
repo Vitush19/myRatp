@@ -5,7 +5,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -39,7 +38,7 @@ class MetroStationsActivity : AppCompatActivity() {
         idMetro = intent.getIntExtra("id", 0)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_metro_station)
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
         toolbar.title = "Ligne : $code"
         setSupportActionBar(toolbar)
 
@@ -69,9 +68,7 @@ class MetroStationsActivity : AppCompatActivity() {
                             for(x in list_station.indices){
                                 if("$code" != list_station[x].id_ligne){
                                     val newLine: String = list_station[x].id_ligne
-                                    Log.d("tyui", "dans le if $newLine")
                                     co = co + "$newLine-"
-                                    Log.d("tyui", "apres la conca : $co")
                                 }
                                 if("$code" == list_station[x].id_ligne){
                                     id = list_station[x].id_station
@@ -82,7 +79,6 @@ class MetroStationsActivity : AppCompatActivity() {
                             Station(id, it.name, it.slug, favoris = false, id_ligne = "$code", correspondance = co, type = Type.Metro)
 
                         stationDao?.updateStations(station)
-                        Log.d("tyui", "$station")
                     }
                 //}
                 stationDao = database.getStationsDao()
