@@ -19,6 +19,7 @@ import com.example.myratp.adapters.BusStationAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.StationsDao
 import com.example.myratp.model.Station
+import com.example.myratp.model.Type
 import kotlinx.android.synthetic.main.activity_bus_time.progress_bar
 import kotlinx.coroutines.runBlocking
 
@@ -57,7 +58,7 @@ class BusStationsActivity : AppCompatActivity() {
                     val resultat = service.getBusStations("buses", "$code")
                     resultat.result.stations.map {
                         val station =
-                            Station(0, it.name, it.slug, favoris = false, id_ligne = "$idBus", correspondance = co)
+                            Station(0, it.name, it.slug, favoris = false, id_ligne = "$idBus", correspondance = co, type = Type.Bus)
                         stationDao?.addStations(station)
                     }
                     stationDao = database.getStationsDao()

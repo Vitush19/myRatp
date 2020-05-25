@@ -1,8 +1,15 @@
 package com.example.myratp.model
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
+enum class Type{
+    Metro, Bus, Train
+}
+
+@Parcelize
 @Entity(tableName = "allstations")
 data class Station(
     @PrimaryKey(autoGenerate = true) val id_station: Int,
@@ -10,12 +17,13 @@ data class Station(
     val slug: String,
     var favoris: Boolean,
     val id_ligne: String,
-    val correspondance: String
-) {
+    val correspondance: String,
+    val type: Type
+) : Parcelable {
 
     companion object {
         val all = (1..10).map {
-            Station(it, "$it", "$it", false, "$it","$it")
+            Station(it, "$it", "$it", false, "$it","$it", Type.Metro)
         }.toMutableList()
     }
 

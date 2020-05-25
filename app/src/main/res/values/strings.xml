@@ -39,4 +39,5 @@
     <string name="message">Message :</string>
     <string name="statut">statut</string>
     <string name="back">back</string>
+    <string name="aucune_station_en_favoris">aucune station en favoris</string>
 </resources>

@@ -19,6 +19,7 @@ import com.example.myratp.adapters.TrainStationAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.StationsDao
 import com.example.myratp.model.Station
+import com.example.myratp.model.Type
 import kotlinx.coroutines.runBlocking
 
 class TrainStationsActivity : AppCompatActivity() {
@@ -55,7 +56,7 @@ class TrainStationsActivity : AppCompatActivity() {
                 val service = retrofit_train().create(TrainLinesBySearch::class.java)
                 val resultat = service.getTrainStations("rers", "$code")
                 resultat.result.stations.map {
-                    val station = Station(0, it.name, it.slug, favoris = false, id_ligne = "$idTrain", correspondance = co)
+                    val station = Station(0, it.name, it.slug, favoris = false, id_ligne = "$idTrain", correspondance = co, type = Type.Train)
                     stationDao?.addStations(station)
                 }
                 stationDao = database.getStationsDao()

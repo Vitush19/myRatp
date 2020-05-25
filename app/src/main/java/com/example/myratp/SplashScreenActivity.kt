@@ -7,10 +7,7 @@ import android.os.Handler
 import android.util.Log
 import androidx.room.Room
 import com.example.myratp.data.*
-import com.example.myratp.model.BusLine
-import com.example.myratp.model.MetroLine
-import com.example.myratp.model.Station
-import com.example.myratp.model.Traffic
+import com.example.myratp.model.*
 import com.example.myratp.ui.timetable.buslines.BusLinesBySearch
 import com.example.myratp.ui.timetable.buslines.retrofit_bus
 import com.example.myratp.ui.timetable.metrolines.MetroLinesBySearch
@@ -82,7 +79,7 @@ class SplashScreenActivity : AppCompatActivity() {
                     val co = ""
                     resultat.result.stations.map {
                         val station =
-                            Station(0, it.name, it.slug, favoris = false, id_ligne = "$x", correspondance = co)
+                            Station(0, it.name, it.slug, favoris = false, id_ligne = "$x", correspondance = co , type = Type.Metro)
                         stationDao?.addStations(station)
                     }
                 }

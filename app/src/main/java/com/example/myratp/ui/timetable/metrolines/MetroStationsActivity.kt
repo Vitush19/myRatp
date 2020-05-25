@@ -20,6 +20,7 @@ import com.example.myratp.adapters.MetroStationAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.StationsDao
 import com.example.myratp.model.Station
+import com.example.myratp.model.Type
 import kotlinx.android.synthetic.main.activity_metro_stations.*
 import kotlinx.coroutines.runBlocking
 
@@ -78,7 +79,7 @@ class MetroStationsActivity : AppCompatActivity() {
                             }
                         }
                         val station =
-                            Station(id, it.name, it.slug, favoris = false, id_ligne = "$code", correspondance = co)
+                            Station(id, it.name, it.slug, favoris = false, id_ligne = "$code", correspondance = co, type = Type.Metro)
 
                         stationDao?.updateStations(station)
                         Log.d("tyui", "$station")

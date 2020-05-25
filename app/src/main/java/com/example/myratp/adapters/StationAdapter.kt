@@ -14,8 +14,12 @@ import com.example.myratp.R
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.StationsDao
 import com.example.myratp.model.Station
+import com.example.myratp.model.Type
+import com.example.myratp.ui.timetable.buslines.BusSchedulesActivity
+import com.example.myratp.ui.timetable.metrolines.ImageMetro
 import com.example.myratp.ui.timetable.metrolines.MetroSchedulesActivity
-import kotlinx.android.synthetic.main.station_metro_view.view.*
+import com.example.myratp.ui.timetable.trainlines.TrainScheduleActivity
+import kotlinx.android.synthetic.main.station_view.view.*
 import kotlinx.coroutines.runBlocking
 
 class StationAdapter(private val list_stations: List<Station>) :
@@ -27,7 +31,7 @@ class StationAdapter(private val list_stations: List<Station>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StationViewHolder {
         val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
-        val view: View = layoutInflater.inflate(R.layout.station_metro_view, parent, false)
+        val view: View = layoutInflater.inflate(R.layout.station_view, parent, false)
         context = parent.context
         return StationAdapter.StationViewHolder(
             view
@@ -41,6 +45,19 @@ class StationAdapter(private val list_stations: List<Station>) :
     override fun onBindViewHolder(holder: StationViewHolder, position: Int) {
         val station = list_stations[position]
         holder.stationsView.station_name_textview.text = "Station : ${station.name}"
+
+        holder.stationsView.image_type.setImageResource(
+            when(station.type){
+                Type.Metro-> R.drawable.metro_bleu
+                Type.Bus-> R.drawable.bus
+                Type.Train-> R.drawable.rer
+            }
+        )
+         if (station.type == Type.Metro){
+             holder.stationsView.station_image_view.setBackgroundResource(ImageMetro(station.id_ligne))
+         }
+
+
 
         val databaseSaved =
             Room.databaseBuilder(context, AppDatabase::class.java, "allstations")
@@ -79,7 +96,13 @@ class StationAdapter(private val list_stations: List<Station>) :
         }
 
         holder.stationsView.setOnClickListener {
-            val intent = Intent(it.context, MetroSchedulesActivity::class.java)
+            var intent = Intent(it.context, MetroSchedulesActivity::class.java)
+            when(station.type){
+                Type.Metro-> intent = Intent(it.context, MetroSchedulesActivity::class.java)
+                Type.Bus-> intent = Intent(it.context, BusSchedulesActivity::class.java)
+                Type.Train-> intent = Intent(it.context, TrainScheduleActivity::class.java)
+            }
+
             intent.putExtra("code", station.id_ligne)
             intent.putExtra("name", station.name)
             it.context.startActivity(intent)
