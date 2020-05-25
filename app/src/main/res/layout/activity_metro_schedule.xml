@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/toolbar_metro_schedule"
-        layout="@layout/toolbar"/>
+        layout="@layout/toolbar" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/pull_layout_schedule_metro"
@@ -20,6 +20,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,6 +51,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:baselineAligned="false"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -63,11 +65,13 @@
                         <TextView
                             android:id="@+id/metro_schedule_txt_aller"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="50dp"
                             android:layout_gravity="center"
                             android:background="@color/specialGreyDarker"
+                            android:textAlignment="center"
                             android:textColor="@color/specialBlack"
-                            android:textSize="17sp" />
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/activities_recyclerview_metro_schedule"
@@ -88,11 +92,13 @@
                         <TextView
                             android:id="@+id/metro_schedule_txt_retour"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="50dp"
                             android:layout_gravity="center"
                             android:background="@color/specialGreyDarker"
+                            android:textAlignment="center"
                             android:textColor="@color/specialBlack"
-                            android:textSize="17sp" />
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/activities_recyclerview_metro_schedule_retour"
@@ -102,6 +108,7 @@
 
                     </LinearLayout>
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/linear_adding_schedules"
                     android:layout_width="match_parent"
