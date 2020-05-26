@@ -2,6 +2,7 @@ package com.example.myratp.adapters
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +37,7 @@ class TrainLinesAdapter(private val list_trainLines: List<TrainLine>) :
             holder.trainLinesView.setOnClickListener {
                 val intent = Intent(it.context, TrainStationsActivity::class.java)
                 intent.putExtra("code", trainLines.code)
+                Log.d("tyui", trainLines.code)
                 intent.putExtra("id", trainLines.id_train)
                 it.context.startActivity(intent)
             }

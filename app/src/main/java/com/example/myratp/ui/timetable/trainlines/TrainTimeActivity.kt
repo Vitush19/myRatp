@@ -6,6 +6,7 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -44,15 +45,18 @@ class TrainTimeActivity : AppCompatActivity() {
 
         if (isNetworkConnected()) {
             runBlocking {
-                trainLineDao?.deleteAllTrainLines()
-                val service = retrofit_train().create(TrainLinesBySearch::class.java)
-                val resultat = service.getlistTrainLine()
-                resultat.result.rers.map {
-                    val train = TrainLine(0, it.code, it.name, it.directions, it.id)
-                    trainLineDao?.addTrainLines(train)
+                //trainLineDao?.deleteAllTrainLines()
+                if(trainLineDao!!.getTrainLines().isEmpty()){
+                    val service = retrofit_train().create(TrainLinesBySearch::class.java)
+                    val resultat = service.getlistTrainLine()
+                    resultat.result.rers.map {
+                        val train = TrainLine(0, it.code, it.name, it.directions, it.id)
+                        trainLineDao?.addTrainLines(train)
+                    }
                 }
                 trainLineDao = database.getTrainLineDao()
                 val trainStation = trainLineDao?.getTrainLines()
+                Log.d("tyui", "$trainStation")
                 recyclerviewTrain.adapter =
                     TrainLinesAdapter(trainStation ?: emptyList())
             }

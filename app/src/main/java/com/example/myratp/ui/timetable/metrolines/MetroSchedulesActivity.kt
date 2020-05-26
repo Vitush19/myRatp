@@ -146,15 +146,18 @@ class MetroSchedulesActivity : AppCompatActivity() {
         val params = LinearLayout.LayoutParams(100, 100).apply {
             gravity = Gravity.CENTER
         }
-        params.setMargins(0,20,0,10)
+        params.setMargins(0, 20, 0, 10)
         img.setBackgroundResource(
             ImageMetro(num)
         )
         img.layoutParams = params
         linear_adding_schedules.addView(img)
         linear_adding_schedules.addView(myLayout)
-        val params1 = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-        params1.setMargins(10,10,10,10)
+        val params1 = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        params1.setMargins(10, 10, 10, 10)
         myLayout.layoutParams = params1
         myLayout.setBackgroundColor(Color.parseColor("#0a3d62")) //0a3d62
         //myLayout.setPadding(10, 10, 10, 10)
@@ -166,10 +169,11 @@ class MetroSchedulesActivity : AppCompatActivity() {
             recyclerview.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
             myLayout.addView(myLinearBis)
-            val params2 = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT).apply {
-                weight = 1.0f
-                gravity = Gravity.CENTER
-            }
+            val params2 =
+                LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT).apply {
+                    weight = 1.0f
+                    gravity = Gravity.CENTER
+                }
             params2.setMargins(10, 10, 10, 10)
             myLinearBis.layoutParams = params2
             myLinearBis.orientation = LinearLayout.VERTICAL
@@ -236,6 +240,8 @@ class MetroSchedulesActivity : AppCompatActivity() {
                     hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
                     else -> false
                 }
+
+
             }
         }
         return result
