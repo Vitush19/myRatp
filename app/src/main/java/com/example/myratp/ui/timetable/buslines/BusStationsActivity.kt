@@ -5,6 +5,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -25,7 +26,7 @@ import kotlinx.coroutines.runBlocking
 class BusStationsActivity : AppCompatActivity() {
 
     private var code: String? = ""
-    private var idBus: Int? = 0
+    private var idBus: String? = ""
     private var stationDao: StationsDao? = null
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -34,7 +35,7 @@ class BusStationsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_bus_stations)
 
         code = intent.getStringExtra("code")
-        idBus = intent.getIntExtra("id", 0)
+        idBus = intent.getStringExtra("id")
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_bus_station)
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
@@ -52,7 +53,11 @@ class BusStationsActivity : AppCompatActivity() {
         val co = ""
         if (isNetworkConnected()) {
             runBlocking {
-                if (stationDao!!.getStationsByLine("$code").isEmpty()) {
+//                val list = stationDao?.getStationsByLine("$idBus")
+//                Log.d("tyui", "$list")
+//                Log.d("tyui", "$idBus")
+//                if (stationDao!!.getStationsByLine("$idBus").isEmpty()) {
+//                    Log.d("tyui", "c'est null")
                     val service = retrofit_bus().create(BusLinesBySearch::class.java)
                     val resultat = service.getBusStations("buses", "$code")
                     resultat.result.stations.map {
@@ -61,12 +66,12 @@ class BusStationsActivity : AppCompatActivity() {
                         stationDao?.addStations(station)
                     }
                     stationDao = database.getStationsDao()
-                    val schedule = stationDao?.getStations()
+                    val schedule = stationDao?.getStationsByLine("$idBus")
                     progress_bar.visibility = View.GONE
                     recyclerviewBusStation.adapter =
                         BusStationAdapter(schedule ?: emptyList(), "$code")
                 }
-            }
+//            }
         } else {
             Toast.makeText(
                 this,
