@@ -12,6 +12,8 @@ import com.example.myratp.ui.timetable.buslines.BusLinesBySearch
 import com.example.myratp.ui.timetable.buslines.retrofit_bus
 import com.example.myratp.ui.timetable.metrolines.MetroLinesBySearch
 import com.example.myratp.ui.timetable.metrolines.retrofit
+import com.example.myratp.ui.timetable.trainlines.TrainLinesBySearch
+import com.example.myratp.ui.timetable.trainlines.retrofit_train
 import kotlinx.coroutines.runBlocking
 
 class SplashScreenActivity : AppCompatActivity() {
@@ -21,6 +23,7 @@ class SplashScreenActivity : AppCompatActivity() {
     private var trafficDao: TrafficDao? = null
     private var busLineDao: BusLineDao? = null
     private var stationDao: StationsDao? = null
+    private var trainLineDao: TrainLineDao? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +44,10 @@ class SplashScreenActivity : AppCompatActivity() {
         val databaseStation = Room.databaseBuilder(this, AppDatabase::class.java, "allstations")
             .build()
         stationDao = databaseStation.getStationsDao()
+
+        val databaseTrain = Room.databaseBuilder(this, AppDatabase::class.java, "alltrainlines")
+            .build()
+        trainLineDao = databaseTrain.getTrainLineDao()
 
         runBlocking {
             if(trafficDao!!.getTraffic().isEmpty()) {
@@ -72,6 +79,15 @@ class SplashScreenActivity : AppCompatActivity() {
                 }
             }
 
+            if(trainLineDao!!.getTrainLines().isEmpty()){
+                val service = retrofit_train().create(TrainLinesBySearch::class.java)
+                val resultat = service.getlistTrainLine()
+                resultat.result.rers.map {
+                    val train = TrainLine(0, it.code, it.name, it.directions, it.id)
+                    trainLineDao?.addTrainLines(train)
+                }
+            }
+
             for(x in 1..14){
                 if(stationDao!!.getStationsByLine("$x").isEmpty()){
                     val service = retrofit().create(MetroLinesBySearch::class.java)
@@ -80,6 +96,19 @@ class SplashScreenActivity : AppCompatActivity() {
                     resultat.result.stations.map {
                         val station =
                             Station(0, it.name, it.slug, favoris = false, id_ligne = "$x", correspondance = co , type = Type.Metro)
+                        stationDao?.addStations(station)
+                    }
+                }
+            }
+            val directions = listOf("3b", "7b")
+            for(x in directions){
+                if(stationDao!!.getStationsByLine("$x").isEmpty()){
+                    val service = retrofit().create(MetroLinesBySearch::class.java)
+                    val resultat = service.getMetroStations("metros", "$x")
+                    val co = ""
+                    resultat.result.stations.map {
+                        val station =
+                            Station(0, it.name, it.slug, favoris = false, id_ligne = "$x", correspondance = co)
                         stationDao?.addStations(station)
                     }
                 }

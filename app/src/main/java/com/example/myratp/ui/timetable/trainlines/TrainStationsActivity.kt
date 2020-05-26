@@ -44,7 +44,7 @@ class TrainStationsActivity : AppCompatActivity() {
         recyclerviewTrainStation.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        val database = Room.databaseBuilder(this, AppDatabase::class.java, "allbuslines")
+        val database = Room.databaseBuilder(this, AppDatabase::class.java, "allstations")
             .build()
         stationDao = database.getStationsDao()
 

@@ -75,12 +75,10 @@ class MetroTimeActivity : AppCompatActivity() {
                 val traffic = trafficDao?.getTraffic()
 
                 if (metroLineDao!!.getMetroLines().isEmpty()) {
-                    Log.d("DF", "null")
                     val serviceBis = retrofit().create(MetroLinesBySearch::class.java)
                     val resultatBis = serviceBis.getlistMetroLine()
                     resultatBis.result.metros.map {
                         val metro = MetroLine(0, it.code, it.name, it.directions, it.id)
-                        Log.d("CCC", "$metro")
                         metroLineDao?.addMetroLines(metro)
                     }
                 }

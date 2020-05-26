@@ -2,6 +2,7 @@ package com.example.myratp.adapters
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +29,7 @@ class TrainLinesAdapter(private val list_trainLines: List<TrainLine>) :
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: TrainLinesViewHolder, position: Int) {
         val trainLines = list_trainLines[position]
+        Log.d("tyui", "${trainLines.code}")
         holder.trainLinesView.train_code_textview.text = "Ligne : ${trainLines.code}"
         holder.trainLinesView.train_destination_textview.text =
             "Destination : ${trainLines.direction}"
@@ -36,10 +38,15 @@ class TrainLinesAdapter(private val list_trainLines: List<TrainLine>) :
             holder.trainLinesView.setOnClickListener {
                 val intent = Intent(it.context, TrainStationsActivity::class.java)
                 intent.putExtra("code", trainLines.code)
+                Log.d("tyui", trainLines.code)
                 intent.putExtra("id", trainLines.id_train)
                 it.context.startActivity(intent)
             }
         }
-
+        if(trainLines.code == "C" || trainLines.code == "D"){
+            holder.trainLinesView.setOnClickListener {
+                Log.d("tyui", " message error : ${trainLines.code}")
+            }
+        }
     }
 }
