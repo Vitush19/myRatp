@@ -52,6 +52,7 @@ class BusStationsActivity : AppCompatActivity() {
         val co = ""
         if (isNetworkConnected()) {
             runBlocking {
+                stationDao?.deleteAllStations()
                 if (stationDao!!.getStationsByLine("$code").isEmpty()) {
                     val service = retrofit_bus().create(BusLinesBySearch::class.java)
                     val resultat = service.getBusStations("buses", "$code")
