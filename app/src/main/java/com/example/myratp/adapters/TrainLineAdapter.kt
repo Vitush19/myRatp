@@ -39,7 +39,7 @@ class TrainLinesAdapter(private val list_trainLines: List<TrainLine>) :
                 val intent = Intent(it.context, TrainStationsActivity::class.java)
                 intent.putExtra("code", trainLines.code)
                 Log.d("tyui", trainLines.code)
-                intent.putExtra("id", trainLines.id_train)
+                intent.putExtra("id", trainLines.id)
                 it.context.startActivity(intent)
             }
         }

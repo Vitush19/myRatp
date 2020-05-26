@@ -5,6 +5,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -24,7 +25,7 @@ import kotlinx.coroutines.runBlocking
 class TrainStationsActivity : AppCompatActivity() {
 
     private var code: String? = ""
-    private var idTrain: Int? = 0
+    private var idTrain: String? = ""
     private var stationDao: StationsDao? = null
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -33,7 +34,7 @@ class TrainStationsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_train_stations)
 
         code = intent.getStringExtra("code")
-        idTrain = intent.getIntExtra("id", 0)
+        idTrain = intent.getStringExtra("id")
         val toolbar: Toolbar = findViewById(R.id.toolbar_train_station)
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
         toolbar.title = "Ligne : $code"
@@ -44,24 +45,37 @@ class TrainStationsActivity : AppCompatActivity() {
         recyclerviewTrainStation.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        val database = Room.databaseBuilder(this, AppDatabase::class.java, "allstations")
+        val database = Room.databaseBuilder(this, AppDatabase::class.java, "stationtrain")
             .build()
         stationDao = database.getStationsDao()
 
         val co = ""
         if (isNetworkConnected()) {
             runBlocking {
-//                stationDao?.deleteAllStations()
-                val service = retrofit_train().create(TrainLinesBySearch::class.java)
-                val resultat = service.getTrainStations("rers", "$code")
-                resultat.result.stations.map {
-                    val station = Station(0, it.name, it.slug, favoris = false, id_ligne = "$idTrain", correspondance = co, type = Type.Train)
-                    stationDao?.addStations(station)
-                }
-                stationDao = database.getStationsDao()
-                val trainStation = stationDao?.getStations()
-                recyclerviewTrainStation.adapter =
-                    TrainStationAdapter(trainStation ?: emptyList(), "$code")
+//                val list = stationDao?.getStationsByLine("$idTrain")
+//                Log.d("tyui", "$list")
+//                Log.d("tyui", "$idTrain")
+                //stationDao?.deleteAllStations()
+//                if (stationDao!!.getStationsByLine("$idTrain").isEmpty()) {
+                    val service = retrofit_train().create(TrainLinesBySearch::class.java)
+                    val resultat = service.getTrainStations("rers", "$code")
+                    resultat.result.stations.map {
+                        val station = Station(
+                            0,
+                            it.name,
+                            it.slug,
+                            favoris = false,
+                            id_ligne = "$idTrain",
+                            correspondance = co,
+                            type = Type.Train
+                        )
+                        stationDao?.addStations(station)
+                    }
+                    stationDao = database.getStationsDao()
+                    val trainStation = stationDao?.getStationsByLine("$idTrain")
+                    recyclerviewTrainStation.adapter =
+                        TrainStationAdapter(trainStation ?: emptyList(), "$code")
+//                }
             }
         }else {
             Toast.makeText(
