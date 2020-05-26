@@ -36,7 +36,7 @@ class BusLinesAdapter(private val listBusLines: List<BusLine>) :
         holder.busLinesView.setOnClickListener {
             val intent = Intent(it.context, BusStationsActivity::class.java)
             intent.putExtra("code", busLines.code)
-            intent.putExtra("id", busLines.id_bus)
+            intent.putExtra("id", busLines.id)
             it.context.startActivity(intent)
         }
     }
