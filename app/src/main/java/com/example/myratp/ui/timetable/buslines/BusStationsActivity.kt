@@ -47,13 +47,14 @@ class BusStationsActivity : AppCompatActivity() {
         recyclerviewBusStation.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        val database = Room.databaseBuilder(this, AppDatabase::class.java, "stationbus")
+        val database = Room.databaseBuilder(this, AppDatabase::class.java, "allstations")
             .build()
         stationDao = database.getStationsDao()
+
         val co = ""
         if (isNetworkConnected()) {
             runBlocking {
-                if (stationDao!!.getStationsByLine("$code").isEmpty()) {
+//                if (stationDao!!.getStationsByLine("$code").isEmpty()) {
                     val service = retrofit_bus().create(BusLinesBySearch::class.java)
                     val resultat = service.getBusStations("buses", "$code")
                     resultat.result.stations.map {
@@ -66,7 +67,7 @@ class BusStationsActivity : AppCompatActivity() {
                     progress_bar.visibility = View.GONE
                     recyclerviewBusStation.adapter =
                         BusStationAdapter(schedule ?: emptyList(), "$code")
-                }
+//                }
             }
         } else {
             Toast.makeText(

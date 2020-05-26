@@ -44,14 +44,14 @@ class TrainStationsActivity : AppCompatActivity() {
         recyclerviewTrainStation.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        val database = Room.databaseBuilder(this, AppDatabase::class.java, "stationtrain")
+        val database = Room.databaseBuilder(this, AppDatabase::class.java, "allstations")
             .build()
         stationDao = database.getStationsDao()
 
         val co = ""
         if (isNetworkConnected()) {
             runBlocking {
-                stationDao?.deleteAllStations()
+//                stationDao?.deleteAllStations()
                 val service = retrofit_train().create(TrainLinesBySearch::class.java)
                 val resultat = service.getTrainStations("rers", "$code")
                 resultat.result.stations.map {

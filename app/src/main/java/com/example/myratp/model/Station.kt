@@ -19,6 +19,7 @@ data class Station(
     val id_ligne: String,
     val correspondance: String,
     val type: Type
+
 ) : Parcelable {
 
     companion object {

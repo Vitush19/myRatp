@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.telephony.mbms.StreamingServiceInfo
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,11 +42,11 @@ class TrainStationAdapter(private val list_stations: List<Station>, val code: St
         val station = list_stations[position]
         holder.stationsView.station_name_textview_train.text = "Station : ${station.name}"
 
-        val databaseSaved =
-            Room.databaseBuilder(context, AppDatabase::class.java, "allstations")
-                .build()
-
-        stationsDao = databaseSaved.getStationsDao()
+//        val databaseSaved =
+//            Room.databaseBuilder(context, AppDatabase::class.java, "allstations")
+//                .build()
+//
+//        stationsDao = databaseSaved.getStationsDao()
 
 //        if (!station.favoris) {
 //            holder.stationsView.fav_bouton.setBackgroundResource(R.drawable.ic_favorite_border_blue_24dp)
@@ -83,6 +84,8 @@ class TrainStationAdapter(private val list_stations: List<Station>, val code: St
             val intent = Intent(it.context, TrainScheduleActivity::class.java)
             intent.putExtra("code", code)
             intent.putExtra("name", station.name)
+
+            Log.d("oct", station.toString())
             it.context.startActivity(intent)
         }
 

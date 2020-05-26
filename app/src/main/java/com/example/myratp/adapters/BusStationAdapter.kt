@@ -3,6 +3,7 @@ package com.example.myratp.adapters
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -84,6 +85,7 @@ class BusStationAdapter(private val list_stations: List<Station>, val code: Stri
             val intent = Intent(it.context, BusSchedulesActivity::class.java)
             intent.putExtra("code", code)
             intent.putExtra("name", station.name)
+            Log.d("oct", station.toString())
             it.context.startActivity(intent)
         }
     }

@@ -47,7 +47,7 @@ class MetroStationsActivity : AppCompatActivity() {
         recyclerviewMetroStation.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        val database = Room.databaseBuilder(this, AppDatabase::class.java, "stationmetro")
+        val database = Room.databaseBuilder(this, AppDatabase::class.java, "allstations")
             .build()
         stationDao = database.getStationsDao()
 

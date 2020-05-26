@@ -89,6 +89,8 @@ class MetroStationAdapter(private val list_stations: List<Station>, val code: St
             intent.putExtra("code", code)
             intent.putExtra("name", station.name)
             intent.putExtra("correspondance", station.correspondance)
+
+            Log.d("oct", station.toString())
             it.context.startActivity(intent)
         }
     }

@@ -44,13 +44,14 @@ class SavedFragment : Fragment() {
 
         stationsDao = database.getStationsDao()
 
+
         runBlocking {
             val stationFav = stationsDao!!.getStationFav(true)
 
 
-
             stationRecyclerview.adapter = StationAdapter(stationFav)
         }
+
 
 
         return root

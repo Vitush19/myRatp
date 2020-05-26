@@ -41,7 +41,7 @@ class SplashScreenActivity : AppCompatActivity() {
             .build()
         busLineDao = databaseBus.getBusLineDao()
 
-        val databaseStation = Room.databaseBuilder(this, AppDatabase::class.java, "stationmetro")
+        val databaseStation = Room.databaseBuilder(this, AppDatabase::class.java, "allstationsss")
             .build()
         stationDao = databaseStation.getStationsDao()
 
@@ -108,7 +108,7 @@ class SplashScreenActivity : AppCompatActivity() {
                     val co = ""
                     resultat.result.stations.map {
                         val station =
-                            Station(0, it.name, it.slug, favoris = false, id_ligne = "$x", correspondance = co)
+                            Station(0, it.name, it.slug, favoris = false, id_ligne = "$x", correspondance = co, type = Type.Metro)
                         stationDao?.addStations(station)
                     }
                 }
