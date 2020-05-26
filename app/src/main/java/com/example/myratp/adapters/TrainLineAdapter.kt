@@ -29,6 +29,7 @@ class TrainLinesAdapter(private val list_trainLines: List<TrainLine>) :
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: TrainLinesViewHolder, position: Int) {
         val trainLines = list_trainLines[position]
+        Log.d("tyui", "${trainLines.code}")
         holder.trainLinesView.train_code_textview.text = "Ligne : ${trainLines.code}"
         holder.trainLinesView.train_destination_textview.text =
             "Destination : ${trainLines.direction}"
@@ -42,6 +43,10 @@ class TrainLinesAdapter(private val list_trainLines: List<TrainLine>) :
                 it.context.startActivity(intent)
             }
         }
-
+        if(trainLines.code == "C" || trainLines.code == "D"){
+            holder.trainLinesView.setOnClickListener {
+                Log.d("tyui", " message error : ${trainLines.code}")
+            }
+        }
     }
 }
