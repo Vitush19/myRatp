@@ -44,7 +44,7 @@ class BusStationAdapter(private val list_stations: List<Station>, val code: Stri
         holder.stationsView.station_name_textview_bus.text = "Station : ${station.name}"
 
         val databaseSaved =
-            Room.databaseBuilder(context, AppDatabase::class.java, "allstations")
+            Room.databaseBuilder(context, AppDatabase::class.java, "stationmetro")
                 .build()
 
         stationsDao = databaseSaved.getStationsDao()

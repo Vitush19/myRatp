@@ -43,11 +43,11 @@ class TrainStationAdapter(private val list_stations: List<Station>, val code: St
         holder.stationsView.station_name_textview_train.text = "Station : ${station.name}"
 
 //        val databaseSaved =
-//            Room.databaseBuilder(context, AppDatabase::class.java, "allstations")
+//            Room.databaseBuilder(context, AppDatabase::class.java, "stationmetro")
 //                .build()
 //
 //        stationsDao = databaseSaved.getStationsDao()
-
+//
 //        if (!station.favoris) {
 //            holder.stationsView.fav_bouton.setBackgroundResource(R.drawable.ic_favorite_border_blue_24dp)
 //        } else if (station.favoris) {

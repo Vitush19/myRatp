@@ -47,7 +47,7 @@ class MetroStationAdapter(private val list_stations: List<Station>, val code: St
         holder.stationsView.station_image_view.setBackgroundResource(ImageMetro(code))
 
         val databaseSaved =
-            Room.databaseBuilder(context, AppDatabase::class.java, "allstations")
+            Room.databaseBuilder(context, AppDatabase::class.java, "stationmetro")
                 .build()
 
         stationsDao = databaseSaved.getStationsDao()

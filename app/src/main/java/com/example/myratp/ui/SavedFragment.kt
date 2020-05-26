@@ -38,11 +38,48 @@ class SavedFragment : Fragment() {
             Room.databaseBuilder(
                 requireActivity().baseContext,
                 AppDatabase::class.java,
-                "allstations"
+                "stationmetro"
             )
                 .build()
 
+
         stationsDao = database.getStationsDao()
+
+
+        runBlocking {
+            val stationFav = stationsDao!!.getStationFav(true)
+
+
+            stationRecyclerview.adapter = StationAdapter(stationFav)
+        }
+
+        val databasebus =
+            Room.databaseBuilder(
+                requireActivity().baseContext,
+                AppDatabase::class.java,
+                "stationmetro"
+            )
+                .build()
+
+        stationsDao = databasebus.getStationsDao()
+
+
+        runBlocking {
+            val stationFav = stationsDao!!.getStationFav(true)
+
+
+            stationRecyclerview.adapter = StationAdapter(stationFav)
+        }
+
+        val databasetrain =
+            Room.databaseBuilder(
+                requireActivity().baseContext,
+                AppDatabase::class.java,
+                "stationmetro"
+            )
+                .build()
+
+        stationsDao = databasetrain.getStationsDao()
 
 
         runBlocking {
