@@ -41,7 +41,7 @@ class SplashScreenActivity : AppCompatActivity() {
             .build()
         busLineDao = databaseBus.getBusLineDao()
 
-        val databaseStation = Room.databaseBuilder(this, AppDatabase::class.java, "allstations")
+        val databaseStation = Room.databaseBuilder(this, AppDatabase::class.java, "stationmetro")
             .build()
         stationDao = databaseStation.getStationsDao()
 
