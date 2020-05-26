@@ -87,6 +87,19 @@ class SplashScreenActivity : AppCompatActivity() {
                     }
                 }
             }
+            val directions = listOf("3b", "7b")
+            for(x in directions){
+                if(stationDao!!.getStationsByLine("$x").isEmpty()){
+                    val service = retrofit().create(MetroLinesBySearch::class.java)
+                    val resultat = service.getMetroStations("metros", "$x")
+                    val co = ""
+                    resultat.result.stations.map {
+                        val station =
+                            Station(0, it.name, it.slug, favoris = false, id_ligne = "$x", correspondance = co)
+                        stationDao?.addStations(station)
+                    }
+                }
+            }
         }
 
         handler = Handler()
