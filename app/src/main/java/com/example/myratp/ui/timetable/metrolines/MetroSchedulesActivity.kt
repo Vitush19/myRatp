@@ -3,6 +3,7 @@ package com.example.myratp.ui.timetable.metrolines
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Typeface
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -145,6 +146,7 @@ class MetroSchedulesActivity : AppCompatActivity() {
         val params = LinearLayout.LayoutParams(100, 100).apply {
             gravity = Gravity.CENTER
         }
+        params.setMargins(0,20,0,10)
         img.setBackgroundResource(
             ImageMetro(num)
         )
@@ -180,16 +182,28 @@ class MetroSchedulesActivity : AppCompatActivity() {
 //            myLinearBis.layoutParams = params
 //            txt.setBackgroundColor(Color.parseColor("#A6A5A2"))
 //            myLinearBis.addView(txt)
+            val txt = TextView(this)
+            val params3 = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 150)
+            txt.layoutParams = params3
+            txt.setBackgroundColor(Color.parseColor("#A6A5A2"))
+            txt.textSize = 17.toFloat()
+            txt.setTypeface(txt.typeface, Typeface.BOLD)
+            txt.setTextColor(Color.parseColor("#343749"))
+            txt.gravity = Gravity.CENTER
+            myLinearBis.addView(txt)
             myLinearBis.addView(recyclerview)
             runBlocking {
                 val deffered = async {
                     scheduleDao?.deleteAllSchedule()
+                    var destination = ""
                     val service = retrofit().create(MetroLinesBySearch::class.java)
                     val resultat = service.getScheduleMetro("metros", num, "$name", x)
                     resultat.result.schedules.map {
                         val metroSchedule = Schedule(0, it.message, it.destination)
                         scheduleDao?.addSchedule(metroSchedule)
+                        destination = it.destination
                     }
+                    txt.text = destination
                     scheduleDao = database.getScheduleDao()
                     val schedule = scheduleDao?.getSchedule()
                     recyclerview.adapter =
