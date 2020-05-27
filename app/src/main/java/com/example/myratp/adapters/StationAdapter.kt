@@ -53,15 +53,26 @@ class StationAdapter(private val list_stations: List<Station>) :
                 Type.Train-> R.drawable.rer
             }
         )
+        var databaseSaved =
+            Room.databaseBuilder(context, AppDatabase::class.java, "stationtrain")
+                .build()
          if (station.type == Type.Metro){
              holder.stationsView.station_image_view.setBackgroundResource(ImageMetro(station.id_ligne))
+             databaseSaved =
+                 Room.databaseBuilder(context, AppDatabase::class.java, "stationmetro")
+                     .build()
+         }else if (station.type == Type.Bus) {
+             databaseSaved =
+                 Room.databaseBuilder(context, AppDatabase::class.java, "stationbus")
+                     .build()
          }
 
 
 
-        val databaseSaved =
-            Room.databaseBuilder(context, AppDatabase::class.java, "allstations")
-                .build()
+
+
+
+
         stationsDao = databaseSaved.getStationsDao()
 
         if (!station.favoris) {

@@ -30,9 +30,18 @@ class SavedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root: View = inflater.inflate(R.layout.fragment_saved, container, false)
-        val stationRecyclerview =
+        val stationRecyclerview_metro =
             root.findViewById<View>(R.id.activities_recyclerview_metro_station_fav) as RecyclerView
-        stationRecyclerview.layoutManager = LinearLayoutManager(this.context,  LinearLayoutManager.VERTICAL, false)
+        stationRecyclerview_metro.layoutManager = LinearLayoutManager(this.context,  LinearLayoutManager.VERTICAL, false)
+
+        val stationRecyclerview_bus =
+            root.findViewById<View>(R.id.activities_recyclerview_bus_station_fav) as RecyclerView
+        stationRecyclerview_bus.layoutManager = LinearLayoutManager(this.context,  LinearLayoutManager.VERTICAL, false)
+
+        val stationRecyclerview_train =
+            root.findViewById<View>(R.id.activities_recyclerview_train_station_fav) as RecyclerView
+        stationRecyclerview_train.layoutManager = LinearLayoutManager(this.context,  LinearLayoutManager.VERTICAL, false)
+
 
         val database =
             Room.databaseBuilder(
@@ -42,51 +51,50 @@ class SavedFragment : Fragment() {
             )
                 .build()
 
+        val databasebus =
+            Room.databaseBuilder(
+                requireActivity().baseContext,
+                AppDatabase::class.java,
+                "stationbus"
+            )
+                .build()
+
+        val databasetrain =
+            Room.databaseBuilder(
+                requireActivity().baseContext,
+                AppDatabase::class.java,
+                "stationtrain"
+            )
+                .build()
+
 
         stationsDao = database.getStationsDao()
 
 
         runBlocking {
             val stationFav = stationsDao!!.getStationFav(true)
+            Log.d("oct", "metro = $stationFav")
+
+            stationRecyclerview_metro.adapter = StationAdapter(stationFav)
 
 
-            stationRecyclerview.adapter = StationAdapter(stationFav)
-        }
 
-        val databasebus =
-            Room.databaseBuilder(
-                requireActivity().baseContext,
-                AppDatabase::class.java,
-                "stationmetro"
-            )
-                .build()
+            stationsDao = databasebus.getStationsDao()
 
-        stationsDao = databasebus.getStationsDao()
+            val stationFavb = stationsDao!!.getStationFav(true)
+            Log.d("oct", "bus = $stationFavb")
 
 
-        runBlocking {
-            val stationFav = stationsDao!!.getStationFav(true)
+            stationRecyclerview_bus.adapter = StationAdapter(stationFavb)
 
 
-            stationRecyclerview.adapter = StationAdapter(stationFav)
-        }
-
-        val databasetrain =
-            Room.databaseBuilder(
-                requireActivity().baseContext,
-                AppDatabase::class.java,
-                "stationmetro"
-            )
-                .build()
 
         stationsDao = databasetrain.getStationsDao()
 
+            val stationFavt = stationsDao!!.getStationFav(true)
+            Log.d("oct", "train = $stationFavt")
 
-        runBlocking {
-            val stationFav = stationsDao!!.getStationFav(true)
-
-
-            stationRecyclerview.adapter = StationAdapter(stationFav)
+            stationRecyclerview_train.adapter = StationAdapter(stationFavt)
         }
 
 
