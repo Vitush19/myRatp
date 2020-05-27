@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.cardview.widget.CardView
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -28,7 +27,7 @@ class DashboardFragment : Fragment(), View.OnClickListener {
         val root=  inflater.inflate(R.layout.fragment_dashboard, container, false)
         val b_traffic = root.findViewById<CardView>(R.id.traffic_button)
         b_traffic.setOnClickListener{
-            val intent = Intent(requireContext(),trafficActivity::class.java)
+            val intent = Intent(requireContext(),TrafficActivity::class.java)
             startActivity(intent)
         }
         return root

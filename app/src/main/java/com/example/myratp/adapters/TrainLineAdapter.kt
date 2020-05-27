@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myratp.ui.ErreurTrainLine
 import com.example.myratp.R
 import com.example.myratp.model.TrainLine
 import com.example.myratp.ui.timetable.trainlines.TrainStationsActivity
@@ -29,7 +30,6 @@ class TrainLinesAdapter(private val list_trainLines: List<TrainLine>) :
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: TrainLinesViewHolder, position: Int) {
         val trainLines = list_trainLines[position]
-        Log.d("tyui", "${trainLines.code}")
         holder.trainLinesView.train_code_textview.text = "Ligne : ${trainLines.code}"
         holder.trainLinesView.train_destination_textview.text =
             "Destination : ${trainLines.direction}"
@@ -37,15 +37,18 @@ class TrainLinesAdapter(private val list_trainLines: List<TrainLine>) :
         if(trainLines.code == "A" || trainLines.code == "B" || trainLines.code == "E"){
             holder.trainLinesView.setOnClickListener {
                 val intent = Intent(it.context, TrainStationsActivity::class.java)
+                Log.d("tyui", "dans le intent")
                 intent.putExtra("code", trainLines.code)
-                Log.d("tyui", trainLines.code)
                 intent.putExtra("id", trainLines.id)
                 it.context.startActivity(intent)
             }
         }
         if(trainLines.code == "C" || trainLines.code == "D"){
             holder.trainLinesView.setOnClickListener {
-                Log.d("tyui", " message error : ${trainLines.code}")
+                val intent = Intent(it.context, ErreurTrainLine::class.java)
+                Log.d("tyui", "dans le intent")
+                intent.putExtra("code", trainLines.code)
+                it.context.startActivity(intent)
             }
         }
     }

@@ -38,10 +38,12 @@
         <activity android:name=".ui.timetable.buslines.BusStationsActivity" />
         <activity android:name=".ui.timetable.metrolines.MetroSchedulesActivity" />
         <activity android:name=".ui.timetable.buslines.BusSchedulesActivity" />
-        <activity android:name=".ui.trafficActivity" />
+        <activity android:name=".ui.TrafficActivity" />
         <activity android:name=".MetroPlansActivity" />
         <activity android:name=".BusPlansActivity" />
         <activity android:name=".ui.timetable.trainlines.TrainScheduleActivity" />
+        <activity android:name=".TrainPlansActivity" />
+        <activity android:name=".ui.ErreurTrainLine" />
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package com.example.myratp.ui.timetable.trainlines
 
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.Toolbar
@@ -15,10 +17,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.myratp.R
+import com.example.myratp.TrainPlansActivity
 import com.example.myratp.adapters.TrainLinesAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.TrainLineDao
 import com.example.myratp.model.TrainLine
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.activity_bus_time.*
+import kotlinx.android.synthetic.main.activity_train_time.*
 import kotlinx.coroutines.runBlocking
 
 class TrainTimeActivity : AppCompatActivity() {
@@ -43,6 +49,12 @@ class TrainTimeActivity : AppCompatActivity() {
             .build()
         trainLineDao = database.getTrainLineDao()
 
+        val bFloat = findViewById<FloatingActionButton>(R.id.floating_button_map_trainLine)
+        bFloat.setOnClickListener {
+            val intent = Intent(this, TrainPlansActivity::class.java)
+            startActivity(intent)
+        }
+
         if (isNetworkConnected()) {
             runBlocking {
                 //trainLineDao?.deleteAllTrainLines()
@@ -56,6 +68,7 @@ class TrainTimeActivity : AppCompatActivity() {
                 }
                 trainLineDao = database.getTrainLineDao()
                 val trainStation = trainLineDao?.getTrainLines()
+                progress_bar_train.visibility = View.GONE
                 Log.d("tyui", "$trainStation")
                 recyclerviewTrain.adapter =
                     TrainLinesAdapter(trainStation ?: emptyList())

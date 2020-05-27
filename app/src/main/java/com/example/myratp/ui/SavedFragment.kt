@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,6 +31,8 @@ class SavedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root: View = inflater.inflate(R.layout.fragment_saved, container, false)
+
+        val noFav = root.findViewById<LinearLayout>(R.id.linear_no_fav)
         val stationRecyclerview_metro =
             root.findViewById<View>(R.id.activities_recyclerview_metro_station_fav) as RecyclerView
         stationRecyclerview_metro.layoutManager = LinearLayoutManager(this.context,  LinearLayoutManager.VERTICAL, false)
@@ -67,37 +70,30 @@ class SavedFragment : Fragment() {
             )
                 .build()
 
-
         stationsDao = database.getStationsDao()
 
-
         runBlocking {
+            if(stationsDao!!.getStationFav(true).isNotEmpty() || stationsDao!!.getStationFav(true).isNotEmpty() || stationsDao!!.getStationFav(true).isNotEmpty()){
+                Log.d("tyui", "isempty")
+                noFav.visibility = View.INVISIBLE
+            }
             val stationFav = stationsDao!!.getStationFav(true)
             Log.d("oct", "metro = $stationFav")
 
             stationRecyclerview_metro.adapter = StationAdapter(stationFav)
-
-
 
             stationsDao = databasebus.getStationsDao()
 
             val stationFavb = stationsDao!!.getStationFav(true)
             Log.d("oct", "bus = $stationFavb")
 
-
             stationRecyclerview_bus.adapter = StationAdapter(stationFavb)
-
-
-
         stationsDao = databasetrain.getStationsDao()
-
             val stationFavt = stationsDao!!.getStationFav(true)
             Log.d("oct", "train = $stationFavt")
 
             stationRecyclerview_train.adapter = StationAdapter(stationFavt)
         }
-
-
 
         return root
     }

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorPrimary">
 
 
@@ -11,20 +12,21 @@
         android:gravity="center">
 
         <ProgressBar
-            android:id="@+id/progress_bar"
+            android:id="@+id/progress_bar_traffic"
             android:layout_width="100dp"
             android:layout_height="100dp" />
     </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="10dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/activities_recyclerview_traffic"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-            tools:listitem="@layout/traffic_view" />
+            android:layout_height="match_parent"
+            tools:listitem="@layout/traffic_view"/>
 
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
