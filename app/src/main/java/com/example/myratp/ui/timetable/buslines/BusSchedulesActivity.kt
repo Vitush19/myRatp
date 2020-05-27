@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +22,7 @@ import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.ScheduleDao
 import com.example.myratp.model.Schedule
 import kotlinx.android.synthetic.main.activity_bus_schedule.*
+import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 
 class BusSchedulesActivity : AppCompatActivity() {
@@ -42,9 +44,21 @@ class BusSchedulesActivity : AppCompatActivity() {
         toolbar.title = "Station : $name"
         setSupportActionBar(toolbar)
 
-        val recyclerviewBusSchedule =
-            findViewById<RecyclerView>(R.id.activities_recyclerview_bus_schedule)
-        recyclerviewBusSchedule.layoutManager =
+        val txtAller = findViewById<TextView>(R.id.bus_schedule_txt_aller)
+        val txtRetour = findViewById<TextView>(R.id.bus_schedule_txt_retour)
+        val txtStation = findViewById<TextView>(R.id.bus_schedule_txt_station)
+
+        val stationName = "$name"
+        txtStation.text = stationName
+
+        val recyclerviewBusScheduleAller =
+            findViewById<RecyclerView>(R.id.activities_recyclerview_bus_schedule_aller)
+        recyclerviewBusScheduleAller.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+
+        val recyclerviewBusScheduleRetour =
+            findViewById<RecyclerView>(R.id.activities_recyclerview_bus_schedule_retour)
+        recyclerviewBusScheduleRetour.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         val database = Room.databaseBuilder(this, AppDatabase::class.java, "allschedule")
@@ -53,18 +67,35 @@ class BusSchedulesActivity : AppCompatActivity() {
         scheduleDao = database.getScheduleDao()
         if (isNetworkConnected()) {
             runBlocking {
-                scheduleDao?.deleteAllSchedule()
-                val service = retrofit_bus().create(BusLinesBySearch::class.java)
-                val resultat = service.getScheduleBus("buses", "$code", "$name", "A+R")
-                resultat.result.schedules.map {
-                    val busSchedule = Schedule(0, it.message, it.destination)
-                    scheduleDao?.addSchedule(busSchedule)
+                val deffered = async {
+                    scheduleDao?.deleteAllSchedule()
+                    val service = retrofit_bus().create(BusLinesBySearch::class.java)
+                    val resultat = service.getScheduleBus("buses", "$code", "$name", "A")
+                    resultat.result.schedules.map {
+                        val busSchedule = Schedule(0, it.message, it.destination)
+                        scheduleDao?.addSchedule(busSchedule)
+                        txtAller.text = it.destination
+                    }
+                    scheduleDao = database.getScheduleDao()
+                    val scheduleAller = scheduleDao?.getSchedule()
+                    progress_bar_bus_schedule.visibility = View.GONE
+                    recyclerviewBusScheduleAller.adapter =
+                        BusScheduleAdapter(scheduleAller ?: emptyList())
+
+                    scheduleDao?.deleteAllSchedule()
+                    val resultatBis = service.getScheduleBus("buses", "$code", "$name", "R")
+                    resultatBis.result.schedules.map {
+                        val busSchedule = Schedule(0, it.message, it.destination)
+                        scheduleDao?.addSchedule(busSchedule)
+                        txtRetour.text = it.destination
+                    }
+                    scheduleDao = database.getScheduleDao()
+                    val scheduleRetour = scheduleDao?.getSchedule()
+                    progress_bar_bus_schedule.visibility = View.GONE
+                    recyclerviewBusScheduleRetour.adapter =
+                        BusScheduleAdapter(scheduleRetour ?: emptyList())
                 }
-                scheduleDao = database.getScheduleDao()
-                val schedule = scheduleDao?.getSchedule()
-                progress_bar_bus_schedule.visibility = View.GONE
-                recyclerviewBusSchedule.adapter =
-                    BusScheduleAdapter(schedule ?: emptyList())
+                deffered.await()
             }
         } else {
             Toast.makeText(

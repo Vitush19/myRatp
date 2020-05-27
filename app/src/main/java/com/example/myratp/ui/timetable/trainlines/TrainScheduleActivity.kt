@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +22,7 @@ import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.ScheduleDao
 import com.example.myratp.model.Schedule
 import kotlinx.android.synthetic.main.activity_train_schedule.*
+import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 
 class TrainScheduleActivity : AppCompatActivity(){
@@ -41,9 +43,20 @@ class TrainScheduleActivity : AppCompatActivity(){
         toolbar.title = "Station : $name"
         setSupportActionBar(toolbar)
 
-        val recyclerviewTrainSchedule =
-            findViewById<RecyclerView>(R.id.activities_recyclerview_train_schedule)
-        recyclerviewTrainSchedule.layoutManager =
+        val txtAller = findViewById<TextView>(R.id.train_schedule_txt_aller)
+        val txtRetour = findViewById<TextView>(R.id.train_schedule_txt_retour)
+        val txtStation = findViewById<TextView>(R.id.train_schedule_txt_station)
+
+        val stationName = "$name"
+        txtStation.text = stationName
+
+        val recyclerviewTrainScheduleAller =
+            findViewById<RecyclerView>(R.id.activities_recyclerview_train_schedule_aller)
+        recyclerviewTrainScheduleAller.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        val recyclerviewTrainScheduleRetour =
+            findViewById<RecyclerView>(R.id.activities_recyclerview_train_schedule_retour)
+        recyclerviewTrainScheduleRetour.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         val database = Room.databaseBuilder(this, AppDatabase::class.java, "allschedule")
@@ -52,18 +65,35 @@ class TrainScheduleActivity : AppCompatActivity(){
         scheduleDao = database.getScheduleDao()
         if (isNetworkConnected()) {
             runBlocking {
-                scheduleDao?.deleteAllSchedule()
-                val service = retrofit_train().create(TrainLinesBySearch::class.java)
-                val resultat = service.getScheduleTrain("rers", "$code", "$name", "A+R")
-                resultat.result.schedules.map {
-                    val trainSchedule = Schedule(0, it.message, it.destination)
-                    scheduleDao?.addSchedule(trainSchedule)
+                val deffered = async {
+                    scheduleDao?.deleteAllSchedule()
+                    val service = retrofit_train().create(TrainLinesBySearch::class.java)
+                    val resultat = service.getScheduleTrain("rers", "$code", "$name", "A")
+                    resultat.result.schedules.map {
+                        val trainSchedule = Schedule(0, it.message, it.destination)
+                        scheduleDao?.addSchedule(trainSchedule)
+                        txtAller.text = it.destination
+                    }
+                    scheduleDao = database.getScheduleDao()
+                    val scheduleAller = scheduleDao?.getSchedule()
+                    progress_bar_train_schedule.visibility = View.GONE
+                    recyclerviewTrainScheduleAller.adapter =
+                        TrainScheduleAdapter(scheduleAller ?: emptyList())
+
+                    scheduleDao?.deleteAllSchedule()
+                    val resultatBis = service.getScheduleTrain("rers", "$code", "$name", "R")
+                    resultatBis.result.schedules.map {
+                        val trainSchedule = Schedule(0, it.message, it.destination)
+                        scheduleDao?.addSchedule(trainSchedule)
+                        txtRetour.text = it.destination
+                    }
+                    scheduleDao = database.getScheduleDao()
+                    val scheduleRetour = scheduleDao?.getSchedule()
+                    progress_bar_train_schedule.visibility = View.GONE
+                    recyclerviewTrainScheduleRetour.adapter =
+                        TrainScheduleAdapter(scheduleRetour ?: emptyList())
                 }
-                scheduleDao = database.getScheduleDao()
-                val schedule = scheduleDao?.getSchedule()
-                progress_bar_train_schedule.visibility = View.GONE
-                recyclerviewTrainSchedule.adapter =
-                    TrainScheduleAdapter(schedule ?: emptyList())
+                deffered.await()
             }
         } else {
             Toast.makeText(
