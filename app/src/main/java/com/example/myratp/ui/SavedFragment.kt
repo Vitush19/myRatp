@@ -30,17 +30,18 @@ class SavedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root: View = inflater.inflate(R.layout.fragment_saved, container, false)
-        val stationRecyclerview_metro =
-            root.findViewById<View>(R.id.activities_recyclerview_metro_station_fav) as RecyclerView
-        stationRecyclerview_metro.layoutManager = LinearLayoutManager(this.context,  LinearLayoutManager.VERTICAL, false)
 
-        val stationRecyclerview_bus =
-            root.findViewById<View>(R.id.activities_recyclerview_bus_station_fav) as RecyclerView
-        stationRecyclerview_bus.layoutManager = LinearLayoutManager(this.context,  LinearLayoutManager.VERTICAL, false)
+//        val stationRecyclerview_metro =
+//            root.findViewById<View>(R.id.activities_recyclerview_metro_station_fav) as RecyclerView
+//        stationRecyclerview_metro.layoutManager = LinearLayoutManager(this.context,  LinearLayoutManager.VERTICAL, false)
 
-        val stationRecyclerview_train =
-            root.findViewById<View>(R.id.activities_recyclerview_train_station_fav) as RecyclerView
-        stationRecyclerview_train.layoutManager = LinearLayoutManager(this.context,  LinearLayoutManager.VERTICAL, false)
+        val stationRecyclerview =
+            root.findViewById<View>(R.id.activities_recyclerview_station_fav) as RecyclerView
+        stationRecyclerview.layoutManager = LinearLayoutManager(this.context,  LinearLayoutManager.VERTICAL, false)
+
+//        val stationRecyclerview_train =
+//            root.findViewById<View>(R.id.activities_recyclerview_train_station_fav) as RecyclerView
+//        stationRecyclerview_train.layoutManager = LinearLayoutManager(this.context,  LinearLayoutManager.VERTICAL, false)
 
 
         val database =
@@ -75,7 +76,8 @@ class SavedFragment : Fragment() {
             val stationFav = stationsDao!!.getStationFav(true)
             Log.d("oct", "metro = $stationFav")
 
-            stationRecyclerview_metro.adapter = StationAdapter(stationFav)
+
+//            stationRecyclerview_metro.adapter = StationAdapter(stationFav)
 
 
 
@@ -85,7 +87,8 @@ class SavedFragment : Fragment() {
             Log.d("oct", "bus = $stationFavb")
 
 
-            stationRecyclerview_bus.adapter = StationAdapter(stationFavb)
+
+//            stationRecyclerview_bus.adapter = StationAdapter(stationFavb)
 
 
 
@@ -94,7 +97,11 @@ class SavedFragment : Fragment() {
             val stationFavt = stationsDao!!.getStationFav(true)
             Log.d("oct", "train = $stationFavt")
 
-            stationRecyclerview_train.adapter = StationAdapter(stationFavt)
+            var favtotal= stationFav + stationFavb +stationFavt
+            Log.d("oct", "total= $favtotal")
+
+            stationRecyclerview.adapter = StationAdapter(favtotal)
+//            stationRecyclerview_train.adapter = StationAdapter(stationFavt)
         }
 
 
@@ -104,11 +111,7 @@ class SavedFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        runBlocking {
-            val stations  = stationsDao?.getStationFav(true)
-            activities_recyclerview_metro_station_fav.adapter = StationAdapter(stations ?: emptyList())
 
-        }
     }
 
 }
