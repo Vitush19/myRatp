@@ -19,10 +19,10 @@ import com.example.myratp.data.TrafficDao
 import com.example.myratp.model.Traffic
 import com.example.myratp.ui.timetable.metrolines.MetroLinesBySearch
 import com.example.myratp.ui.timetable.metrolines.retrofit
-import kotlinx.android.synthetic.main.activity_bus_time.*
+import kotlinx.android.synthetic.main.activity_traffic.*
 import kotlinx.coroutines.runBlocking
 
-class trafficActivity : AppCompatActivity() {
+class TrafficActivity : AppCompatActivity() {
 
     private var trafficDao: TrafficDao? = null
 
@@ -52,7 +52,7 @@ class trafficActivity : AppCompatActivity() {
                 }
                 trafficDao = database.getTrafficDao()
                 val traf = trafficDao?.getTraffic()
-                progress_bar.visibility = View.GONE
+                progress_bar_traffic.visibility = View.GONE
                 recyclerviewMetro.adapter =
                     TrafficMetroAdapter ( traf!!)
 

@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,6 +32,8 @@ class SavedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root: View = inflater.inflate(R.layout.fragment_saved, container, false)
+
+        val noFav = root.findViewById<RelativeLayout>(R.id.linear_no_fav)
 
 //        val stationRecyclerview_metro =
 //            root.findViewById<View>(R.id.activities_recyclerview_metro_station_fav) as RecyclerView
@@ -69,11 +73,10 @@ class SavedFragment : Fragment() {
             )
                 .build()
 
-
         stationsDao = database.getStationsDao()
 
-
         runBlocking {
+
             val stationFav = stationsDao!!.getStationFav(true)
             Log.d("oct", "metro = $stationFav")
 
@@ -98,11 +101,14 @@ class SavedFragment : Fragment() {
             var favtotal = stationFav + stationFavb + stationFavt
             Log.d("oct", "total= $favtotal")
 
+            if(favtotal.isNotEmpty() ){
+                Log.d("oct", "isempty")
+                noFav.visibility = View.GONE
+            }
+
             stationRecyclerview.adapter = StationAdapter(favtotal)
 //            stationRecyclerview_train.adapter = StationAdapter(stationFavt)
         }
-
-
 
         return root
     }

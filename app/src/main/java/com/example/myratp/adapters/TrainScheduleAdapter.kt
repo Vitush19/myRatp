@@ -28,7 +28,7 @@ class TrainScheduleAdapter(private val listTrainSchedule: List<Schedule>) :
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: TrainScheduleViewHolder, position: Int) {
         val schedule = listTrainSchedule[position]
-        holder.trainScheduleView.schedule_message_textview.text = "Temps estimé : ${schedule.message}"
+        holder.trainScheduleView.schedule_message_textview.text = schedule.message
     }
 
 }

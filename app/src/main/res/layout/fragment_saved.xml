@@ -3,29 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.SavedFragment"
-    android:orientation="vertical">
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    tools:context=".ui.SavedFragment">
 
+    <RelativeLayout
+        android:id="@+id/linear_no_fav"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables"
+        android:visibility="visible">
 
-<!--    <RelativeLayout-->
-<!--        android:id="@+id/layoutNofav"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:gravity="center"-->
-<!--        android:visibility="visible">-->
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="300dp"
+            android:contentDescription="@string/coeur"
+            android:src="@drawable/empty_heart" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/noSavedFlightAvailable"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center_vertical"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:gravity="center"-->
-<!--            android:text="@string/aucune_station_en_favoris"-->
-<!--            android:textSize="26sp"-->
-<!--            android:textStyle="bold" />-->
-
-<!--    </RelativeLayout>-->
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/ajoutez_des_favoris"
+            android:textAlignment="center"
+            android:textColor="@color/specialWhite"
+            android:textSize="21sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
 
 
 <!--    <LinearLayout-->
@@ -39,6 +44,7 @@
 <!--            android:layout_height="match_parent"-->
 <!--            tools:listitem="@layout/station_view" />-->
 <!--    </LinearLayout>-->
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

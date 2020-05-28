@@ -92,10 +92,10 @@ class MetroSchedulesActivity : AppCompatActivity() {
                         txtAller.text = it.destination
                     }
                     scheduleDao = database.getScheduleDao()
-                    val schedule = scheduleDao?.getSchedule()
+                    val scheduleAller = scheduleDao?.getSchedule()
                     progress_bar_metro_schedule.visibility = View.GONE
                     recyclerviewMetroScheduleAller.adapter =
-                        MetroScheduleAdapter(schedule ?: emptyList())
+                        MetroScheduleAdapter(scheduleAller ?: emptyList())
 
                     scheduleDao?.deleteAllSchedule()
                     val resultatBis = service.getScheduleMetro("metros", "$code", "$name", "R")
@@ -105,10 +105,10 @@ class MetroSchedulesActivity : AppCompatActivity() {
                         txtRetour.text = it.destination
                     }
                     scheduleDao = database.getScheduleDao()
-                    val sta = scheduleDao?.getSchedule()
+                    val scheduleRetour = scheduleDao?.getSchedule()
                     progress_bar_metro_schedule.visibility = View.GONE
                     recyclerviewMetroScheduleRetour.adapter =
-                        MetroScheduleAdapter(sta ?: emptyList())
+                        MetroScheduleAdapter(scheduleRetour ?: emptyList())
                 }
                 deffered.await()
                 for (x in parts.indices) {

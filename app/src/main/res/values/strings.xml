@@ -40,4 +40,8 @@
     <string name="statut">statut</string>
     <string name="back">back</string>
     <string name="aucune_station_en_favoris">aucune station en favoris</string>
+    <string name="coeur">Coeur</string>
+    <string name="ajoutez_des_favoris">Ajoutez des favoris !</string>
+    <string name="worried">Personnage inquiet</string>
+    <string name="no_informations">Désolé nous n\'avons pas d\'informations concernant cette ligne</string>
 </resources>
