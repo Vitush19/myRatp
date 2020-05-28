@@ -28,6 +28,7 @@ class MetroStationsActivity : AppCompatActivity() {
     private var code: String? = ""
     private var idMetro: Int? = 0
     private var stationDao: StationsDao? = null
+    var newFavoris :Boolean = false
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,15 +69,17 @@ class MetroStationsActivity : AppCompatActivity() {
                             for(x in list_station.indices){
                                 if("$code" != list_station[x].id_ligne){
                                     val newLine: String = list_station[x].id_ligne
+                                    newFavoris = list_station[x].favoris
                                     co = co + "$newLine-"
                                 }
                                 if("$code" == list_station[x].id_ligne){
                                     id = list_station[x].id_station
+                                    newFavoris = list_station[x].favoris
                                 }
                             }
                         }
                         val station =
-                            Station(id, it.name, it.slug, favoris = false, id_ligne = "$code", correspondance = co, type = Type.Metro)
+                            Station(id, it.name, it.slug, favoris = newFavoris, id_ligne = "$code", correspondance = co, type = Type.Metro)
 
                         stationDao?.updateStations(station)
                     }

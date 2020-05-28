@@ -108,14 +108,34 @@ class StationAdapter(private val list_stations: List<Station>) :
 
         holder.stationsView.setOnClickListener {
             var intent = Intent(it.context, MetroSchedulesActivity::class.java)
-            when(station.type){
-                Type.Metro-> intent = Intent(it.context, MetroSchedulesActivity::class.java)
-                Type.Bus-> intent = Intent(it.context, BusSchedulesActivity::class.java)
-                Type.Train-> intent = Intent(it.context, TrainScheduleActivity::class.java)
-            }
+//            when(station.type){
+//                Type.Metro-> intent = Intent(it.context, MetroSchedulesActivity::class.java)
+//                Type.Bus-> intent = Intent(it.context, BusSchedulesActivity::class.java)
+//                Type.Train-> intent = Intent(it.context, TrainScheduleActivity::class.java)
+//            }
+//            intent.putExtra("code", station.id_ligne)
+//            intent.putExtra("name", station.name)
+//            it.context.startActivity(intent)
 
-            intent.putExtra("code", station.id_ligne)
-            intent.putExtra("name", station.name)
+            if(station.type == Type.Metro){
+                intent = Intent(it.context, MetroSchedulesActivity::class.java)
+                intent.putExtra("code", station.id_ligne)
+                intent.putExtra("name", station.name)
+                intent.putExtra("correspondance", station.correspondance)
+//                it.context.startActivity(intent)
+
+            }else if(station.type == Type.Bus) {
+                intent = Intent(it.context, BusSchedulesActivity::class.java)
+                intent.putExtra("code", station.id_ligne)
+                intent.putExtra("name", station.name)
+
+
+            }else if(station.type == Type.Train) {
+                intent = Intent(it.context, TrainScheduleActivity::class.java)
+                intent.putExtra("code", station.id_ligne)
+                intent.putExtra("name", station.name)
+//                it.context.startActivity(intent)
+            }
             it.context.startActivity(intent)
         }
     }

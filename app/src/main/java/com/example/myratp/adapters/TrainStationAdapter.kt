@@ -85,8 +85,6 @@ class TrainStationAdapter(private val list_stations: List<Station>, val code: St
             val intent = Intent(it.context, TrainScheduleActivity::class.java)
             intent.putExtra("code", code)
             intent.putExtra("name", station.name)
-
-            Log.d("oct", station.toString())
             it.context.startActivity(intent)
         }
 

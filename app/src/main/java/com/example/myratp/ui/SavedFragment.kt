@@ -37,7 +37,8 @@ class SavedFragment : Fragment() {
 
         val stationRecyclerview =
             root.findViewById<View>(R.id.activities_recyclerview_station_fav) as RecyclerView
-        stationRecyclerview.layoutManager = LinearLayoutManager(this.context,  LinearLayoutManager.VERTICAL, false)
+        stationRecyclerview.layoutManager =
+            LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
 
 //        val stationRecyclerview_train =
 //            root.findViewById<View>(R.id.activities_recyclerview_train_station_fav) as RecyclerView
@@ -80,24 +81,21 @@ class SavedFragment : Fragment() {
 //            stationRecyclerview_metro.adapter = StationAdapter(stationFav)
 
 
-
             stationsDao = databasebus.getStationsDao()
 
             val stationFavb = stationsDao!!.getStationFav(true)
             Log.d("oct", "bus = $stationFavb")
 
 
-
 //            stationRecyclerview_bus.adapter = StationAdapter(stationFavb)
 
 
-
-        stationsDao = databasetrain.getStationsDao()
+            stationsDao = databasetrain.getStationsDao()
 
             val stationFavt = stationsDao!!.getStationFav(true)
             Log.d("oct", "train = $stationFavt")
 
-            var favtotal= stationFav + stationFavb +stationFavt
+            var favtotal = stationFav + stationFavb + stationFavt
             Log.d("oct", "total= $favtotal")
 
             stationRecyclerview.adapter = StationAdapter(favtotal)
@@ -111,6 +109,10 @@ class SavedFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+//        runBlocking {
+//            val stations  = stationsDao?.getStationFav(true)
+//            activities_recyclerview_station_fav.adapter = StationAdapter(stations ?: emptyList())
+//        }
 
     }
 
