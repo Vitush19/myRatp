@@ -64,17 +64,17 @@ class MetroStationsActivity : AppCompatActivity() {
                     val resultat = service.getMetroStations("metros", "$code")
                     resultat.result.stations.map {
                         var co = ""
-                        val list_station = stationDao?.getStationsByName(it.name)
-                        if(list_station!!.isNotEmpty()){
-                            for(x in list_station.indices){
-                                if("$code" != list_station[x].id_ligne){
-                                    val newLine: String = list_station[x].id_ligne
-                                    newFavoris = list_station[x].favoris
-                                    co = co + "$newLine-"
+                        val listStation = stationDao?.getStationsByName(it.name)
+                        if(listStation!!.isNotEmpty()){
+                            for(x in listStation.indices){
+                                if("$code" != listStation[x].id_ligne){
+                                    val newLine: String = listStation[x].id_ligne
+                                    newFavoris = listStation[x].favoris
+                                    co += "$newLine-"
                                 }
-                                if("$code" == list_station[x].id_ligne){
-                                    id = list_station[x].id_station
-                                    newFavoris = list_station[x].favoris
+                                if("$code" == listStation[x].id_ligne){
+                                    id = listStation[x].id_station
+                                    newFavoris = listStation[x].favoris
                                 }
                             }
                         }
@@ -94,7 +94,7 @@ class MetroStationsActivity : AppCompatActivity() {
         } else {
             Toast.makeText(
                 this,
-                "Vérifiez votre connexion internet et réessayez à nouveau",
+                getString(R.string.Connexion_internet),
                 Toast.LENGTH_SHORT
             ).show()
         }

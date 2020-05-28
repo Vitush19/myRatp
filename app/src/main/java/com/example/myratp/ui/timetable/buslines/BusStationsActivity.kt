@@ -55,11 +55,6 @@ class BusStationsActivity : AppCompatActivity() {
         val co = ""
         if (isNetworkConnected()) {
             runBlocking {
-//                val list = stationDao?.getStationsByLine("$idBus")
-//                Log.d("tyui", "$list")
-//                Log.d("tyui", "$idBus")
-//                if (stationDao!!.getStationsByLine("$idBus").isEmpty()) {
-//                    Log.d("tyui", "c'est null")
                     val service = retrofit_bus().create(BusLinesBySearch::class.java)
                     val resultat = service.getBusStations("buses", "$code")
                     resultat.result.stations.map {
@@ -73,11 +68,10 @@ class BusStationsActivity : AppCompatActivity() {
                     recyclerviewBusStation.adapter =
                         BusStationAdapter(schedule ?: emptyList(), "$code")
                 }
-//            }
         } else {
             Toast.makeText(
                 this,
-                "Vérifiez votre connexion internet et réessayez à nouveau",
+                getString(R.string.Connexion_internet),
                 Toast.LENGTH_SHORT
             ).show()
         }

@@ -3,6 +3,7 @@
     package="com.example.myratp">
 
     <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -44,6 +45,7 @@
         <activity android:name=".ui.timetable.trainlines.TrainScheduleActivity" />
         <activity android:name=".TrainPlansActivity" />
         <activity android:name=".ui.ErreurTrainLine" />
+        <activity android:name=".ui.QrCodeActivity" />
     </application>
 
 </manifest>

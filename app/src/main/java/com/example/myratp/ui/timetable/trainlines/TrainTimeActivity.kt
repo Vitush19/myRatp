@@ -57,7 +57,6 @@ class TrainTimeActivity : AppCompatActivity() {
 
         if (isNetworkConnected()) {
             runBlocking {
-                //trainLineDao?.deleteAllTrainLines()
                 if(trainLineDao!!.getTrainLines().isEmpty()){
                     val service = retrofit_train().create(TrainLinesBySearch::class.java)
                     val resultat = service.getlistTrainLine()
@@ -69,14 +68,13 @@ class TrainTimeActivity : AppCompatActivity() {
                 trainLineDao = database.getTrainLineDao()
                 val trainStation = trainLineDao?.getTrainLines()
                 progress_bar_train.visibility = View.GONE
-                Log.d("tyui", "$trainStation")
                 recyclerviewTrain.adapter =
                     TrainLinesAdapter(trainStation ?: emptyList())
             }
         } else {
         Toast.makeText(
             this,
-            "Vérifiez votre connexion internet et réessayez à nouveau",
+            getString(R.string.Connexion_internet),
             Toast.LENGTH_SHORT
             ).show()
         }

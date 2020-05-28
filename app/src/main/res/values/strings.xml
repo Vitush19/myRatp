@@ -44,4 +44,8 @@
     <string name="ajoutez_des_favoris">Ajoutez des favoris !</string>
     <string name="worried">Personnage inquiet</string>
     <string name="no_informations">Désolé nous n\'avons pas d\'informations concernant cette ligne</string>
+    <string name="scan_qr_code">Veuillez scanner un QR Code</string>
+    <string name="chargement">Veuillez patientez en attendant le chargement</string>
+    <string name="Camera_autorisation">Veuillez autoriser l\'accès à la caméra</string>
+    <string name="Connexion_internet">Vérifiez votre connexion internet et réessayez à nouveau</string>
 </resources>

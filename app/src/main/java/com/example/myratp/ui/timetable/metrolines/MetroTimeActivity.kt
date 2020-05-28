@@ -42,7 +42,6 @@ class MetroTimeActivity : AppCompatActivity() {
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
         toolbar.title = "Métro"
         setSupportActionBar(toolbar)
-        //supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
 
         val recyclerviewMetro = findViewById<RecyclerView>(R.id.activities_recyclerview_metro)
@@ -91,7 +90,7 @@ class MetroTimeActivity : AppCompatActivity() {
         } else {
             Toast.makeText(
                 this,
-                "Vérifiez votre connexion internet et réessayez à nouveau",
+                getString(R.string.Connexion_internet),
                 Toast.LENGTH_SHORT
             ).show()
         }

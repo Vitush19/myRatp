@@ -98,7 +98,7 @@ class TrainScheduleActivity : AppCompatActivity(){
         } else {
             Toast.makeText(
                 this,
-                "Vérifiez votre connexion internet et réessayez à nouveau",
+                getString(R.string.Connexion_internet),
                 Toast.LENGTH_SHORT
             ).show()
         }

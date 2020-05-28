@@ -25,11 +25,18 @@ class DashboardFragment : Fragment(), View.OnClickListener {
     ): View? {
         // Inflate the layout for this fragment
         val root=  inflater.inflate(R.layout.fragment_dashboard, container, false)
-        val b_traffic = root.findViewById<CardView>(R.id.traffic_button)
-        b_traffic.setOnClickListener{
+        val bTraffic = root.findViewById<CardView>(R.id.traffic_button)
+        val bQrCode = root.findViewById<CardView>(R.id.qr_code_button)
+
+        bQrCode.setOnClickListener {
+            val intent = Intent(requireContext(), QrCodeActivity::class.java)
+            startActivity(intent)
+        }
+        bTraffic.setOnClickListener{
             val intent = Intent(requireContext(),TrafficActivity::class.java)
             startActivity(intent)
         }
+
         return root
     }
 
@@ -39,7 +46,6 @@ class DashboardFragment : Fragment(), View.OnClickListener {
         view.findViewById<CardView>(R.id.timetable_button).setOnClickListener(this)
         //view.findViewById<CardView>(R.id.plans_button).setOnClickListener(this)
         view.findViewById<CardView>(R.id.favoris_button).setOnClickListener(this)
-        view.findViewById<CardView>(R.id.qr_code_button).setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -47,7 +53,6 @@ class DashboardFragment : Fragment(), View.OnClickListener {
             R.id.timetable_button -> navController.navigate(R.id.action_dashboardFragment_to_timetableFragment)
             //R.id.plans_button -> navController.navigate(R.id.action_dashboardFragment_to_plansFragment)
             R.id.favoris_button -> navController.navigate(R.id.action_dashboardFragment_to_savedFragment)
-            R.id.qr_code_button -> navController.navigate(R.id.action_dashboardFragment_to_qrcodeFragment)
         }
     }
 

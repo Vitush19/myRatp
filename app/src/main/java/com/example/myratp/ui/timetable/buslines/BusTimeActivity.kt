@@ -70,7 +70,7 @@ class BusTimeActivity : AppCompatActivity() {
             }
         }
         else{
-            Toast.makeText(this, "Vérifiez votre connexion internet et réessayez à nouveau", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.Connexion_internet), Toast.LENGTH_SHORT).show()
         }
     }
 

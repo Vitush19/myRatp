@@ -121,7 +121,7 @@ class MetroSchedulesActivity : AppCompatActivity() {
         } else {
             Toast.makeText(
                 this,
-                "Vérifiez votre connexion internet et réessayez à nouveau",
+                getString(R.string.Connexion_internet),
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -159,13 +159,11 @@ class MetroSchedulesActivity : AppCompatActivity() {
         )
         params1.setMargins(10, 10, 10, 10)
         myLayout.layoutParams = params1
-        myLayout.setBackgroundColor(Color.parseColor("#0a3d62")) //0a3d62
-        //myLayout.setPadding(10, 10, 10, 10)
+        myLayout.setBackgroundColor(Color.parseColor("#0a3d62"))
         myLayout.orientation = LinearLayout.HORIZONTAL
         for (x in directions) {
             val myLinearBis = LinearLayout(this)
             val recyclerview = RecyclerView(this)
-//            val txt = TextView(this)
             recyclerview.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
             myLayout.addView(myLinearBis)
@@ -178,14 +176,6 @@ class MetroSchedulesActivity : AppCompatActivity() {
             myLinearBis.layoutParams = params2
             myLinearBis.orientation = LinearLayout.VERTICAL
             myLinearBis.setBackgroundColor(Color.parseColor("#92918E"))
-//            val params = LinearLayout.LayoutParams(
-//                500,
-//                LinearLayout.LayoutParams.WRAP_CONTENT
-//            )
-
-//            myLinearBis.layoutParams = params
-//            txt.setBackgroundColor(Color.parseColor("#A6A5A2"))
-//            myLinearBis.addView(txt)
             val txt = TextView(this)
             val params3 = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 150)
             txt.layoutParams = params3
@@ -240,8 +230,6 @@ class MetroSchedulesActivity : AppCompatActivity() {
                     hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
                     else -> false
                 }
-
-
             }
         }
         return result
