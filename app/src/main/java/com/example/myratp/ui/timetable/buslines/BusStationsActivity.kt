@@ -64,7 +64,7 @@ class BusStationsActivity : AppCompatActivity() {
                     val resultat = service.getBusStations("buses", "$code")
                     resultat.result.stations.map {
                         val station =
-                            Station(0, it.name, it.slug, favoris = false, id_ligne = "$idBus", correspondance = co, type = Type.Bus)
+                            Station(0, it.name, it.slug, favoris = false, id_ligne = "$idBus", correspondance = co, type = Type.Bus, code = "$code")
                         stationDao?.addStations(station)
                     }
                     stationDao = database.getStationsDao()

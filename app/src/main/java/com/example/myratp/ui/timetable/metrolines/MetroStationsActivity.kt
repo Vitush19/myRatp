@@ -79,7 +79,7 @@ class MetroStationsActivity : AppCompatActivity() {
                             }
                         }
                         val station =
-                            Station(id, it.name, it.slug, favoris = newFavoris, id_ligne = "$code", correspondance = co, type = Type.Metro)
+                            Station(id, it.name, it.slug, favoris = newFavoris, id_ligne = "$code", correspondance = co, type = Type.Metro, code = "$code")
 
                         stationDao?.updateStations(station)
                     }

@@ -67,7 +67,8 @@ class TrainStationsActivity : AppCompatActivity() {
                             favoris = false,
                             id_ligne = "$idTrain",
                             correspondance = co,
-                            type = Type.Train
+                            type = Type.Train,
+                            code = "$code"
                         )
                         stationDao?.addStations(station)
                     }

@@ -95,7 +95,7 @@ class SplashScreenActivity : AppCompatActivity() {
                     val co = ""
                     resultat.result.stations.map {
                         val station =
-                            Station(0, it.name, it.slug, favoris = false, id_ligne = "$x", correspondance = co , type = Type.Metro)
+                            Station(0, it.name, it.slug, favoris = false, id_ligne = "$x", correspondance = co , type = Type.Metro, code = "$x")
                         stationDao?.addStations(station)
                     }
                 }
@@ -108,7 +108,7 @@ class SplashScreenActivity : AppCompatActivity() {
                     val co = ""
                     resultat.result.stations.map {
                         val station =
-                            Station(0, it.name, it.slug, favoris = false, id_ligne = "$x", correspondance = co, type = Type.Metro)
+                            Station(0, it.name, it.slug, favoris = false, id_ligne = "$x", correspondance = co, type = Type.Metro, code = "$x")
                         stationDao?.addStations(station)
                     }
                 }

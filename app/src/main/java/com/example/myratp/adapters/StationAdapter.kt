@@ -126,13 +126,13 @@ class StationAdapter(private val list_stations: List<Station>) :
 
             }else if(station.type == Type.Bus) {
                 intent = Intent(it.context, BusSchedulesActivity::class.java)
-                intent.putExtra("code", station.id_ligne)
+                intent.putExtra("code", station.code)
                 intent.putExtra("name", station.name)
 
 
             }else if(station.type == Type.Train) {
                 intent = Intent(it.context, TrainScheduleActivity::class.java)
-                intent.putExtra("code", station.id_ligne)
+                intent.putExtra("code", station.code)
                 intent.putExtra("name", station.name)
 //                it.context.startActivity(intent)
             }

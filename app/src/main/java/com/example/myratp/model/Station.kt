@@ -18,13 +18,14 @@ data class Station(
     var favoris: Boolean,
     val id_ligne: String,
     val correspondance: String,
-    val type: Type
+    val type: Type,
+    val code: String
 
 ) : Parcelable {
 
     companion object {
         val all = (1..10).map {
-            Station(it, "$it", "$it", false, "$it","$it", Type.Metro)
+            Station(it, "$it", "$it", false, "$it","$it", Type.Metro, "$it")
         }.toMutableList()
     }
 

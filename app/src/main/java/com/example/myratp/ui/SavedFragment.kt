@@ -2,23 +2,22 @@ package com.example.myratp.ui
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
-import androidx.core.view.isVisible
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-
 import com.example.myratp.R
 import com.example.myratp.adapters.StationAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.StationsDao
-import kotlinx.android.synthetic.main.fragment_saved.*
 import kotlinx.coroutines.runBlocking
+
 
 /**
  * A simple [Fragment] subclass.
