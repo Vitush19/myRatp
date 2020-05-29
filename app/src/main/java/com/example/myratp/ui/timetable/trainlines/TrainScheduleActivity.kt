@@ -2,6 +2,7 @@ package com.example.myratp.ui.timetable.trainlines
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -25,7 +26,7 @@ import kotlinx.android.synthetic.main.activity_train_schedule.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 
-class TrainScheduleActivity : AppCompatActivity(){
+class TrainScheduleActivity : AppCompatActivity() {
     private var code: String? = ""
     private var name: String? = ""
     private var scheduleDao: ScheduleDao? = null
@@ -40,6 +41,7 @@ class TrainScheduleActivity : AppCompatActivity(){
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_train_schedule)
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
+        toolbar.setTitleTextColor(Color.parseColor("#F8F7F2"))
         toolbar.title = "Station : $name"
         setSupportActionBar(toolbar)
 

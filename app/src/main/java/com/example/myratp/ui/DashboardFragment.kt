@@ -2,29 +2,106 @@ package com.example.myratp.ui
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-
+import androidx.room.Room
 import com.example.myratp.R
+import com.example.myratp.data.AppDatabase
+import com.example.myratp.data.StationsDao
+import com.example.myratp.model.Station
+import com.example.myratp.model.Type
+import com.example.myratp.ui.timetable.metrolines.MetroSchedulesActivity
+import kotlinx.coroutines.runBlocking
+
 
 /**
  * A simple [Fragment] subclass.
  */
 class DashboardFragment : Fragment(), View.OnClickListener {
 
-    lateinit var navController: NavController
-
+    private lateinit var navController: NavController
+    private var listStation : List<Station> = emptyList()
+    private var listStationString : MutableList<String> = mutableListOf()
+    private var stationDao: StationsDao? = null
+    private var type = ""
+    private var response = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val root=  inflater.inflate(R.layout.fragment_dashboard, container, false)
+
+        val databaseStation = Room.databaseBuilder(requireContext(), AppDatabase::class.java, "stationmetro")
+            .build()
+        stationDao = databaseStation.getStationsDao()
+
+        runBlocking {
+            listStation = stationDao!!.getStations()
+        }
+        for (s in listStation){
+            type = when (s.type) {
+                Type.Metro -> {
+                    "Metro"
+                }
+                Type.Bus -> {
+                    "Bus"
+                }
+                Type.Train -> {
+                    "RER"
+                }
+            }
+            response = "${s.name}-$type-${s.code}"
+            Log.d("tyui", "Correspondance : ${s.correspondance}")
+            listStationString.add(response)
+        }
+
+        val autoText = root.findViewById<AutoCompleteTextView>(R.id.auto_completion_dash)
+        if(listStationString.isNotEmpty()){
+            val adapter  = ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, listStationString)
+            autoText.setAdapter(adapter)
+
+
+            autoText.onFocusChangeListener = View.OnFocusChangeListener{
+                    _, b ->
+                if(b){
+                    // Display the suggestion dropdown on focus
+                    autoText.showDropDown()
+                }
+            }
+
+            autoText.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+//                Toast.makeText(
+//                    requireContext(),
+//                    adapter.getItem(position).toString(),
+//                    Toast.LENGTH_SHORT
+//                ).show()
+                val list = adapter.getItem(position).toString().split("-")
+                val name = list[0]
+                val type = list[1]
+                val code = list[2]
+                if(type == "Metro"){
+                    val intent = Intent(requireContext(), MetroSchedulesActivity::class.java)
+                    intent.putExtra("name", name)
+                    intent.putExtra("code", code)
+                    //intent.putExtra("correspondance", correspondance)
+                    startActivity(intent)
+                    autoText.setText("")
+                }
+            }
+        }
+
+
         val bTraffic = root.findViewById<CardView>(R.id.traffic_button)
         val bQrCode = root.findViewById<CardView>(R.id.qr_code_button)
 

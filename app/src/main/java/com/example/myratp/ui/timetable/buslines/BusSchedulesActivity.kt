@@ -2,6 +2,7 @@ package com.example.myratp.ui.timetable.buslines
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -41,6 +42,7 @@ class BusSchedulesActivity : AppCompatActivity() {
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_bus_schedule)
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
+        toolbar.setTitleTextColor(Color.parseColor("#F8F7F2"))
         toolbar.title = "Station : $name"
         setSupportActionBar(toolbar)
 

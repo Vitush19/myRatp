@@ -1,6 +1,7 @@
 package com.example.myratp.ui.timetable.trainlines
 
 import android.content.Context
+import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -37,9 +38,11 @@ class TrainStationsActivity : AppCompatActivity() {
 
         code = intent.getStringExtra("code")
         idTrain = intent.getStringExtra("id")
+
         val toolbar: Toolbar = findViewById(R.id.toolbar_train_station)
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
         toolbar.title = "Ligne : $code"
+        toolbar.setTitleTextColor(Color.parseColor("#F8F7F2"))
         setSupportActionBar(toolbar)
 
         val recyclerviewTrainStation =
@@ -54,28 +57,28 @@ class TrainStationsActivity : AppCompatActivity() {
         val co = ""
         if (isNetworkConnected()) {
             runBlocking {
-                    val service = retrofit_train().create(TrainLinesBySearch::class.java)
-                    val resultat = service.getTrainStations("rers", "$code")
-                    resultat.result.stations.map {
-                        val station = Station(
-                            0,
-                            it.name,
-                            it.slug,
-                            favoris = false,
-                            id_ligne = "$idTrain",
-                            correspondance = co,
-                            type = Type.Train,
-                            code = "$code"
-                        )
-                        stationDao?.addStations(station)
-                    }
-                    stationDao = database.getStationsDao()
-                    val trainStation = stationDao?.getStationsByLine("$idTrain")
-                    progress_bar_train_station.visibility = View.GONE
-                    recyclerviewTrainStation.adapter =
-                        TrainStationAdapter(trainStation ?: emptyList(), "$code")
+                val service = retrofit_train().create(TrainLinesBySearch::class.java)
+                val resultat = service.getTrainStations("rers", "$code")
+                resultat.result.stations.map {
+                    val station = Station(
+                        0,
+                        it.name,
+                        it.slug,
+                        favoris = false,
+                        id_ligne = "$idTrain",
+                        correspondance = co,
+                        type = Type.Train,
+                        code = "$code"
+                    )
+                    stationDao?.addStations(station)
+                }
+                stationDao = database.getStationsDao()
+                val trainStation = stationDao?.getStationsByLine("$idTrain")
+                progress_bar_train_station.visibility = View.GONE
+                recyclerviewTrainStation.adapter =
+                    TrainStationAdapter(trainStation ?: emptyList(), "$code")
             }
-        }else {
+        } else {
             Toast.makeText(
                 this,
                 getString(R.string.Connexion_internet),

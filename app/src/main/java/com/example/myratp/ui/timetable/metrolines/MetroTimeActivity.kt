@@ -2,6 +2,7 @@ package com.example.myratp.ui.timetable.metrolines
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -39,6 +40,7 @@ class MetroTimeActivity : AppCompatActivity() {
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_metro_time)
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
+        toolbar.setTitleTextColor(Color.parseColor("#F8F7F2"))
         toolbar.title = "Métro"
         setSupportActionBar(toolbar)
 

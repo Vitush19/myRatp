@@ -37,6 +37,22 @@
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <AutoCompleteTextView
+        android:id="@+id/auto_completion_dash"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:completionThreshold="1"
+        android:elevation="10dp"
+        android:focusable="true"
+        android:textColor="@color/black"
+        android:hint="Saisissez votre station"
+        app:layout_constraintBottom_toTopOf="@+id/gridLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.839" />
+
     <GridLayout
         android:id="@+id/gridLayout"
         android:layout_width="wrap_content"
@@ -47,8 +63,10 @@
         android:rowCount="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.500"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.600">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/timetable_button"
@@ -79,46 +97,46 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@string/horaires"
-                    android:textColor="@color/white"
+                    android:textColor="@color/specialWhite"
                     android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-<!--        <androidx.cardview.widget.CardView-->
-<!--            android:id="@+id/plans_button"-->
-<!--            android:layout_width="150dp"-->
-<!--            android:layout_height="150dp"-->
-<!--            android:layout_margin="10dp"-->
-<!--            android:foreground="?android:attr/selectableItemBackground"-->
-<!--            app:cardBackgroundColor="@color/blueContrast"-->
-<!--            app:cardCornerRadius="12dp"-->
-<!--            app:cardElevation="5dp">-->
+        <!--        <androidx.cardview.widget.CardView-->
+        <!--            android:id="@+id/plans_button"-->
+        <!--            android:layout_width="150dp"-->
+        <!--            android:layout_height="150dp"-->
+        <!--            android:layout_margin="10dp"-->
+        <!--            android:foreground="?android:attr/selectableItemBackground"-->
+        <!--            app:cardBackgroundColor="@color/blueContrast"-->
+        <!--            app:cardCornerRadius="12dp"-->
+        <!--            app:cardElevation="5dp">-->
 
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:gravity="center"-->
-<!--                android:orientation="vertical"-->
-<!--                tools:ignore="UseCompoundDrawables">-->
+        <!--            <LinearLayout-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                android:gravity="center"-->
+        <!--                android:orientation="vertical"-->
+        <!--                tools:ignore="UseCompoundDrawables">-->
 
-<!--                <ImageView-->
-<!--                    android:layout_width="70dp"-->
-<!--                    android:layout_height="70dp"-->
-<!--                    android:layout_marginTop="18dp"-->
-<!--                    android:contentDescription="@string/plans"-->
-<!--                    android:src="@drawable/map" />-->
+        <!--                <ImageView-->
+        <!--                    android:layout_width="70dp"-->
+        <!--                    android:layout_height="70dp"-->
+        <!--                    android:layout_marginTop="18dp"-->
+        <!--                    android:contentDescription="@string/plans"-->
+        <!--                    android:src="@drawable/map" />-->
 
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="20dp"-->
-<!--                    android:text="@string/plans"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textSize="16sp"-->
-<!--                    android:textStyle="bold" />-->
-<!--            </LinearLayout>-->
-<!--        </androidx.cardview.widget.CardView>-->
+        <!--                <TextView-->
+        <!--                    android:layout_width="wrap_content"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:layout_marginTop="20dp"-->
+        <!--                    android:text="@string/plans"-->
+        <!--                    android:textColor="@color/white"-->
+        <!--                    android:textSize="16sp"-->
+        <!--                    android:textStyle="bold" />-->
+        <!--            </LinearLayout>-->
+        <!--        </androidx.cardview.widget.CardView>-->
 
         <androidx.cardview.widget.CardView
             android:id="@+id/favoris_button"
@@ -149,7 +167,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@string/favoris"
-                    android:textColor="@color/white"
+                    android:textColor="@color/specialWhite"
                     android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -184,7 +202,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@string/qr_code"
-                    android:textColor="@color/white"
+                    android:textColor="@color/specialWhite"
                     android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -219,7 +237,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@string/traffic"
-                    android:textColor="@color/white"
+                    android:textColor="@color/specialWhite"
                     android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>

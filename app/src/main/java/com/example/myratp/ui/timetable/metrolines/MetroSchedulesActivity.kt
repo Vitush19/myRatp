@@ -55,6 +55,7 @@ class MetroSchedulesActivity : AppCompatActivity() {
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_metro_schedule)
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
+        toolbar.setTitleTextColor(Color.parseColor("#F8F7F2"))
         toolbar.title = "Station : $name"
         setSupportActionBar(toolbar)
 

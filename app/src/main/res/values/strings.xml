@@ -48,4 +48,6 @@
     <string name="chargement">Veuillez patientez en attendant le chargement</string>
     <string name="Camera_autorisation">Veuillez autoriser l\'accès à la caméra</string>
     <string name="Connexion_internet">Vérifiez votre connexion internet et réessayez à nouveau</string>
+    <string name="connexion_internet">Veuillez vous connecter à internet</string>
+    <string name="restart_app">Redémarrer l\'application</string>
 </resources>

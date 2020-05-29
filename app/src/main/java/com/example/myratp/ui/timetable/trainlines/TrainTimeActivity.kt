@@ -2,6 +2,7 @@ package com.example.myratp.ui.timetable.trainlines
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -38,6 +39,7 @@ class TrainTimeActivity : AppCompatActivity() {
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_train_time)
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
+        toolbar.setTitleTextColor(Color.parseColor("#F8F7F2"))
         toolbar.title = "RER"
         setSupportActionBar(toolbar)
 
@@ -57,7 +59,7 @@ class TrainTimeActivity : AppCompatActivity() {
 
         if (isNetworkConnected()) {
             runBlocking {
-                if(trainLineDao!!.getTrainLines().isEmpty()){
+                if (trainLineDao!!.getTrainLines().isEmpty()) {
                     val service = retrofit_train().create(TrainLinesBySearch::class.java)
                     val resultat = service.getlistTrainLine()
                     resultat.result.rers.map {
@@ -72,10 +74,10 @@ class TrainTimeActivity : AppCompatActivity() {
                     TrainLinesAdapter(trainStation ?: emptyList())
             }
         } else {
-        Toast.makeText(
-            this,
-            getString(R.string.Connexion_internet),
-            Toast.LENGTH_SHORT
+            Toast.makeText(
+                this,
+                getString(R.string.Connexion_internet),
+                Toast.LENGTH_SHORT
             ).show()
         }
     }

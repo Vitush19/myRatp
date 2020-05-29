@@ -1,6 +1,7 @@
 package com.example.myratp.ui.timetable.metrolines
 
 import android.content.Context
+import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -28,7 +29,7 @@ class MetroStationsActivity : AppCompatActivity() {
     private var code: String? = ""
     private var idMetro: Int? = 0
     private var stationDao: StationsDao? = null
-    var newFavoris :Boolean = false
+    private var newFavoris: Boolean = false
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +41,7 @@ class MetroStationsActivity : AppCompatActivity() {
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_metro_station)
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
+        toolbar.setTitleTextColor(Color.parseColor("#F8F7F2"))
         toolbar.title = "Ligne : $code"
         setSupportActionBar(toolbar)
 
@@ -55,29 +57,38 @@ class MetroStationsActivity : AppCompatActivity() {
         if (isNetworkConnected()) {
             runBlocking {
                 var id = 0
-                    val service = retrofit().create(MetroLinesBySearch::class.java)
-                    val resultat = service.getMetroStations("metros", "$code")
-                    resultat.result.stations.map {
-                        var co = ""
-                        val listStation = stationDao?.getStationsByName(it.name)
-                        if(listStation!!.isNotEmpty()){
-                            for(x in listStation.indices){
-                                if("$code" != listStation[x].id_ligne){
-                                    val newLine: String = listStation[x].id_ligne
-                                    newFavoris = listStation[x].favoris
-                                    co += "$newLine-"
-                                }
-                                if("$code" == listStation[x].id_ligne){
-                                    id = listStation[x].id_station
-                                    newFavoris = listStation[x].favoris
-                                }
+                val service = retrofit().create(MetroLinesBySearch::class.java)
+                val resultat = service.getMetroStations("metros", "$code")
+                resultat.result.stations.map {
+                    var co = ""
+                    val listStation = stationDao?.getStationsByName(it.name)
+                    if (listStation!!.isNotEmpty()) {
+                        for (x in listStation.indices) {
+                            if ("$code" != listStation[x].id_ligne) {
+                                val newLine: String = listStation[x].id_ligne
+                                newFavoris = listStation[x].favoris
+                                co += "$newLine-"
+                            }
+                            if ("$code" == listStation[x].id_ligne) {
+                                id = listStation[x].id_station
+                                newFavoris = listStation[x].favoris
                             }
                         }
-                        val station =
-                            Station(id, it.name, it.slug, favoris = newFavoris, id_ligne = "$code", correspondance = co, type = Type.Metro, code = "$code")
-
-                        stationDao?.updateStations(station)
                     }
+                    val station =
+                        Station(
+                            id,
+                            it.name,
+                            it.slug,
+                            favoris = newFavoris,
+                            id_ligne = "$code",
+                            correspondance = co,
+                            type = Type.Metro,
+                            code = "$code"
+                        )
+
+                    stationDao?.updateStations(station)
+                }
                 //}
                 stationDao = database.getStationsDao()
 

@@ -1,6 +1,7 @@
 package com.example.myratp.ui.timetable.buslines
 
 import android.content.Context
+import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -40,6 +41,7 @@ class BusStationsActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar_bus_station)
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
         toolbar.title = "Ligne : $code"
+        toolbar.setTitleTextColor(Color.parseColor("#F8F7F2"))
         setSupportActionBar(toolbar)
 
         val recyclerviewBusStation =
@@ -54,19 +56,28 @@ class BusStationsActivity : AppCompatActivity() {
         val co = ""
         if (isNetworkConnected()) {
             runBlocking {
-                    val service = retrofit_bus().create(BusLinesBySearch::class.java)
-                    val resultat = service.getBusStations("buses", "$code")
-                    resultat.result.stations.map {
-                        val station =
-                            Station(0, it.name, it.slug, favoris = false, id_ligne = "$idBus", correspondance = co, type = Type.Bus, code = "$code")
-                        stationDao?.addStations(station)
-                    }
-                    stationDao = database.getStationsDao()
-                    val station = stationDao?.getStationsByLine("$idBus")
-                    progress_bar_bus_station.visibility = View.GONE
-                    recyclerviewBusStation.adapter =
-                        BusStationAdapter(station ?: emptyList(), "$code")
+                val service = retrofit_bus().create(BusLinesBySearch::class.java)
+                val resultat = service.getBusStations("buses", "$code")
+                resultat.result.stations.map {
+                    val station =
+                        Station(
+                            0,
+                            it.name,
+                            it.slug,
+                            favoris = false,
+                            id_ligne = "$idBus",
+                            correspondance = co,
+                            type = Type.Bus,
+                            code = "$code"
+                        )
+                    stationDao?.addStations(station)
                 }
+                stationDao = database.getStationsDao()
+                val station = stationDao?.getStationsByLine("$idBus")
+                progress_bar_bus_station.visibility = View.GONE
+                recyclerviewBusStation.adapter =
+                    BusStationAdapter(station ?: emptyList(), "$code")
+            }
         } else {
             Toast.makeText(
                 this,
