@@ -64,7 +64,7 @@ class BusTimeActivity : AppCompatActivity() {
                 }
                 busLineDao = database.getBusLineDao()
                 val bs = busLineDao?.getBusLines()
-                progress_bar.visibility = View.GONE
+                progress_bar_bus_ligne.visibility = View.GONE
                 recyclerviewBus.adapter =
                     BusLinesAdapter(bs ?: emptyList())
             }

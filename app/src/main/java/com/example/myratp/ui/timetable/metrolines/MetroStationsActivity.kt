@@ -52,13 +52,8 @@ class MetroStationsActivity : AppCompatActivity() {
             .build()
         stationDao = database.getStationsDao()
 
-//        val database_bis = Room.databaseBuilder(this, AppDatabase::class.java, "allmetrolines")
-//            .build()
-//        metroDao = database_bis.getMetroLineDao()
         if (isNetworkConnected()) {
             runBlocking {
-                //stationDao?.deleteAllStations()
-                //if(stationDao!!.getStationsByLine("$code").isEmpty()){
                 var id = 0
                     val service = retrofit().create(MetroLinesBySearch::class.java)
                     val resultat = service.getMetroStations("metros", "$code")
@@ -87,7 +82,7 @@ class MetroStationsActivity : AppCompatActivity() {
                 stationDao = database.getStationsDao()
 
                 val s = stationDao?.getStationsByLine("$code")
-                progress_bar.visibility = View.GONE
+                progress_bar_metro_station.visibility = View.GONE
                 recyclerviewMetroStation.adapter =
                     MetroStationAdapter(s ?: emptyList(), "$code")
             }

@@ -6,7 +6,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -25,7 +24,7 @@ import com.example.myratp.data.TrafficDao
 import com.example.myratp.model.MetroLine
 import com.example.myratp.model.Traffic
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.activity_bus_time.*
+import kotlinx.android.synthetic.main.activity_metro_time.*
 import kotlinx.coroutines.runBlocking
 
 class MetroTimeActivity : AppCompatActivity() {
@@ -83,7 +82,7 @@ class MetroTimeActivity : AppCompatActivity() {
                 }
                 metroLineDao = database.getMetroLineDao()
                 val ms = metroLineDao?.getMetroLines()
-                progress_bar.visibility = View.GONE
+                progress_bar_metro_time.visibility = View.GONE
                 recyclerviewMetro.adapter =
                     MetroLineAdapter(ms ?: emptyList(), traffic!!)
             }

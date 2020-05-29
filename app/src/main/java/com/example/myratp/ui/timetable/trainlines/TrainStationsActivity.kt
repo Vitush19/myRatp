@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +21,7 @@ import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.StationsDao
 import com.example.myratp.model.Station
 import com.example.myratp.model.Type
+import kotlinx.android.synthetic.main.activity_train_stations.*
 import kotlinx.coroutines.runBlocking
 
 class TrainStationsActivity : AppCompatActivity() {
@@ -69,6 +71,7 @@ class TrainStationsActivity : AppCompatActivity() {
                     }
                     stationDao = database.getStationsDao()
                     val trainStation = stationDao?.getStationsByLine("$idTrain")
+                    progress_bar_train_station.visibility = View.GONE
                     recyclerviewTrainStation.adapter =
                         TrainStationAdapter(trainStation ?: emptyList(), "$code")
             }

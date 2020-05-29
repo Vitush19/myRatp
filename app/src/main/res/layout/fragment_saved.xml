@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,18 +14,27 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        tools:ignore="UseCompoundDrawables"
-        android:visibility="visible">
+        android:visibility="visible"
+        tools:ignore="UseCompoundDrawables">
 
-        <ImageView
+        <!--        <ImageView-->
+        <!--            android:layout_width="200dp"-->
+        <!--            android:layout_height="300dp"-->
+        <!--            android:contentDescription="@string/coeur"-->
+        <!--            android:src="@drawable/empty_heart" />-->
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_heart_clock"
             android:layout_width="200dp"
-            android:layout_height="300dp"
-            android:contentDescription="@string/coeur"
-            android:src="@drawable/empty_heart" />
+            android:layout_height="200dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/heart_clock_animation" />
 
         <TextView
             android:layout_width="200dp"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/lottie_heart_clock"
+            android:layout_marginTop="5dp"
             android:text="@string/ajoutez_des_favoris"
             android:textAlignment="center"
             android:textColor="@color/specialWhite"
@@ -33,17 +43,17 @@
     </RelativeLayout>
 
 
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_weight="1">-->
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:layout_weight="1">-->
 
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/activities_recyclerview_metro_station_fav"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            tools:listitem="@layout/station_view" />-->
-<!--    </LinearLayout>-->
+    <!--        <androidx.recyclerview.widget.RecyclerView-->
+    <!--            android:id="@+id/activities_recyclerview_metro_station_fav"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            tools:listitem="@layout/station_view" />-->
+    <!--    </LinearLayout>-->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -56,16 +66,16 @@
             tools:listitem="@layout/station_view" />
     </RelativeLayout>
 
-<!--    <RelativeLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_weight="1">-->
+    <!--    <RelativeLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:layout_weight="1">-->
 
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/activities_recyclerview_train_station_fav"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            tools:listitem="@layout/station_view" />-->
-<!--    </RelativeLayout>-->
+    <!--        <androidx.recyclerview.widget.RecyclerView-->
+    <!--            android:id="@+id/activities_recyclerview_train_station_fav"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            tools:listitem="@layout/station_view" />-->
+    <!--    </RelativeLayout>-->
 
 </LinearLayout>

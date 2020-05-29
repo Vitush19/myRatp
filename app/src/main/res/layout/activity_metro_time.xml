@@ -10,23 +10,26 @@
 
     <include
         android:id="@+id/toolbar_metro_time"
-        layout="@layout/toolbar"/>
+        layout="@layout/toolbar" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center">
 
-        <ProgressBar
-            android:id="@+id/progress_bar"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/progress_bar_metro_time"
             android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_height="100dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading" />
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_marginTop="?attr/actionBarSize"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/activities_recyclerview_metro"

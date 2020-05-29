@@ -5,7 +5,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -21,7 +20,7 @@ import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.StationsDao
 import com.example.myratp.model.Station
 import com.example.myratp.model.Type
-import kotlinx.android.synthetic.main.activity_bus_time.progress_bar
+import kotlinx.android.synthetic.main.activity_bus_stations.*
 import kotlinx.coroutines.runBlocking
 
 class BusStationsActivity : AppCompatActivity() {
@@ -63,10 +62,10 @@ class BusStationsActivity : AppCompatActivity() {
                         stationDao?.addStations(station)
                     }
                     stationDao = database.getStationsDao()
-                    val schedule = stationDao?.getStationsByLine("$idBus")
-                    progress_bar.visibility = View.GONE
+                    val station = stationDao?.getStationsByLine("$idBus")
+                    progress_bar_bus_station.visibility = View.GONE
                     recyclerviewBusStation.adapter =
-                        BusStationAdapter(schedule ?: emptyList(), "$code")
+                        BusStationAdapter(station ?: emptyList(), "$code")
                 }
         } else {
             Toast.makeText(
