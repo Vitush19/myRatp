@@ -94,11 +94,6 @@ class DashboardFragment : Fragment(), View.OnClickListener {
             }
 
             autoText.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-//                Toast.makeText(
-//                    requireContext(),
-//                    adapter.getItem(position).toString(),
-//                    Toast.LENGTH_SHORT
-//                ).show()
                 val list = adapter.getItem(position).toString().split(" - ")
                 val name = list[0]
                 val type = list[1]

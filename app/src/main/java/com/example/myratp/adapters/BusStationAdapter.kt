@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -61,11 +62,18 @@ class BusStationAdapter(private val list_stations: List<Station>, val code: Stri
                 runBlocking {
                     stationsDao?.updateStations(station)
                 }
-                Toast.makeText(
-                    context,
-                    "La station a bien été ajouté des favoris",
-                    Toast.LENGTH_SHORT
-                ).show()
+                val inflater = LayoutInflater.from(context)
+                val v : View = holder.itemView
+                val custom = v.findViewById<LinearLayout>(R.id.layout_toast_custom_add)
+                val toastView = inflater.inflate(
+                    R.layout.custom_toast_add,
+                    custom
+                )
+                with(Toast(context)) {
+                    duration = Toast.LENGTH_SHORT
+                    view = toastView
+                    show()
+                }
 
             } else if (station.favoris) {
                 holder.stationsView.fav_bouton_bus.setBackgroundResource(R.drawable.ic_favorite_border_blue_24dp)
@@ -73,11 +81,18 @@ class BusStationAdapter(private val list_stations: List<Station>, val code: Stri
                 runBlocking {
                     stationsDao?.updateStations(station)
                 }
-                Toast.makeText(
-                    context,
-                    "La station a bien été supprimé des favoris",
-                    Toast.LENGTH_SHORT
-                ).show()
+                val inflater = LayoutInflater.from(context)
+                val v : View = holder.itemView
+                val custom = v.findViewById<LinearLayout>(R.id.layout_toast_custom_delete)
+                val toastView = inflater.inflate(
+                    R.layout.custom_toast_delete,
+                    custom
+                )
+                with(Toast(context)) {
+                    duration = Toast.LENGTH_SHORT
+                    view = toastView
+                    show()
+                }
             }
         }
 

@@ -100,11 +100,15 @@ class BusSchedulesActivity : AppCompatActivity() {
                 deffered.await()
             }
         } else {
-            Toast.makeText(
-                this,
-                getString(R.string.Connexion_internet),
-                Toast.LENGTH_SHORT
-            ).show()
+            val toastView = layoutInflater.inflate(
+                R.layout.custom_toast,
+                findViewById(R.id.layout_toast_custom)
+            )
+            with(Toast(applicationContext)) {
+                duration = Toast.LENGTH_SHORT
+                view = toastView
+                show()
+            }
         }
 
         pull_layout_bus_schedule.setOnRefreshListener {
