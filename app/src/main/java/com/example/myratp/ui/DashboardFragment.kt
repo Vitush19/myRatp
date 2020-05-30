@@ -1,16 +1,19 @@
 package com.example.myratp.ui
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -61,11 +64,12 @@ class DashboardFragment : Fragment(), View.OnClickListener {
                     "RER"
                 }
             }
-            response = "${s.name}-$type-${s.code}"
+            response = "${s.name} - $type - ${s.code}"
             Log.d("tyui", "Correspondance : ${s.correspondance}")
             listStationString.add(response)
         }
 
+        val constraintLayout = root.findViewById<ConstraintLayout>(R.id.constraint_layout_dash)
         val autoText = root.findViewById<AutoCompleteTextView>(R.id.auto_completion_dash)
         if(listStationString.isNotEmpty()){
             val adapter  = ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, listStationString)
@@ -76,7 +80,16 @@ class DashboardFragment : Fragment(), View.OnClickListener {
                     _, b ->
                 if(b){
                     // Display the suggestion dropdown on focus
+                    autoText.setBackgroundResource(R.drawable.rounded_button)
                     autoText.showDropDown()
+                }
+            }
+
+            constraintLayout.setOnClickListener {
+                if (activity?.currentFocus != null) {
+                    activity?.currentFocus!!.clearFocus();
+                    autoText.setBackgroundResource(R.drawable.rounded_button_transparent)
+                    hideKeyboard()
                 }
             }
 
@@ -86,7 +99,7 @@ class DashboardFragment : Fragment(), View.OnClickListener {
 //                    adapter.getItem(position).toString(),
 //                    Toast.LENGTH_SHORT
 //                ).show()
-                val list = adapter.getItem(position).toString().split("-")
+                val list = adapter.getItem(position).toString().split(" - ")
                 val name = list[0]
                 val type = list[1]
                 val code = list[2]
@@ -133,4 +146,13 @@ class DashboardFragment : Fragment(), View.OnClickListener {
         }
     }
 
+    private fun Fragment.hideKeyboard() {
+        view?.let { activity?.hideKeyboard(it) }
+    }
+
+    private fun Context.hideKeyboard(view: View) {
+        val inputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
 }
