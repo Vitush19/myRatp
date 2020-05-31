@@ -63,6 +63,9 @@ class DashboardFragment : Fragment(), View.OnClickListener {
                 Type.Train -> {
                     "RER"
                 }
+                Type.Tram -> {
+                    "Tramway"
+                }
             }
             response = "${s.name} - $type - ${s.code}"
             Log.d("tyui", "Correspondance : ${s.correspondance}")
@@ -102,9 +105,17 @@ class DashboardFragment : Fragment(), View.OnClickListener {
                     val intent = Intent(requireContext(), MetroSchedulesActivity::class.java)
                     intent.putExtra("name", name)
                     intent.putExtra("code", code)
-                    //intent.putExtra("correspondance", correspondance)
                     startActivity(intent)
                     autoText.setText("")
+                }
+                else if(type == "Bus"){
+
+                }
+                else if(type == "RER"){
+
+                }
+                else if(type == "Tramway"){
+
                 }
             }
         }

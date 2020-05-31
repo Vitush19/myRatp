@@ -20,6 +20,7 @@ import com.example.myratp.ui.timetable.buslines.BusSchedulesActivity
 import com.example.myratp.ui.timetable.metrolines.ImageMetro
 import com.example.myratp.ui.timetable.metrolines.MetroSchedulesActivity
 import com.example.myratp.ui.timetable.trainlines.TrainScheduleActivity
+import com.example.myratp.ui.timetable.tramlines.TramSchedulesActivity
 import kotlinx.android.synthetic.main.station_view.view.*
 import kotlinx.coroutines.runBlocking
 
@@ -52,6 +53,7 @@ class StationAdapter(private val list_stations: List<Station>) :
                 Type.Metro-> R.drawable.metro_bleu
                 Type.Bus-> R.drawable.bus
                 Type.Train-> R.drawable.rer
+                Type.Tram ->R.drawable.tramway
             }
         )
         var databaseSaved =
@@ -66,13 +68,11 @@ class StationAdapter(private val list_stations: List<Station>) :
              databaseSaved =
                  Room.databaseBuilder(context, AppDatabase::class.java, "stationbus")
                      .build()
+         }else if (station.type == Type.Tram){
+             databaseSaved =
+                 Room.databaseBuilder(context, AppDatabase::class.java, "stationtram")
+                     .build()
          }
-
-
-
-
-
-
 
         stationsDao = databaseSaved.getStationsDao()
 
@@ -123,21 +123,12 @@ class StationAdapter(private val list_stations: List<Station>) :
 
         holder.stationsView.setOnClickListener {
             var intent = Intent(it.context, MetroSchedulesActivity::class.java)
-//            when(station.type){
-//                Type.Metro-> intent = Intent(it.context, MetroSchedulesActivity::class.java)
-//                Type.Bus-> intent = Intent(it.context, BusSchedulesActivity::class.java)
-//                Type.Train-> intent = Intent(it.context, TrainScheduleActivity::class.java)
-//            }
-//            intent.putExtra("code", station.id_ligne)
-//            intent.putExtra("name", station.name)
-//            it.context.startActivity(intent)
 
             if(station.type == Type.Metro){
                 intent = Intent(it.context, MetroSchedulesActivity::class.java)
                 intent.putExtra("code", station.id_ligne)
                 intent.putExtra("name", station.name)
                 intent.putExtra("correspondance", station.correspondance)
-//                it.context.startActivity(intent)
 
             }else if(station.type == Type.Bus) {
                 intent = Intent(it.context, BusSchedulesActivity::class.java)
@@ -149,7 +140,12 @@ class StationAdapter(private val list_stations: List<Station>) :
                 intent = Intent(it.context, TrainScheduleActivity::class.java)
                 intent.putExtra("code", station.code)
                 intent.putExtra("name", station.name)
-//                it.context.startActivity(intent)
+            }
+
+            else if(station.type == Type.Tram){
+                intent = Intent(it.context, TramSchedulesActivity::class.java)
+                intent.putExtra("code", station.code)
+                intent.putExtra("name", station.name)
             }
             it.context.startActivity(intent)
         }

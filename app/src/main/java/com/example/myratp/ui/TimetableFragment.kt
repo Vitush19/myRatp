@@ -13,6 +13,7 @@ import com.example.myratp.ui.timetable.metrolines.MetroTimeActivity
 
 import com.example.myratp.R
 import com.example.myratp.ui.timetable.trainlines.TrainTimeActivity
+import com.example.myratp.ui.timetable.tramlines.TramTimeActivity
 
 /**
  * A simple [Fragment] subclass.
@@ -29,6 +30,8 @@ class TimetableFragment : Fragment() {
         val bMetro = root.findViewById<Button>(R.id.button_metro)
         val bBus = root.findViewById<Button>(R.id.button_bus)
         val bTrain = root.findViewById<Button>(R.id.button_train)
+        val bTram = root.findViewById<Button>(R.id.button_tram)
+
         bMetro.setOnClickListener {
             val intent = Intent(requireContext(), MetroTimeActivity::class.java)
             startActivity(intent)
@@ -39,6 +42,10 @@ class TimetableFragment : Fragment() {
         }
         bTrain.setOnClickListener {
             val intent = Intent(requireContext(), TrainTimeActivity::class.java)
+            startActivity(intent)
+        }
+        bTram.setOnClickListener {
+            val intent = Intent(requireContext(), TramTimeActivity::class.java)
             startActivity(intent)
         }
         return root

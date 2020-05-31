@@ -34,19 +34,10 @@ class SavedFragment : Fragment() {
 
         val noFav = root.findViewById<RelativeLayout>(R.id.linear_no_fav)
 
-//        val stationRecyclerview_metro =
-//            root.findViewById<View>(R.id.activities_recyclerview_metro_station_fav) as RecyclerView
-//        stationRecyclerview_metro.layoutManager = LinearLayoutManager(this.context,  LinearLayoutManager.VERTICAL, false)
-
         val stationRecyclerview =
             root.findViewById<View>(R.id.activities_recyclerview_station_fav) as RecyclerView
         stationRecyclerview.layoutManager =
             LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
-
-//        val stationRecyclerview_train =
-//            root.findViewById<View>(R.id.activities_recyclerview_train_station_fav) as RecyclerView
-//        stationRecyclerview_train.layoutManager = LinearLayoutManager(this.context,  LinearLayoutManager.VERTICAL, false)
-
 
         val database =
             Room.databaseBuilder(
@@ -72,53 +63,41 @@ class SavedFragment : Fragment() {
             )
                 .build()
 
-        stationsDao = database.getStationsDao()
+        val databasetram =
+            Room.databaseBuilder(
+                requireActivity().baseContext,
+                AppDatabase::class.java,
+                "stationtram"
+            )
+                .build()
 
         runBlocking {
 
+            stationsDao = database.getStationsDao()
             val stationFav = stationsDao!!.getStationFav(true)
-            Log.d("oct", "metro = $stationFav")
-
-
-//            stationRecyclerview_metro.adapter = StationAdapter(stationFav)
-
 
             stationsDao = databasebus.getStationsDao()
-
             val stationFavb = stationsDao!!.getStationFav(true)
-            Log.d("oct", "bus = $stationFavb")
-
-
-//            stationRecyclerview_bus.adapter = StationAdapter(stationFavb)
-
 
             stationsDao = databasetrain.getStationsDao()
-
             val stationFavt = stationsDao!!.getStationFav(true)
-            Log.d("oct", "train = $stationFavt")
 
-            var favtotal = stationFav + stationFavb + stationFavt
-            Log.d("oct", "total= $favtotal")
+            stationsDao = databasetram.getStationsDao()
+            val stationFavtram = stationsDao!!.getStationFav(true)
 
-            if(favtotal.isNotEmpty() ){
-                Log.d("oct", "isempty")
+            var favtotal = stationFav + stationFavb + stationFavt + stationFavtram
+
+            if (favtotal.isNotEmpty()) {
                 noFav.visibility = View.GONE
             }
 
             stationRecyclerview.adapter = StationAdapter(favtotal)
-//            stationRecyclerview_train.adapter = StationAdapter(stationFavt)
         }
-
         return root
     }
 
     override fun onResume() {
         super.onResume()
-//        runBlocking {
-//            val stations  = stationsDao?.getStationFav(true)
-//            activities_recyclerview_station_fav.adapter = StationAdapter(stations ?: emptyList())
-//        }
-
     }
 
 }

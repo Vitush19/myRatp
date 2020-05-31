@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
 
     <include
-        android:id="@+id/toolbar_train_station"
+        android:id="@+id/toolbar_tram_station"
         layout="@layout/toolbar" />
 
     <LinearLayout
@@ -16,7 +17,7 @@
         android:gravity="center">
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/progress_bar_train_station"
+            android:id="@+id/progress_bar_tram_station"
             android:layout_width="100dp"
             android:layout_height="100dp"
             app:lottie_autoPlay="true"
@@ -30,11 +31,11 @@
         android:layout_marginTop="?attr/actionBarSize">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/activities_recyclerview_train_station"
+            android:id="@+id/activities_recyclerview_tram_station"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="20dp"
-            tools:listitem="@layout/station_train_view" />
+            tools:listitem="@layout/station_tram_view" />
 
     </RelativeLayout>
 

@@ -12,10 +12,10 @@ interface TrainLineDao {
     suspend fun getTrainLines(): List<TrainLine>
 
     @Insert
-    suspend fun addTrainLines(busLine: TrainLine)
+    suspend fun addTrainLines(trainLine: TrainLine)
 
     @Delete
-    suspend fun deleteTrainlLines(busLine: TrainLine)
+    suspend fun deleteTrainlLines(trainLine: TrainLine)
 
     @Query("delete from alltrainlines")
     suspend fun deleteAllTrainLines()

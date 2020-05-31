@@ -46,6 +46,11 @@
         <activity android:name=".TrainPlansActivity" />
         <activity android:name=".ui.ErreurTrainLine" />
         <activity android:name=".ui.QrCodeActivity" />
+        <activity android:name=".ui.timetable.tramlines.TramTimeActivity" />
+        <activity android:name=".TramPlansActivity" />
+        <activity android:name=".ui.timetable.tramlines.BusStationsActivity" />
+        <activity android:name=".ui.timetable.tramlines.TramStationsActivity" />
+        <activity android:name=".ui.timetable.tramlines.TramSchedulesActivity" />
     </application>
 
 </manifest>

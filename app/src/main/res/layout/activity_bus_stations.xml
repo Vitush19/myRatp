@@ -33,6 +33,7 @@
             android:id="@+id/activities_recyclerview_bus_station"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="20dp"
             tools:listitem="@layout/station_bus_view" />
 
     </RelativeLayout>

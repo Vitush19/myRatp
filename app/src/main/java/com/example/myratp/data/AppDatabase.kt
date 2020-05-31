@@ -7,7 +7,7 @@ import androidx.room.TypeConverters
 import com.example.myratp.model.*
 
 @Database(
-    entities = [MetroLine::class, BusLine::class, TrainLine::class, Station::class, Traffic::class, Schedule::class],
+    entities = [MetroLine::class, BusLine::class, TrainLine::class, TramLine::class, Station::class, Traffic::class, Schedule::class],
     version = 1
 )
 @TypeConverters(testConverter::class)
@@ -18,7 +18,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun getStationsDao(): StationsDao
     abstract fun getTrafficDao(): TrafficDao
     abstract fun getScheduleDao(): ScheduleDao
-
+    abstract fun getTramLineDao(): TramLineDao
 }
 
 class testConverter {

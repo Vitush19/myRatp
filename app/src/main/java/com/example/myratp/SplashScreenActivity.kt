@@ -21,6 +21,8 @@ import com.example.myratp.ui.timetable.metrolines.MetroLinesBySearch
 import com.example.myratp.ui.timetable.metrolines.retrofit
 import com.example.myratp.ui.timetable.trainlines.TrainLinesBySearch
 import com.example.myratp.ui.timetable.trainlines.retrofit_train
+import com.example.myratp.ui.timetable.tramlines.TramLinesBySearch
+import com.example.myratp.ui.timetable.tramlines.retrofit_tram
 import kotlinx.android.synthetic.main.activity_splash_screen.*
 import kotlinx.coroutines.runBlocking
 
@@ -28,6 +30,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
     private lateinit var handler: Handler
     private var metroLineDao: MetroLineDao? = null
+    private var tramLineDao: TramLineDao? = null
     private var trafficDao: TrafficDao? = null
     private var busLineDao: BusLineDao? = null
     private var stationDao: StationsDao? = null
@@ -64,6 +67,11 @@ class SplashScreenActivity : AppCompatActivity() {
         val databaseTrain = Room.databaseBuilder(this, AppDatabase::class.java, "alltrainlines")
             .build()
         trainLineDao = databaseTrain.getTrainLineDao()
+
+        val databaseTram = Room.databaseBuilder(this, AppDatabase::class.java, "alltramlines")
+            .build()
+        tramLineDao = databaseTram.getTramLineDao()
+
         if (isNetworkConnected()) {
             runBlocking {
                 if (trafficDao!!.getTraffic().isEmpty()) {
@@ -101,6 +109,15 @@ class SplashScreenActivity : AppCompatActivity() {
                     resultat.result.rers.map {
                         val train = TrainLine(0, it.code, it.name, it.directions, it.id)
                         trainLineDao?.addTrainLines(train)
+                    }
+                }
+
+                if (tramLineDao!!.getTramLines().isEmpty()) {
+                    val service = retrofit_tram().create(TramLinesBySearch::class.java)
+                    val resultat = service.getlistTramLine()
+                    resultat.result.tramways.map {
+                        val tramway = TramLine(0, it.code, it.name, it.directions, it.id)
+                        tramLineDao?.addTramLines(tramway)
                     }
                 }
 
