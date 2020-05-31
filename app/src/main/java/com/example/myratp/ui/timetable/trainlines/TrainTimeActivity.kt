@@ -23,6 +23,7 @@ import com.example.myratp.adapters.TrainLinesAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.TrainLineDao
 import com.example.myratp.model.TrainLine
+import com.example.myratp.retrofit
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_bus_time.*
 import kotlinx.android.synthetic.main.activity_train_time.*
@@ -60,7 +61,7 @@ class TrainTimeActivity : AppCompatActivity() {
         if (isNetworkConnected()) {
             runBlocking {
                 if (trainLineDao!!.getTrainLines().isEmpty()) {
-                    val service = retrofit_train().create(TrainLinesBySearch::class.java)
+                    val service = retrofit().create(TrainLinesBySearch::class.java)
                     val resultat = service.getlistTrainLine()
                     resultat.result.rers.map {
                         val train = TrainLine(0, it.code, it.name, it.directions, it.id)

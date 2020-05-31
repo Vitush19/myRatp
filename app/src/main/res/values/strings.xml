@@ -52,4 +52,6 @@
     <string name="restart_app">Redémarrer l\'application</string>
     <string name="station_add">La station a bien été ajoutée des favoris</string>
     <string name="station_delete">La station a bien été supprimée des favoris</string>
+    <string name="saisissez_votre_station">Saisissez votre station</string>
+    <string name="message_noctilien_horaire">Vos lignes Noctilien n’étant pas en circulation à cette heure, nous vous proposons de consulter les horaires de référence directement sur le site de la RATP.</string>
 </resources>

@@ -28,8 +28,41 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize">
-
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardview_noctilien_station"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:animateLayoutChanges="true"
+            android:elevation="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="20dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardBackgroundColor="@color/blueContrast"
+            app:cardCornerRadius="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                tools:ignore="UseCompoundDrawables">
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/night"
+                    android:contentDescription="@string/horaires" />
+                <TextView
+                    android:layout_marginStart="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/message_noctilien_horaire"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@id/cardview_noctilien_station"
             android:id="@+id/activities_recyclerview_nocti_station"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

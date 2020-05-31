@@ -24,6 +24,7 @@ import com.example.myratp.data.MetroLineDao
 import com.example.myratp.data.TrafficDao
 import com.example.myratp.model.MetroLine
 import com.example.myratp.model.Traffic
+import com.example.myratp.retrofit
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_metro_time.*
 import kotlinx.coroutines.runBlocking

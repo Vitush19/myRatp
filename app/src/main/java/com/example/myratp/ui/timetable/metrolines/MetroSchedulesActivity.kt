@@ -21,11 +21,13 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
+import com.example.myratp.ImageMetro
 import com.example.myratp.R
 import com.example.myratp.adapters.MetroScheduleAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.ScheduleDao
 import com.example.myratp.model.Schedule
+import com.example.myratp.retrofit
 import kotlinx.android.synthetic.main.activity_metro_schedule.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking

@@ -22,6 +22,7 @@ import com.example.myratp.adapters.BusScheduleAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.ScheduleDao
 import com.example.myratp.model.Schedule
+import com.example.myratp.retrofit
 import kotlinx.android.synthetic.main.activity_bus_schedule.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
@@ -71,7 +72,7 @@ class BusSchedulesActivity : AppCompatActivity() {
             runBlocking {
                 val deffered = async {
                     scheduleDao?.deleteAllSchedule()
-                    val service = retrofit_bus().create(BusLinesBySearch::class.java)
+                    val service = retrofit().create(BusLinesBySearch::class.java)
                     val resultat = service.getScheduleBus("buses", "$code", "$name", "A")
                     resultat.result.schedules.map {
                         val busSchedule = Schedule(0, it.message, it.destination)

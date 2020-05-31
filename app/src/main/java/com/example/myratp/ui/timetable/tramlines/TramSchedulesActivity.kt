@@ -22,6 +22,7 @@ import com.example.myratp.adapters.TramScheduleAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.ScheduleDao
 import com.example.myratp.model.Schedule
+import com.example.myratp.retrofit
 import kotlinx.android.synthetic.main.activity_tram_schedule.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
@@ -71,7 +72,7 @@ class TramSchedulesActivity : AppCompatActivity() {
             runBlocking {
                 val deffered = async {
                     scheduleDao?.deleteAllSchedule()
-                    val service = retrofit_tram().create(TramLinesBySearch::class.java)
+                    val service = retrofit().create(TramLinesBySearch::class.java)
                     val resultat = service.getScheduleTram("tramways", "$code", "$name", "A")
                     resultat.result.schedules.map {
                         val tramSchedule = Schedule(0, it.message, it.destination)

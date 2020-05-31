@@ -22,6 +22,7 @@ import com.example.myratp.adapters.BusLinesAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.BusLineDao
 import com.example.myratp.model.BusLine
+import com.example.myratp.retrofit
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_bus_time.*
 import kotlinx.coroutines.runBlocking
@@ -58,7 +59,7 @@ class BusTimeActivity : AppCompatActivity() {
         if (isNetworkConnected()) {
             runBlocking {
                 if (busLineDao!!.getBusLines().isEmpty()) {
-                    val service = retrofit_bus().create(BusLinesBySearch::class.java)
+                    val service = retrofit().create(BusLinesBySearch::class.java)
                     val resultat = service.getlistBusLine()
                     resultat.result.buses.map {
                         val bus = BusLine(0, it.code, it.name, it.directions, it.id)

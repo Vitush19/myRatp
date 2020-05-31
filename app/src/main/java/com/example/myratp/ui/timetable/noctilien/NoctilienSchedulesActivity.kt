@@ -23,6 +23,7 @@ import com.example.myratp.adapters.NoctilienScheduleAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.ScheduleDao
 import com.example.myratp.model.Schedule
+import com.example.myratp.retrofit
 import kotlinx.android.synthetic.main.activity_nocti_schedule.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
@@ -72,7 +73,7 @@ class NoctilienSchedulesActivity : AppCompatActivity() {
             runBlocking {
                 val deffered = async {
                     scheduleDao?.deleteAllSchedule()
-                    val service = retrofit_nocti().create(NoctiLineBySearch::class.java)
+                    val service = retrofit().create(NoctiLineBySearch::class.java)
                     val resultat = service.getScheduleNocti("noctiliens", "$code", "$name", "A")
                     resultat.result.schedules.map {
                         val noctiSchedule = Schedule(0, it.message, it.destination)

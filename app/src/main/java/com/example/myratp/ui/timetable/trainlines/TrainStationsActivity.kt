@@ -22,6 +22,7 @@ import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.StationsDao
 import com.example.myratp.model.Station
 import com.example.myratp.model.Type
+import com.example.myratp.retrofit
 import kotlinx.android.synthetic.main.activity_train_stations.*
 import kotlinx.coroutines.runBlocking
 
@@ -57,7 +58,7 @@ class TrainStationsActivity : AppCompatActivity() {
         val co = ""
         if (isNetworkConnected()) {
             runBlocking {
-                val service = retrofit_train().create(TrainLinesBySearch::class.java)
+                val service = retrofit().create(TrainLinesBySearch::class.java)
                 val resultat = service.getTrainStations("rers", "$code")
                 resultat.result.stations.map {
                     val station = Station(

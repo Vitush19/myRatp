@@ -48,14 +48,27 @@
         android:focusable="true"
         android:textColor="@color/black"
         android:drawableStart="@drawable/ic_search_blue_24dp"
+        android:dropDownAnchor="@id/txt_autocompletion_start"
+        android:popupBackground="@color/specialWhite"
         android:background="@drawable/rounded_button_transparent"
-        android:hint="Saisissez votre station"
+        android:hint="@string/saisissez_votre_station"
         app:layout_constraintBottom_toTopOf="@+id/gridLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.500"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.839" />
+        app:layout_constraintVertical_bias="0.840" />
+
+    <TextView
+        android:id="@+id/txt_autocompletion_start"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/gridLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.500"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/auto_completion_dash"
+        app:layout_constraintVertical_bias="0.0" />
 
     <GridLayout
         android:id="@+id/gridLayout"

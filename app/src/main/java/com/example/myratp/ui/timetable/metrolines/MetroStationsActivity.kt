@@ -21,6 +21,7 @@ import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.StationsDao
 import com.example.myratp.model.Station
 import com.example.myratp.model.Type
+import com.example.myratp.retrofit
 import kotlinx.android.synthetic.main.activity_metro_stations.*
 import kotlinx.coroutines.runBlocking
 

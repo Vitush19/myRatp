@@ -22,6 +22,7 @@ import com.example.myratp.adapters.NoctilienAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.NoctilienDao
 import com.example.myratp.model.Noctilien
+import com.example.myratp.retrofit
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_nocti_time.*
 import kotlinx.coroutines.runBlocking
@@ -58,7 +59,7 @@ class NoctilienTimeActivity : AppCompatActivity() {
         if (isNetworkConnected()) {
             runBlocking {
                 if (noctilienDao!!.getNoctilien().isEmpty()) {
-                    val service = retrofit_nocti().create(NoctiLineBySearch::class.java)
+                    val service = retrofit().create(NoctiLineBySearch::class.java)
                     val resultat = service.getlistNoctiLine()
                     resultat.result.noctiliens.map {
                         val nocti = Noctilien(0, it.code, it.name, it.directions, it.id)

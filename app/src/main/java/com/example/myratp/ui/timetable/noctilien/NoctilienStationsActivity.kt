@@ -6,12 +6,14 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -21,8 +23,10 @@ import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.StationsDao
 import com.example.myratp.model.Station
 import com.example.myratp.model.Type
+import com.example.myratp.retrofit
 import kotlinx.android.synthetic.main.activity_nocti_stations.*
 import kotlinx.coroutines.runBlocking
+import java.util.*
 
 class NoctilienStationsActivity : AppCompatActivity() {
 
@@ -53,10 +57,17 @@ class NoctilienStationsActivity : AppCompatActivity() {
             .build()
         stationDao = database.getStationsDao()
 
+        val notif = findViewById<CardView>(R.id.cardview_noctilien_station)
+        val rightNow: Calendar = Calendar.getInstance()
+        val currentHourIn24Format: Int = rightNow.get(Calendar.HOUR_OF_DAY)
+        Log.d("tyui", "$currentHourIn24Format")
+        if(currentHourIn24Format > 22 || currentHourIn24Format < 6){
+            notif.visibility = View.GONE
+        }
         val co = ""
         if (isNetworkConnected()) {
             runBlocking {
-                val service = retrofit_nocti().create(NoctiLineBySearch::class.java)
+                val service = retrofit().create(NoctiLineBySearch::class.java)
                 val resultat = service.getNoctiStations("noctiliens", "$code")
                 resultat.result.stations.map {
                     val station =

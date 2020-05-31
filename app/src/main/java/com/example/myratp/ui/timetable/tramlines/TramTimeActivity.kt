@@ -23,6 +23,7 @@ import com.example.myratp.adapters.TramLineAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.TramLineDao
 import com.example.myratp.model.TramLine
+import com.example.myratp.retrofit
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_tram_time.*
 import kotlinx.coroutines.runBlocking
@@ -59,7 +60,7 @@ class TramTimeActivity : AppCompatActivity() {
         if (isNetworkConnected()) {
             runBlocking {
                 if (tramLineDao!!.getTramLines().isEmpty()) {
-                    val service = retrofit_tram().create(TramLinesBySearch::class.java)
+                    val service = retrofit().create(TramLinesBySearch::class.java)
                     val resultat = service.getlistTramLine()
                     resultat.result.tramways.map {
                         val tramway = TramLine(0, it.code, it.name, it.directions, it.id)

@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myratp.ImageMetro
 import com.example.myratp.R
 import com.example.myratp.model.Traffic
-import com.example.myratp.ui.timetable.metrolines.ImageMetro
 import kotlinx.android.synthetic.main.metroline_view.view.metro_image_view
 import kotlinx.android.synthetic.main.traffic_view.view.*
 

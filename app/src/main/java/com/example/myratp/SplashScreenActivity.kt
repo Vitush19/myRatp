@@ -9,22 +9,16 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.room.Room
 import com.example.myratp.data.*
 import com.example.myratp.model.*
 import com.example.myratp.ui.timetable.buslines.BusLinesBySearch
-import com.example.myratp.ui.timetable.buslines.retrofit_bus
 import com.example.myratp.ui.timetable.metrolines.MetroLinesBySearch
-import com.example.myratp.ui.timetable.metrolines.retrofit
 import com.example.myratp.ui.timetable.noctilien.NoctiLineBySearch
-import com.example.myratp.ui.timetable.noctilien.retrofit_nocti
 import com.example.myratp.ui.timetable.trainlines.TrainLinesBySearch
-import com.example.myratp.ui.timetable.trainlines.retrofit_train
 import com.example.myratp.ui.timetable.tramlines.TramLinesBySearch
-import com.example.myratp.ui.timetable.tramlines.retrofit_tram
 import kotlinx.android.synthetic.main.activity_splash_screen.*
 import kotlinx.coroutines.runBlocking
 
@@ -100,7 +94,7 @@ class SplashScreenActivity : AppCompatActivity() {
                 }
 
                 if (busLineDao!!.getBusLines().isEmpty()) {
-                    val service = retrofit_bus().create(BusLinesBySearch::class.java)
+                    val service = retrofit().create(BusLinesBySearch::class.java)
                     val resultat = service.getlistBusLine()
                     resultat.result.buses.map {
                         val bus = BusLine(0, it.code, it.name, it.directions, it.id)
@@ -111,7 +105,7 @@ class SplashScreenActivity : AppCompatActivity() {
                 }
 
                 if (trainLineDao!!.getTrainLines().isEmpty()) {
-                    val service = retrofit_train().create(TrainLinesBySearch::class.java)
+                    val service = retrofit().create(TrainLinesBySearch::class.java)
                     val resultat = service.getlistTrainLine()
                     resultat.result.rers.map {
                         val train = TrainLine(0, it.code, it.name, it.directions, it.id)
@@ -120,7 +114,7 @@ class SplashScreenActivity : AppCompatActivity() {
                 }
 
                 if (tramLineDao!!.getTramLines().isEmpty()) {
-                    val service = retrofit_tram().create(TramLinesBySearch::class.java)
+                    val service = retrofit().create(TramLinesBySearch::class.java)
                     val resultat = service.getlistTramLine()
                     resultat.result.tramways.map {
                         val tramway = TramLine(0, it.code, it.name, it.directions, it.id)
@@ -129,7 +123,7 @@ class SplashScreenActivity : AppCompatActivity() {
                 }
 
                 if (noctilienDao!!.getNoctilien().isEmpty()) {
-                    val service = retrofit_nocti().create(NoctiLineBySearch::class.java)
+                    val service = retrofit().create(NoctiLineBySearch::class.java)
                     val resultat = service.getlistNoctiLine()
                     resultat.result.noctiliens.map {
                         val nocti = Noctilien(0, it.code, it.name, it.directions, it.id)
