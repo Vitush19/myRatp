@@ -1,11 +1,12 @@
 package com.example.myratp.model
 
+
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "alltramlines")
-data class TramLine(
-    @PrimaryKey(autoGenerate = true) val id_tram: Int,
+@Entity(tableName = "allnoctilien")
+data class Noctilien(
+    @PrimaryKey(autoGenerate = true) val id_noctilien: Int,
     val code: String,
     val name: String,
     val direction: String,
@@ -13,7 +14,7 @@ data class TramLine(
 ) {
     companion object {
         val all = (1..10).map {
-            TramLine(it, "$it", "$it", "$it", "$it")
+            Noctilien(it, "$it", "$it", "$it", "$it")
         }.toMutableList()
     }
 }

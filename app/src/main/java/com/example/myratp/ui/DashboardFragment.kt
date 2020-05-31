@@ -66,6 +66,9 @@ class DashboardFragment : Fragment(), View.OnClickListener {
                 Type.Tram -> {
                     "Tramway"
                 }
+                Type.Noctilien -> {
+                    "Noctilien"
+                }
             }
             response = "${s.name} - $type - ${s.code}"
             Log.d("tyui", "Correspondance : ${s.correspondance}")
@@ -115,6 +118,9 @@ class DashboardFragment : Fragment(), View.OnClickListener {
 
                 }
                 else if(type == "Tramway"){
+
+                }
+                else if(type == "Noctilien"){
 
                 }
             }

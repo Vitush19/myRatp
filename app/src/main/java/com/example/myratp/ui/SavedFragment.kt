@@ -71,6 +71,14 @@ class SavedFragment : Fragment() {
             )
                 .build()
 
+        val databasenotilien =
+            Room.databaseBuilder(
+                requireActivity().baseContext,
+                AppDatabase::class.java,
+                "stationnoctilien"
+            )
+                .build()
+
         runBlocking {
 
             stationsDao = database.getStationsDao()
@@ -85,7 +93,10 @@ class SavedFragment : Fragment() {
             stationsDao = databasetram.getStationsDao()
             val stationFavtram = stationsDao!!.getStationFav(true)
 
-            var favtotal = stationFav + stationFavb + stationFavt + stationFavtram
+            stationsDao = databasenotilien.getStationsDao()
+            val stationFavN = stationsDao!!.getStationFav(true)
+
+            val favtotal = stationFav + stationFavb + stationFavt + stationFavtram + stationFavN
 
             if (favtotal.isNotEmpty()) {
                 noFav.visibility = View.GONE

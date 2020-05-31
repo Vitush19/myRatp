@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
 enum class Type{
-    Metro, Bus, Train, Tram
+    Metro, Bus, Train, Tram, Noctilien
 }
 
 @Parcelize

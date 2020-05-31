@@ -8,7 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.myratp.R
 import com.example.myratp.ui.timetable.buslines.BusSchedulesActivity
 import com.example.myratp.ui.timetable.metrolines.MetroSchedulesActivity
+import com.example.myratp.ui.timetable.noctilien.NoctilienSchedulesActivity
 import com.example.myratp.ui.timetable.trainlines.TrainScheduleActivity
+import com.example.myratp.ui.timetable.tramlines.TramSchedulesActivity
 import com.google.zxing.Result
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
@@ -73,6 +75,20 @@ class QrCodeActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
         }
         if (type == "Train") {
             val intent = Intent(this, TrainScheduleActivity::class.java)
+            intent.putExtra("name", station)
+            intent.putExtra("code", code)
+            intent.putExtra("correspondance", correspondance)
+            startActivity(intent)
+        }
+        if (type == "Tramway"){
+            val intent = Intent(this, TramSchedulesActivity::class.java)
+            intent.putExtra("name", station)
+            intent.putExtra("code", code)
+            intent.putExtra("correspondance", correspondance)
+            startActivity(intent)
+        }
+        if (type == "Noctilien"){
+            val intent = Intent(this, NoctilienSchedulesActivity::class.java)
             intent.putExtra("name", station)
             intent.putExtra("code", code)
             intent.putExtra("correspondance", correspondance)

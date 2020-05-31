@@ -51,6 +51,10 @@
         <activity android:name=".ui.timetable.tramlines.BusStationsActivity" />
         <activity android:name=".ui.timetable.tramlines.TramStationsActivity" />
         <activity android:name=".ui.timetable.tramlines.TramSchedulesActivity" />
+        <activity android:name=".ui.timetable.noctilien.NoctilienTimeActivity" />
+        <activity android:name=".NoctiPlansActivity" />
+        <activity android:name=".ui.timetable.noctilien.NoctilienStationsActivity" />
+        <activity android:name=".ui.timetable.noctilien.NoctilienSchedulesActivity" />
     </application>
 
 </manifest>

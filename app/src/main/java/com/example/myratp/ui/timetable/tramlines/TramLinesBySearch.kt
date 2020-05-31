@@ -1,5 +1,6 @@
 package com.example.myratp.ui.timetable.tramlines
 
+import com.example.myratp.ui.timetable.noctilien.GetTraffic
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -13,6 +14,11 @@ interface TramLinesBySearch {
         @Path("type") type: String,
         @Path("code") code: String
     ): TramStationsResponse
+
+    @GET("traffic/{type}")
+    suspend fun getTrafficNocti(
+        @Path("type") type: String
+    ): GetTraffic
 
     @GET("schedules/{type}/{line}/{station}/{way}")
     suspend fun getScheduleTram(
@@ -39,3 +45,12 @@ data class TramStationName(val name: String = "", val slug: String = "")
 data class GetScheduleTram(val result: SchedulesTram = SchedulesTram())
 data class SchedulesTram(val schedules: List<ScheduleT> = emptyList())
 data class ScheduleT(val code: String = "", val message: String = "", val destination: String = "")
+
+data class GetTraffic(val result: TramTraffic = TramTraffic())
+data class TramTraffic(val tramways: List<TramInfo> = emptyList())
+data class TramInfo(
+    val line: String = "",
+    val slug: String = "",
+    val title: String = "",
+    val message: String = ""
+)

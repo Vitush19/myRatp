@@ -19,6 +19,7 @@ import com.example.myratp.model.Type
 import com.example.myratp.ui.timetable.buslines.BusSchedulesActivity
 import com.example.myratp.ui.timetable.metrolines.ImageMetro
 import com.example.myratp.ui.timetable.metrolines.MetroSchedulesActivity
+import com.example.myratp.ui.timetable.noctilien.NoctilienSchedulesActivity
 import com.example.myratp.ui.timetable.trainlines.TrainScheduleActivity
 import com.example.myratp.ui.timetable.tramlines.TramSchedulesActivity
 import kotlinx.android.synthetic.main.station_view.view.*
@@ -54,6 +55,7 @@ class StationAdapter(private val list_stations: List<Station>) :
                 Type.Bus-> R.drawable.bus
                 Type.Train-> R.drawable.rer
                 Type.Tram ->R.drawable.tramway
+                Type.Noctilien -> R.drawable.noctilien
             }
         )
         var databaseSaved =
@@ -71,6 +73,10 @@ class StationAdapter(private val list_stations: List<Station>) :
          }else if (station.type == Type.Tram){
              databaseSaved =
                  Room.databaseBuilder(context, AppDatabase::class.java, "stationtram")
+                     .build()
+         }else if (station.type == Type.Noctilien){
+             databaseSaved =
+                 Room.databaseBuilder(context, AppDatabase::class.java, "stationnoctilien")
                      .build()
          }
 
@@ -144,6 +150,12 @@ class StationAdapter(private val list_stations: List<Station>) :
 
             else if(station.type == Type.Tram){
                 intent = Intent(it.context, TramSchedulesActivity::class.java)
+                intent.putExtra("code", station.code)
+                intent.putExtra("name", station.name)
+            }
+
+            else if(station.type == Type.Noctilien){
+                intent = Intent(it.context, NoctilienSchedulesActivity::class.java)
                 intent.putExtra("code", station.code)
                 intent.putExtra("name", station.name)
             }

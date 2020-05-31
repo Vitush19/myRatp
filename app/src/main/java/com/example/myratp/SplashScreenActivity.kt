@@ -19,6 +19,8 @@ import com.example.myratp.ui.timetable.buslines.BusLinesBySearch
 import com.example.myratp.ui.timetable.buslines.retrofit_bus
 import com.example.myratp.ui.timetable.metrolines.MetroLinesBySearch
 import com.example.myratp.ui.timetable.metrolines.retrofit
+import com.example.myratp.ui.timetable.noctilien.NoctiLineBySearch
+import com.example.myratp.ui.timetable.noctilien.retrofit_nocti
 import com.example.myratp.ui.timetable.trainlines.TrainLinesBySearch
 import com.example.myratp.ui.timetable.trainlines.retrofit_train
 import com.example.myratp.ui.timetable.tramlines.TramLinesBySearch
@@ -35,6 +37,7 @@ class SplashScreenActivity : AppCompatActivity() {
     private var busLineDao: BusLineDao? = null
     private var stationDao: StationsDao? = null
     private var trainLineDao: TrainLineDao? = null
+    private var noctilienDao: NoctilienDao? = null
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,6 +74,10 @@ class SplashScreenActivity : AppCompatActivity() {
         val databaseTram = Room.databaseBuilder(this, AppDatabase::class.java, "alltramlines")
             .build()
         tramLineDao = databaseTram.getTramLineDao()
+
+        val databaseNocti = Room.databaseBuilder(this, AppDatabase::class.java, "allnoctilien")
+            .build()
+        noctilienDao = databaseNocti.getNoctilienDao()
 
         if (isNetworkConnected()) {
             runBlocking {
@@ -118,6 +125,15 @@ class SplashScreenActivity : AppCompatActivity() {
                     resultat.result.tramways.map {
                         val tramway = TramLine(0, it.code, it.name, it.directions, it.id)
                         tramLineDao?.addTramLines(tramway)
+                    }
+                }
+
+                if (noctilienDao!!.getNoctilien().isEmpty()) {
+                    val service = retrofit_nocti().create(NoctiLineBySearch::class.java)
+                    val resultat = service.getlistNoctiLine()
+                    resultat.result.noctiliens.map {
+                        val nocti = Noctilien(0, it.code, it.name, it.directions, it.id)
+                        noctilienDao?.addNoctilien(nocti)
                     }
                 }
 
