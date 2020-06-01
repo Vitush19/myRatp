@@ -54,4 +54,7 @@
     <string name="station_delete">La station a bien été supprimée des favoris</string>
     <string name="saisissez_votre_station">Saisissez votre station</string>
     <string name="message_noctilien_horaire">Vos lignes Noctilien n’étant pas en circulation à cette heure, nous vous proposons de consulter les horaires de référence directement sur le site de la RATP.</string>
+    <string name="image_vide">image vide</string>
+    <string name="attention">attention</string>
+    <string name="message_train_horaires">Certaines lignes (C, D) ne sont pas renseignées mais le seront prochainement, nous vous proposons de consulter les horaires de référence directement sur le site de la SNCF.</string>
 </resources>

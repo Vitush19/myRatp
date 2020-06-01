@@ -14,6 +14,11 @@ interface TrainLinesBySearch {
         @Path("code") code: String
     ): TrainStationsResponse
 
+    @GET("traffic/{type}")
+    suspend fun getTrafficTrain(
+        @Path("type") type: String
+    ): GetTraffic
+
     @GET("schedules/{type}/{line}/{station}/{way}")
     suspend fun getScheduleTrain(
         @Path("type") type: String,
@@ -39,3 +44,12 @@ data class TrainStationName(val name: String = "", val slug: String = "")
 data class GetScheduleTrain(val result: SchedulesTrain = SchedulesTrain())
 data class SchedulesTrain(val schedules: List<ScheduleT> = emptyList())
 data class ScheduleT(val code: String = "", val message: String = "", val destination: String = "")
+
+data class GetTraffic(val result: TrainTraffic = TrainTraffic())
+data class TrainTraffic(val rers: List<TrainInfo> = emptyList())
+data class TrainInfo(
+    val line: String = "",
+    val slug: String = "",
+    val title: String = "",
+    val message: String = ""
+)

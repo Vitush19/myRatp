@@ -35,7 +35,8 @@
             android:id="@+id/activities_recyclerview_tram"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/trainline_view" />
+            android:padding="20dp"
+            tools:listitem="@layout/tramline_view" />
 
     </RelativeLayout>
 

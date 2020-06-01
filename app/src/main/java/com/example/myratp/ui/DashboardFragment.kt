@@ -96,6 +96,7 @@ class DashboardFragment : Fragment(), View.OnClickListener {
                     activity?.currentFocus!!.clearFocus();
                     autoText.setBackgroundResource(R.drawable.rounded_button_transparent)
                     hideKeyboard()
+                    autoText.setText("")
                 }
             }
 

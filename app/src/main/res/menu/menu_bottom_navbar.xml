@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/navbar_metro"
+        android:title="@string/metro"
+        android:icon="@drawable/ic_subway_black_24dp"
+        />
+    <item
+        android:id="@+id/navbar_train"
+        android:title="@string/train"
+        android:icon="@drawable/ic_train_black_24dp"
+        />
+    <item
+        android:id="@+id/navbar_tram"
+        android:title="@string/tramway"
+        android:icon="@drawable/ic_tram_black_24dp"
+        />
+</menu>

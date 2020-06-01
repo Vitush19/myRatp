@@ -11,7 +11,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.example.myratp.ImageMetro
+import com.example.myratp.imageMetro
 import com.example.myratp.R
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.StationsDao
@@ -45,7 +45,7 @@ class MetroStationAdapter(private val list_stations: List<Station>, val code: St
     override fun onBindViewHolder(holder: MetroStationViewHolder, position: Int) {
         val station = list_stations[position]
         holder.stationsView.station_name_textview.text = "Station : ${station.name}"
-        holder.stationsView.station_image_view.setBackgroundResource(ImageMetro(code))
+        holder.stationsView.station_image_view.setBackgroundResource(imageMetro(code))
 
         val databaseSaved =
             Room.databaseBuilder(context, AppDatabase::class.java, "stationmetro")

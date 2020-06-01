@@ -8,11 +8,13 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.Toolbar
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -26,6 +28,7 @@ import com.example.myratp.retrofit
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_nocti_time.*
 import kotlinx.coroutines.runBlocking
+import java.util.*
 
 class NoctilienTimeActivity : AppCompatActivity() {
 
@@ -54,6 +57,13 @@ class NoctilienTimeActivity : AppCompatActivity() {
         bFloat.setOnClickListener {
             val intent = Intent(this, NoctiPlansActivity::class.java)
             startActivity(intent)
+        }
+
+        val notif = findViewById<CardView>(R.id.cardview_noctilien_line)
+        val rightNow: Calendar = Calendar.getInstance()
+        val currentHourIn24Format: Int = rightNow.get(Calendar.HOUR_OF_DAY)
+        if(currentHourIn24Format > 22 || currentHourIn24Format < 6){
+            notif.visibility = View.GONE
         }
 
         if (isNetworkConnected()) {

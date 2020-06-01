@@ -28,11 +28,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
         </activity>
         <activity android:name=".ui.timetable.trainlines.TrainTimeActivity" />
         <activity android:name=".ui.timetable.trainlines.TrainStationsActivity" />
@@ -48,7 +43,6 @@
         <activity android:name=".ui.QrCodeActivity" />
         <activity android:name=".ui.timetable.tramlines.TramTimeActivity" />
         <activity android:name=".TramPlansActivity" />
-        <activity android:name=".ui.timetable.tramlines.BusStationsActivity" />
         <activity android:name=".ui.timetable.tramlines.TramStationsActivity" />
         <activity android:name=".ui.timetable.tramlines.TramSchedulesActivity" />
         <activity android:name=".ui.timetable.noctilien.NoctilienTimeActivity" />

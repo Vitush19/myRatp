@@ -60,10 +60,10 @@ class NoctilienStationsActivity : AppCompatActivity() {
         val notif = findViewById<CardView>(R.id.cardview_noctilien_station)
         val rightNow: Calendar = Calendar.getInstance()
         val currentHourIn24Format: Int = rightNow.get(Calendar.HOUR_OF_DAY)
-        Log.d("tyui", "$currentHourIn24Format")
-        if(currentHourIn24Format > 22 || currentHourIn24Format < 6){
+        if (currentHourIn24Format > 22 || currentHourIn24Format < 6) {
             notif.visibility = View.GONE
         }
+
         val co = ""
         if (isNetworkConnected()) {
             runBlocking {

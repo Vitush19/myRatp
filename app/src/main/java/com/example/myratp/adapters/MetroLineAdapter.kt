@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myratp.ImageMetro
+import com.example.myratp.imageMetro
 import com.example.myratp.R
 import com.example.myratp.model.MetroLine
 import com.example.myratp.model.Traffic
@@ -36,7 +36,7 @@ class MetroLineAdapter(private val listMetroLines: List<MetroLine>, private val 
         val metroLines = listMetroLines[position]
         holder.metroLinesView.metroline_destination_textview.text =
             "Destination : ${metroLines.direction}"
-        holder.metroLinesView.metro_image_view.setBackgroundResource(ImageMetro(metroLines.name))
+        holder.metroLinesView.metro_image_view.setBackgroundResource(imageMetro(metroLines.name))
         for (x in list_traffic.indices) {
             if (metroLines.code == list_traffic[x].line) {
                 holder.metroLinesView.metroline_name_textview.text = list_traffic[x].message

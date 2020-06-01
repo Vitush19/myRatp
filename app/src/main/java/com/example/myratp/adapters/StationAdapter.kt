@@ -3,7 +3,6 @@ package com.example.myratp.adapters
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.example.myratp.ImageMetro
+import com.example.myratp.imageMetro
 import com.example.myratp.R
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.StationsDao
@@ -62,7 +61,7 @@ class StationAdapter(private val list_stations: List<Station>) :
             Room.databaseBuilder(context, AppDatabase::class.java, "stationtrain")
                 .build()
          if (station.type == Type.Metro){
-             holder.stationsView.station_image_view.setBackgroundResource(ImageMetro(station.id_ligne))
+             holder.stationsView.station_image_view.setBackgroundResource(imageMetro(station.id_ligne))
              databaseSaved =
                  Room.databaseBuilder(context, AppDatabase::class.java, "stationmetro")
                      .build()

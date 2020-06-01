@@ -21,7 +21,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.example.myratp.ImageMetro
+import com.example.myratp.imageMetro
 import com.example.myratp.R
 import com.example.myratp.adapters.MetroScheduleAdapter
 import com.example.myratp.data.AppDatabase
@@ -66,7 +66,7 @@ class MetroSchedulesActivity : AppCompatActivity() {
         val txtStation = findViewById<TextView>(R.id.metro_schedule_txt_station)
         val imageMetro = findViewById<ImageView>(R.id.image_metro_schedule)
 
-        imageMetro.setBackgroundResource(ImageMetro("$code"))
+        imageMetro.setBackgroundResource(imageMetro("$code"))
         val stationName = "$name"
         txtStation.text = stationName
 
@@ -155,7 +155,7 @@ class MetroSchedulesActivity : AppCompatActivity() {
         }
         params.setMargins(0, 20, 0, 10)
         img.setBackgroundResource(
-            ImageMetro(num)
+            imageMetro(num)
         )
         img.layoutParams = params
         linear_adding_schedules.addView(img)
