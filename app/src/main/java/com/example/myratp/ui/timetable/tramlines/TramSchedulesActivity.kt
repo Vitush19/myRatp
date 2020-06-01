@@ -18,11 +18,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.myratp.R
-import com.example.myratp.adapters.TramScheduleAdapter
+import com.example.myratp.adapters.tramway.TramScheduleAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.ScheduleDao
 import com.example.myratp.model.Schedule
-import com.example.myratp.retrofit
+import com.example.myratp.utils.retrofit
 import kotlinx.android.synthetic.main.activity_tram_schedule.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
@@ -83,7 +83,9 @@ class TramSchedulesActivity : AppCompatActivity() {
                     val scheduleAller = scheduleDao?.getSchedule()
                     progress_bar_tram_schedule.visibility = View.GONE
                     recyclerviewTramScheduleAller.adapter =
-                        TramScheduleAdapter(scheduleAller ?: emptyList())
+                        TramScheduleAdapter(
+                            scheduleAller ?: emptyList()
+                        )
 
                     scheduleDao?.deleteAllSchedule()
                     val resultatBis = service.getScheduleTram("tramways", "$code", "$name", "R")
@@ -96,7 +98,9 @@ class TramSchedulesActivity : AppCompatActivity() {
                     val scheduleRetour = scheduleDao?.getSchedule()
                     progress_bar_tram_schedule.visibility = View.GONE
                     recyclerviewTramScheduleRetour.adapter =
-                        TramScheduleAdapter(scheduleRetour ?: emptyList())
+                        TramScheduleAdapter(
+                            scheduleRetour ?: emptyList()
+                        )
                 }
                 deffered.await()
             }

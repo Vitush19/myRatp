@@ -8,7 +8,6 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -18,13 +17,13 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.example.myratp.NoctiPlansActivity
+import com.example.myratp.ui.plans.NoctiPlansActivity
 import com.example.myratp.R
-import com.example.myratp.adapters.NoctilienAdapter
+import com.example.myratp.adapters.noctilien.NoctilienAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.NoctilienDao
 import com.example.myratp.model.Noctilien
-import com.example.myratp.retrofit
+import com.example.myratp.utils.retrofit
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_nocti_time.*
 import kotlinx.coroutines.runBlocking
@@ -80,7 +79,9 @@ class NoctilienTimeActivity : AppCompatActivity() {
                 val noc = noctilienDao?.getNoctilien()
                 progress_bar_nocti_ligne.visibility = View.GONE
                 recyclerviewNocti.adapter =
-                    NoctilienAdapter(noc ?: emptyList())
+                    NoctilienAdapter(
+                        noc ?: emptyList()
+                    )
             }
         } else {
             val toastView = layoutInflater.inflate(

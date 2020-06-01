@@ -35,18 +35,18 @@
         <activity android:name=".ui.timetable.metrolines.MetroSchedulesActivity" />
         <activity android:name=".ui.timetable.buslines.BusSchedulesActivity" />
         <activity android:name=".ui.TrafficActivity" />
-        <activity android:name=".MetroPlansActivity" />
-        <activity android:name=".BusPlansActivity" />
+        <activity android:name=".ui.plans.MetroPlansActivity" />
+        <activity android:name=".ui.plans.BusPlansActivity" />
         <activity android:name=".ui.timetable.trainlines.TrainScheduleActivity" />
-        <activity android:name=".TrainPlansActivity" />
-        <activity android:name=".ui.ErreurTrainLine" />
-        <activity android:name=".ui.QrCodeActivity" />
+        <activity android:name=".ui.plans.TrainPlansActivity" />
+        <activity android:name=".utils.ErreurTrainLine" />
+        <activity android:name=".ui.qrcode.QrCodeActivity" />
         <activity android:name=".ui.timetable.tramlines.TramTimeActivity" />
-        <activity android:name=".TramPlansActivity" />
+        <activity android:name=".ui.plans.TramPlansActivity" />
         <activity android:name=".ui.timetable.tramlines.TramStationsActivity" />
         <activity android:name=".ui.timetable.tramlines.TramSchedulesActivity" />
         <activity android:name=".ui.timetable.noctilien.NoctilienTimeActivity" />
-        <activity android:name=".NoctiPlansActivity" />
+        <activity android:name=".ui.plans.NoctiPlansActivity" />
         <activity android:name=".ui.timetable.noctilien.NoctilienStationsActivity" />
         <activity android:name=".ui.timetable.noctilien.NoctilienSchedulesActivity" />
     </application>

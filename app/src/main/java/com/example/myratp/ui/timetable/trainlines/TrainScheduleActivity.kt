@@ -18,11 +18,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.myratp.R
-import com.example.myratp.adapters.TrainScheduleAdapter
+import com.example.myratp.adapters.train.TrainScheduleAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.ScheduleDao
 import com.example.myratp.model.Schedule
-import com.example.myratp.retrofit
+import com.example.myratp.utils.retrofit
 import kotlinx.android.synthetic.main.activity_train_schedule.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
@@ -81,7 +81,9 @@ class TrainScheduleActivity : AppCompatActivity() {
                     val scheduleAller = scheduleDao?.getSchedule()
                     progress_bar_train_schedule.visibility = View.GONE
                     recyclerviewTrainScheduleAller.adapter =
-                        TrainScheduleAdapter(scheduleAller ?: emptyList())
+                        TrainScheduleAdapter(
+                            scheduleAller ?: emptyList()
+                        )
 
                     scheduleDao?.deleteAllSchedule()
                     val resultatBis = service.getScheduleTrain("rers", "$code", "$name", "R")
@@ -94,7 +96,9 @@ class TrainScheduleActivity : AppCompatActivity() {
                     val scheduleRetour = scheduleDao?.getSchedule()
                     progress_bar_train_schedule.visibility = View.GONE
                     recyclerviewTrainScheduleRetour.adapter =
-                        TrainScheduleAdapter(scheduleRetour ?: emptyList())
+                        TrainScheduleAdapter(
+                            scheduleRetour ?: emptyList()
+                        )
                 }
                 deffered.await()
             }

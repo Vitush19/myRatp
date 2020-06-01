@@ -23,6 +23,7 @@ import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.StationsDao
 import com.example.myratp.model.Station
 import com.example.myratp.model.Type
+import com.example.myratp.ui.qrcode.QrCodeActivity
 import com.example.myratp.ui.timetable.metrolines.MetroSchedulesActivity
 import kotlinx.coroutines.runBlocking
 

@@ -16,15 +16,15 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.example.myratp.MetroPlansActivity
+import com.example.myratp.ui.plans.MetroPlansActivity
 import com.example.myratp.R
-import com.example.myratp.adapters.MetroLineAdapter
+import com.example.myratp.adapters.metro.MetroLineAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.MetroLineDao
 import com.example.myratp.data.TrafficDao
 import com.example.myratp.model.MetroLine
 import com.example.myratp.model.Traffic
-import com.example.myratp.retrofit
+import com.example.myratp.utils.retrofit
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_metro_time.*
 import kotlinx.coroutines.runBlocking
@@ -87,7 +87,9 @@ class MetroTimeActivity : AppCompatActivity() {
                 val ms = metroLineDao?.getMetroLines()
                 progress_bar_metro_time.visibility = View.GONE
                 recyclerviewMetro.adapter =
-                    MetroLineAdapter(ms ?: emptyList(), traffic!!)
+                    MetroLineAdapter(
+                        ms ?: emptyList(), traffic!!
+                    )
             }
         } else {
             val toastView = layoutInflater.inflate(

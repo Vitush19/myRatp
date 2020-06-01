@@ -16,12 +16,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.myratp.R
-import com.example.myratp.adapters.BusStationAdapter
+import com.example.myratp.adapters.bus.BusStationAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.StationsDao
 import com.example.myratp.model.Station
 import com.example.myratp.model.Type
-import com.example.myratp.retrofit
+import com.example.myratp.utils.retrofit
 import kotlinx.android.synthetic.main.activity_bus_stations.*
 import kotlinx.coroutines.runBlocking
 
@@ -77,7 +77,9 @@ class BusStationsActivity : AppCompatActivity() {
                 val station = stationDao?.getStationsByLine("$idBus")
                 progress_bar_bus_station.visibility = View.GONE
                 recyclerviewBusStation.adapter =
-                    BusStationAdapter(station ?: emptyList(), "$code")
+                    BusStationAdapter(
+                        station ?: emptyList(), "$code"
+                    )
             }
         } else {
             val toastView = layoutInflater.inflate(

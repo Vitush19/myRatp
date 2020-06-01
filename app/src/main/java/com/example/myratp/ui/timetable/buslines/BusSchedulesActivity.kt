@@ -18,11 +18,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.myratp.R
-import com.example.myratp.adapters.BusScheduleAdapter
+import com.example.myratp.adapters.bus.BusScheduleAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.ScheduleDao
 import com.example.myratp.model.Schedule
-import com.example.myratp.retrofit
+import com.example.myratp.utils.retrofit
 import kotlinx.android.synthetic.main.activity_bus_schedule.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
@@ -83,7 +83,9 @@ class BusSchedulesActivity : AppCompatActivity() {
                     val scheduleAller = scheduleDao?.getSchedule()
                     progress_bar_bus_schedule.visibility = View.GONE
                     recyclerviewBusScheduleAller.adapter =
-                        BusScheduleAdapter(scheduleAller ?: emptyList())
+                        BusScheduleAdapter(
+                            scheduleAller ?: emptyList()
+                        )
 
                     scheduleDao?.deleteAllSchedule()
                     val resultatBis = service.getScheduleBus("buses", "$code", "$name", "R")
@@ -96,7 +98,9 @@ class BusSchedulesActivity : AppCompatActivity() {
                     val scheduleRetour = scheduleDao?.getSchedule()
                     progress_bar_bus_schedule.visibility = View.GONE
                     recyclerviewBusScheduleRetour.adapter =
-                        BusScheduleAdapter(scheduleRetour ?: emptyList())
+                        BusScheduleAdapter(
+                            scheduleRetour ?: emptyList()
+                        )
                 }
                 deffered.await()
             }

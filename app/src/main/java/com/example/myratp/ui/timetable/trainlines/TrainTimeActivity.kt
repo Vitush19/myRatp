@@ -8,7 +8,6 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -18,14 +17,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.myratp.R
-import com.example.myratp.TrainPlansActivity
-import com.example.myratp.adapters.TrainLinesAdapter
+import com.example.myratp.ui.plans.TrainPlansActivity
+import com.example.myratp.adapters.train.TrainLinesAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.TrainLineDao
 import com.example.myratp.model.TrainLine
-import com.example.myratp.retrofit
+import com.example.myratp.utils.retrofit
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.activity_bus_time.*
 import kotlinx.android.synthetic.main.activity_train_time.*
 import kotlinx.coroutines.runBlocking
 
@@ -72,7 +70,9 @@ class TrainTimeActivity : AppCompatActivity() {
                 val trainStation = trainLineDao?.getTrainLines()
                 progress_bar_train.visibility = View.GONE
                 recyclerviewTrain.adapter =
-                    TrainLinesAdapter(trainStation ?: emptyList())
+                    TrainLinesAdapter(
+                        trainStation ?: emptyList()
+                    )
             }
         } else {
             val toastView = layoutInflater.inflate(

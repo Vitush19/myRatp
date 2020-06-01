@@ -8,7 +8,6 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -18,12 +17,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.myratp.R
-import com.example.myratp.TramPlansActivity
-import com.example.myratp.adapters.TramLineAdapter
+import com.example.myratp.ui.plans.TramPlansActivity
+import com.example.myratp.adapters.tramway.TramLineAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.TramLineDao
 import com.example.myratp.model.TramLine
-import com.example.myratp.retrofit
+import com.example.myratp.utils.retrofit
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_tram_time.*
 import kotlinx.coroutines.runBlocking
@@ -71,7 +70,9 @@ class TramTimeActivity : AppCompatActivity() {
                 val tramStation = tramLineDao?.getTramLines()
                 progress_bar_tram.visibility = View.GONE
                 recyclerviewTram.adapter =
-                    TramLineAdapter(tramStation ?: emptyList())
+                    TramLineAdapter(
+                        tramStation ?: emptyList()
+                    )
             }
         } else {
             val toastView = layoutInflater.inflate(

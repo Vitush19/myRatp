@@ -18,12 +18,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.myratp.R
-import com.example.myratp.adapters.BusScheduleAdapter
-import com.example.myratp.adapters.NoctilienScheduleAdapter
+import com.example.myratp.adapters.noctilien.NoctilienScheduleAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.ScheduleDao
 import com.example.myratp.model.Schedule
-import com.example.myratp.retrofit
+import com.example.myratp.utils.retrofit
 import kotlinx.android.synthetic.main.activity_nocti_schedule.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
@@ -84,7 +83,9 @@ class NoctilienSchedulesActivity : AppCompatActivity() {
                     val scheduleAller = scheduleDao?.getSchedule()
                     progress_bar_nocti_schedule.visibility = View.GONE
                     recyclerviewNoctiScheduleAller.adapter =
-                        NoctilienScheduleAdapter(scheduleAller ?: emptyList())
+                        NoctilienScheduleAdapter(
+                            scheduleAller ?: emptyList()
+                        )
 
                     scheduleDao?.deleteAllSchedule()
                     val resultatBis = service.getScheduleNocti("noctiliens", "$code", "$name", "R")
@@ -97,7 +98,9 @@ class NoctilienSchedulesActivity : AppCompatActivity() {
                     val scheduleRetour = scheduleDao?.getSchedule()
                     progress_bar_nocti_schedule.visibility = View.GONE
                     recyclerviewNoctiScheduleRetour.adapter =
-                        NoctilienScheduleAdapter(scheduleRetour ?: emptyList())
+                        NoctilienScheduleAdapter(
+                            scheduleRetour ?: emptyList()
+                        )
                 }
                 deffered.await()
             }

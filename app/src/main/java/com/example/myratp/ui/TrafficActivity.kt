@@ -8,7 +8,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -16,15 +15,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.myratp.R
-import com.example.myratp.adapters.TrafficMetroAdapter
+import com.example.myratp.adapters.TrafficAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.TrafficDao
 import com.example.myratp.model.Traffic
-import com.example.myratp.retrofit
+import com.example.myratp.utils.retrofit
 import com.example.myratp.ui.timetable.metrolines.MetroLinesBySearch
 import com.example.myratp.ui.timetable.trainlines.TrainLinesBySearch
 import com.example.myratp.ui.timetable.tramlines.TramLinesBySearch
-import com.google.android.material.bottomnavigation.BottomNavigationMenu
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_traffic.*
 import kotlinx.coroutines.async
@@ -72,7 +70,7 @@ class TrafficActivity : AppCompatActivity(), BottomNavigationView.OnNavigationIt
                 progress_bar_traffic.visibility = View.GONE
                 val type = "Metro"
                 recyclerviewMetro.adapter =
-                    TrafficMetroAdapter(traf!!, type)
+                    TrafficAdapter(traf!!, type)
             }
         }
     }
@@ -105,7 +103,7 @@ class TrafficActivity : AppCompatActivity(), BottomNavigationView.OnNavigationIt
                             progress_bar_traffic.visibility = View.GONE
                             val type = "Metro"
                             recyclerviewMetro.adapter =
-                                TrafficMetroAdapter(traf!!, type)
+                                TrafficAdapter(traf!!, type)
                         }
                         deff.await()
                     }
@@ -126,7 +124,7 @@ class TrafficActivity : AppCompatActivity(), BottomNavigationView.OnNavigationIt
                             progress_bar_traffic.visibility = View.GONE
                             val type = "RER"
                             recyclerviewMetro.adapter =
-                                TrafficMetroAdapter ( trafBis!!, type)
+                                TrafficAdapter ( trafBis!!, type)
                         }
                         deffbis.await()
                     }
@@ -147,7 +145,7 @@ class TrafficActivity : AppCompatActivity(), BottomNavigationView.OnNavigationIt
                             progress_bar_traffic.visibility = View.GONE
                             val type = "Tramway"
                             recyclerviewMetro.adapter =
-                                TrafficMetroAdapter ( trafTer!!, type)
+                                TrafficAdapter ( trafTer!!, type)
                         }
                         deffter.await()
                     }

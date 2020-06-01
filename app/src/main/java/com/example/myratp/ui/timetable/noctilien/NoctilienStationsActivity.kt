@@ -6,7 +6,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -18,12 +17,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.myratp.R
-import com.example.myratp.adapters.NoctilienStationAdapter
+import com.example.myratp.adapters.noctilien.NoctilienStationAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.StationsDao
 import com.example.myratp.model.Station
 import com.example.myratp.model.Type
-import com.example.myratp.retrofit
+import com.example.myratp.utils.retrofit
 import kotlinx.android.synthetic.main.activity_nocti_stations.*
 import kotlinx.coroutines.runBlocking
 import java.util.*
@@ -87,7 +86,10 @@ class NoctilienStationsActivity : AppCompatActivity() {
                 val station = stationDao?.getStationsByLine("$idNocti")
                 progress_bar_nocti_station.visibility = View.GONE
                 recyclerviewNoctiStation.adapter =
-                    NoctilienStationAdapter(station ?: emptyList(), "$code")
+                    NoctilienStationAdapter(
+                        station ?: emptyList(),
+                        "$code"
+                    )
             }
         } else {
             val toastView = layoutInflater.inflate(

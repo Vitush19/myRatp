@@ -19,6 +19,7 @@ import com.example.myratp.ui.timetable.metrolines.MetroLinesBySearch
 import com.example.myratp.ui.timetable.noctilien.NoctiLineBySearch
 import com.example.myratp.ui.timetable.trainlines.TrainLinesBySearch
 import com.example.myratp.ui.timetable.tramlines.TramLinesBySearch
+import com.example.myratp.utils.retrofit
 import kotlinx.android.synthetic.main.activity_splash_screen.*
 import kotlinx.coroutines.runBlocking
 

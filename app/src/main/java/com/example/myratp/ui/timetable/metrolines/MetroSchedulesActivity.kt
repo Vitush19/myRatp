@@ -21,13 +21,13 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.example.myratp.imageMetro
+import com.example.myratp.utils.imageMetro
 import com.example.myratp.R
-import com.example.myratp.adapters.MetroScheduleAdapter
+import com.example.myratp.adapters.metro.MetroScheduleAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.ScheduleDao
 import com.example.myratp.model.Schedule
-import com.example.myratp.retrofit
+import com.example.myratp.utils.retrofit
 import kotlinx.android.synthetic.main.activity_metro_schedule.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
@@ -98,7 +98,9 @@ class MetroSchedulesActivity : AppCompatActivity() {
                     val scheduleAller = scheduleDao?.getSchedule()
                     progress_bar_metro_schedule.visibility = View.GONE
                     recyclerviewMetroScheduleAller.adapter =
-                        MetroScheduleAdapter(scheduleAller ?: emptyList())
+                        MetroScheduleAdapter(
+                            scheduleAller ?: emptyList()
+                        )
 
                     scheduleDao?.deleteAllSchedule()
                     val resultatBis = service.getScheduleMetro("metros", "$code", "$name", "R")
@@ -111,7 +113,9 @@ class MetroSchedulesActivity : AppCompatActivity() {
                     val scheduleRetour = scheduleDao?.getSchedule()
                     progress_bar_metro_schedule.visibility = View.GONE
                     recyclerviewMetroScheduleRetour.adapter =
-                        MetroScheduleAdapter(scheduleRetour ?: emptyList())
+                        MetroScheduleAdapter(
+                            scheduleRetour ?: emptyList()
+                        )
                 }
                 deffered.await()
                 for (x in parts.indices) {
@@ -208,7 +212,9 @@ class MetroSchedulesActivity : AppCompatActivity() {
                     scheduleDao = database.getScheduleDao()
                     val schedule = scheduleDao?.getSchedule()
                     recyclerview.adapter =
-                        MetroScheduleAdapter(schedule ?: emptyList())
+                        MetroScheduleAdapter(
+                            schedule ?: emptyList()
+                        )
                 }
                 deffered.await()
             }

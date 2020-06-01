@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
-    tools:context=".ui.SavedFragment">
+    tools:context=".ui.saved.SavedFragment">
 
     <RelativeLayout
         android:id="@+id/linear_no_fav"

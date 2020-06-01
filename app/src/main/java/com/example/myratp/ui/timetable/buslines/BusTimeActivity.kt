@@ -16,13 +16,13 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.example.myratp.BusPlansActivity
+import com.example.myratp.ui.plans.BusPlansActivity
 import com.example.myratp.R
-import com.example.myratp.adapters.BusLinesAdapter
+import com.example.myratp.adapters.bus.BusLinesAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.BusLineDao
 import com.example.myratp.model.BusLine
-import com.example.myratp.retrofit
+import com.example.myratp.utils.retrofit
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_bus_time.*
 import kotlinx.coroutines.runBlocking
@@ -70,7 +70,9 @@ class BusTimeActivity : AppCompatActivity() {
                 val bs = busLineDao?.getBusLines()
                 progress_bar_bus_ligne.visibility = View.GONE
                 recyclerviewBus.adapter =
-                    BusLinesAdapter(bs ?: emptyList())
+                    BusLinesAdapter(
+                        bs ?: emptyList()
+                    )
             }
         } else {
             val toastView = layoutInflater.inflate(
