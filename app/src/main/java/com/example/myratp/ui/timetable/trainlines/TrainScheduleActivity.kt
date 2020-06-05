@@ -30,7 +30,7 @@ import kotlinx.coroutines.runBlocking
 class TrainScheduleActivity : AppCompatActivity() {
     private var code: String? = ""
     private var name: String? = ""
-    private var scheduleDao: ScheduleDao? = null
+    private lateinit var scheduleDao: ScheduleDao
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,35 +69,35 @@ class TrainScheduleActivity : AppCompatActivity() {
         if (isNetworkConnected()) {
             runBlocking {
                 val deffered = async {
-                    scheduleDao?.deleteAllSchedule()
+                    scheduleDao.deleteAllSchedule()
                     val service = retrofit().create(TrainLinesBySearch::class.java)
                     val resultat = service.getScheduleTrain("rers", "$code", "$name", "A")
                     resultat.result.schedules.map {
                         val trainSchedule = Schedule(0, it.message, it.destination)
-                        scheduleDao?.addSchedule(trainSchedule)
+                        scheduleDao.addSchedule(trainSchedule)
                         txtAller.text = it.destination
                     }
                     scheduleDao = database.getScheduleDao()
-                    val scheduleAller = scheduleDao?.getSchedule()
+                    val scheduleAller = scheduleDao.getSchedule()
                     progress_bar_train_schedule.visibility = View.GONE
                     recyclerviewTrainScheduleAller.adapter =
                         TrainScheduleAdapter(
-                            scheduleAller ?: emptyList()
+                            scheduleAller
                         )
 
-                    scheduleDao?.deleteAllSchedule()
+                    scheduleDao.deleteAllSchedule()
                     val resultatBis = service.getScheduleTrain("rers", "$code", "$name", "R")
                     resultatBis.result.schedules.map {
                         val trainSchedule = Schedule(0, it.message, it.destination)
-                        scheduleDao?.addSchedule(trainSchedule)
+                        scheduleDao.addSchedule(trainSchedule)
                         txtRetour.text = it.destination
                     }
                     scheduleDao = database.getScheduleDao()
-                    val scheduleRetour = scheduleDao?.getSchedule()
+                    val scheduleRetour = scheduleDao.getSchedule()
                     progress_bar_train_schedule.visibility = View.GONE
                     recyclerviewTrainScheduleRetour.adapter =
                         TrainScheduleAdapter(
-                            scheduleRetour ?: emptyList()
+                            scheduleRetour
                         )
                 }
                 deffered.await()

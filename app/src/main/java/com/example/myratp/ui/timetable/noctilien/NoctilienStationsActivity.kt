@@ -31,7 +31,7 @@ class NoctilienStationsActivity : AppCompatActivity() {
 
     private var code: String? = ""
     private var idNocti: String? = ""
-    private var stationDao: StationsDao? = null
+    private lateinit var stationDao: StationsDao
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,10 +80,10 @@ class NoctilienStationsActivity : AppCompatActivity() {
                             type = Type.Noctilien,
                             code = "$code"
                         )
-                    stationDao?.addStations(station)
+                    stationDao.addStations(station)
                 }
                 stationDao = database.getStationsDao()
-                val station = stationDao?.getStationsByLine("$idNocti")
+                val station = stationDao.getStationsByLine("$idNocti")
                 progress_bar_nocti_station.visibility = View.GONE
                 recyclerviewNoctiStation.adapter =
                     NoctilienStationAdapter(

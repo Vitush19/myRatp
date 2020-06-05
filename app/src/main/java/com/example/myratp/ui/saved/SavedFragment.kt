@@ -20,7 +20,7 @@ import kotlinx.coroutines.runBlocking
  * A simple [Fragment] subclass.
  */
 class SavedFragment : Fragment() {
-    private var stationsDao: StationsDao? = null
+    private lateinit var stationsDao: StationsDao
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,7 +44,7 @@ class SavedFragment : Fragment() {
             )
                 .build()
 
-        val databasebus =
+        val databaseBus =
             Room.databaseBuilder(
                 requireActivity().baseContext,
                 AppDatabase::class.java,
@@ -52,7 +52,7 @@ class SavedFragment : Fragment() {
             )
                 .build()
 
-        val databasetrain =
+        val databaseTrain =
             Room.databaseBuilder(
                 requireActivity().baseContext,
                 AppDatabase::class.java,
@@ -60,7 +60,7 @@ class SavedFragment : Fragment() {
             )
                 .build()
 
-        val databasetram =
+        val databaseTram =
             Room.databaseBuilder(
                 requireActivity().baseContext,
                 AppDatabase::class.java,
@@ -68,7 +68,7 @@ class SavedFragment : Fragment() {
             )
                 .build()
 
-        val databasenotilien =
+        val databaseNotilien =
             Room.databaseBuilder(
                 requireActivity().baseContext,
                 AppDatabase::class.java,
@@ -79,19 +79,19 @@ class SavedFragment : Fragment() {
         runBlocking {
 
             stationsDao = database.getStationsDao()
-            val stationFav = stationsDao!!.getStationFav(true)
+            val stationFav = stationsDao.getStationFav(true)
 
-            stationsDao = databasebus.getStationsDao()
-            val stationFavb = stationsDao!!.getStationFav(true)
+            stationsDao = databaseBus.getStationsDao()
+            val stationFavb = stationsDao.getStationFav(true)
 
-            stationsDao = databasetrain.getStationsDao()
-            val stationFavt = stationsDao!!.getStationFav(true)
+            stationsDao = databaseTrain.getStationsDao()
+            val stationFavt = stationsDao.getStationFav(true)
 
-            stationsDao = databasetram.getStationsDao()
-            val stationFavtram = stationsDao!!.getStationFav(true)
+            stationsDao = databaseTram.getStationsDao()
+            val stationFavtram = stationsDao.getStationFav(true)
 
-            stationsDao = databasenotilien.getStationsDao()
-            val stationFavN = stationsDao!!.getStationFav(true)
+            stationsDao = databaseNotilien.getStationsDao()
+            val stationFavN = stationsDao.getStationFav(true)
 
             val favtotal = stationFav + stationFavb + stationFavt + stationFavtram + stationFavN
 

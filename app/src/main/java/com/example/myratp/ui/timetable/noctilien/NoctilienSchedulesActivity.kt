@@ -31,7 +31,7 @@ class NoctilienSchedulesActivity : AppCompatActivity() {
 
     private var code: String? = ""
     private var name: String? = ""
-    private var scheduleDao: ScheduleDao? = null
+    private lateinit var scheduleDao: ScheduleDao
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,31 +71,31 @@ class NoctilienSchedulesActivity : AppCompatActivity() {
         if (isNetworkConnected()) {
             runBlocking {
                 val deffered = async {
-                    scheduleDao?.deleteAllSchedule()
+                    scheduleDao.deleteAllSchedule()
                     val service = retrofit().create(NoctiLineBySearch::class.java)
                     val resultat = service.getScheduleNocti("noctiliens", "$code", "$name", "A")
                     resultat.result.schedules.map {
                         val noctiSchedule = Schedule(0, it.message, it.destination)
-                        scheduleDao?.addSchedule(noctiSchedule)
+                        scheduleDao.addSchedule(noctiSchedule)
                         txtAller.text = it.destination
                     }
                     scheduleDao = database.getScheduleDao()
-                    val scheduleAller = scheduleDao?.getSchedule()
+                    val scheduleAller = scheduleDao.getSchedule()
                     progress_bar_nocti_schedule.visibility = View.GONE
                     recyclerviewNoctiScheduleAller.adapter =
                         NoctilienScheduleAdapter(
                             scheduleAller ?: emptyList()
                         )
 
-                    scheduleDao?.deleteAllSchedule()
+                    scheduleDao.deleteAllSchedule()
                     val resultatBis = service.getScheduleNocti("noctiliens", "$code", "$name", "R")
                     resultatBis.result.schedules.map {
                         val noctiSchedule = Schedule(0, it.message, it.destination)
-                        scheduleDao?.addSchedule(noctiSchedule)
+                        scheduleDao.addSchedule(noctiSchedule)
                         txtRetour.text = it.destination
                     }
                     scheduleDao = database.getScheduleDao()
-                    val scheduleRetour = scheduleDao?.getSchedule()
+                    val scheduleRetour = scheduleDao.getSchedule()
                     progress_bar_nocti_schedule.visibility = View.GONE
                     recyclerviewNoctiScheduleRetour.adapter =
                         NoctilienScheduleAdapter(

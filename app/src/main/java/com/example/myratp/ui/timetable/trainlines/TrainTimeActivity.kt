@@ -29,7 +29,7 @@ import kotlinx.coroutines.runBlocking
 
 class TrainTimeActivity : AppCompatActivity() {
 
-    private var trainLineDao: TrainLineDao? = null
+    private lateinit var trainLineDao: TrainLineDao
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,20 +58,20 @@ class TrainTimeActivity : AppCompatActivity() {
 
         if (isNetworkConnected()) {
             runBlocking {
-                if (trainLineDao!!.getTrainLines().isEmpty()) {
+                if (trainLineDao.getTrainLines().isEmpty()) {
                     val service = retrofit().create(TrainLinesBySearch::class.java)
                     val resultat = service.getlistTrainLine()
                     resultat.result.rers.map {
                         val train = TrainLine(0, it.code, it.name, it.directions, it.id)
-                        trainLineDao?.addTrainLines(train)
+                        trainLineDao.addTrainLines(train)
                     }
                 }
                 trainLineDao = database.getTrainLineDao()
-                val trainStation = trainLineDao?.getTrainLines()
+                val trainStation = trainLineDao.getTrainLines()
                 progress_bar_train.visibility = View.GONE
                 recyclerviewTrain.adapter =
                     TrainLinesAdapter(
-                        trainStation ?: emptyList()
+                        trainStation
                     )
             }
         } else {

@@ -29,7 +29,7 @@ class TrainStationsActivity : AppCompatActivity() {
 
     private var code: String? = ""
     private var idTrain: String? = ""
-    private var stationDao: StationsDao? = null
+    private lateinit var stationDao: StationsDao
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,14 +70,14 @@ class TrainStationsActivity : AppCompatActivity() {
                         type = Type.Train,
                         code = "$code"
                     )
-                    stationDao?.addStations(station)
+                    stationDao.addStations(station)
                 }
                 stationDao = database.getStationsDao()
-                val trainStation = stationDao?.getStationsByLine("$idTrain")
+                val trainStation = stationDao.getStationsByLine("$idTrain")
                 progress_bar_train_station.visibility = View.GONE
                 recyclerviewTrainStation.adapter =
                     TrainStationAdapter(
-                        trainStation ?: emptyList(),
+                        trainStation,
                         "$code"
                     )
             }

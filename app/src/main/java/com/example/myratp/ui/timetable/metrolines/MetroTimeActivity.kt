@@ -31,8 +31,8 @@ import kotlinx.coroutines.runBlocking
 
 class MetroTimeActivity : AppCompatActivity() {
 
-    private var metroLineDao: MetroLineDao? = null
-    private var trafficDao: TrafficDao? = null
+    private lateinit var metroLineDao: MetroLineDao
+    private lateinit var trafficDao: TrafficDao
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,25 +70,25 @@ class MetroTimeActivity : AppCompatActivity() {
                 val resultat = service.getTrafficMetro("metros")
                 resultat.result.metros.map {
                     val traffic = Traffic(0, it.line, it.slug, it.title, it.message)
-                    trafficDao?.addTraffic(traffic)
+                    trafficDao.addTraffic(traffic)
                 }
                 trafficDao = databaseBis.getTrafficDao()
-                val traffic = trafficDao?.getTraffic()
+                val traffic = trafficDao.getTraffic()
 
-                if (metroLineDao!!.getMetroLines().isEmpty()) {
+                if (metroLineDao.getMetroLines().isEmpty()) {
                     val serviceBis = retrofit().create(MetroLinesBySearch::class.java)
                     val resultatBis = serviceBis.getlistMetroLine()
                     resultatBis.result.metros.map {
                         val metro = MetroLine(0, it.code, it.name, it.directions, it.id)
-                        metroLineDao?.addMetroLines(metro)
+                        metroLineDao.addMetroLines(metro)
                     }
                 }
                 metroLineDao = database.getMetroLineDao()
-                val ms = metroLineDao?.getMetroLines()
+                val ms = metroLineDao.getMetroLines()
                 progress_bar_metro_time.visibility = View.GONE
                 recyclerviewMetro.adapter =
                     MetroLineAdapter(
-                        ms ?: emptyList(), traffic!!
+                        ms, traffic
                     )
             }
         } else {

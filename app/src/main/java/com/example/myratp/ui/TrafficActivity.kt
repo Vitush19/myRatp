@@ -30,7 +30,7 @@ import kotlinx.coroutines.runBlocking
 
 class TrafficActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private var trafficDao: TrafficDao? = null
+    private lateinit var trafficDao: TrafficDao
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,19 +58,19 @@ class TrafficActivity : AppCompatActivity(), BottomNavigationView.OnNavigationIt
         if (isNetworkConnected()) {
             runBlocking {
 
-                trafficDao?.deleteAllTraffic()
+                trafficDao.deleteAllTraffic()
                 val service = retrofit().create(MetroLinesBySearch::class.java)
                 val resultat = service.getTrafficMetro("metros")
                 resultat.result.metros.map {
                     val traffic = Traffic(0, it.line, it.slug, it.title, it.message)
-                    trafficDao?.addTraffic(traffic)
+                    trafficDao.addTraffic(traffic)
                 }
                 trafficDao = database.getTrafficDao()
                 val traf = trafficDao?.getTraffic()
                 progress_bar_traffic.visibility = View.GONE
                 val type = "Metro"
                 recyclerviewMetro.adapter =
-                    TrafficAdapter(traf!!, type)
+                    TrafficAdapter(traf, type)
             }
         }
     }
@@ -91,19 +91,19 @@ class TrafficActivity : AppCompatActivity(), BottomNavigationView.OnNavigationIt
                 R.id.navbar_metro -> {
                     runBlocking {
                         val deff = async {
-                            trafficDao?.deleteAllTraffic()
+                            trafficDao.deleteAllTraffic()
                             val service = retrofit().create(MetroLinesBySearch::class.java)
                             val resultat = service.getTrafficMetro("metros")
                             resultat.result.metros.map {
                                 val traffic = Traffic(0, it.line, it.slug, it.title, it.message)
-                                trafficDao?.addTraffic(traffic)
+                                trafficDao.addTraffic(traffic)
                             }
                             trafficDao = database.getTrafficDao()
-                            val traf = trafficDao?.getTraffic()
+                            val traf = trafficDao.getTraffic()
                             progress_bar_traffic.visibility = View.GONE
                             val type = "Metro"
                             recyclerviewMetro.adapter =
-                                TrafficAdapter(traf!!, type)
+                                TrafficAdapter(traf, type)
                         }
                         deff.await()
                     }
@@ -112,19 +112,19 @@ class TrafficActivity : AppCompatActivity(), BottomNavigationView.OnNavigationIt
                 R.id.navbar_train -> {
                     runBlocking {
                         val deffbis = async {
-                            trafficDao?.deleteAllTraffic()
+                            trafficDao.deleteAllTraffic()
                             val serviceBis = retrofit().create(TrainLinesBySearch::class.java)
                             val resultatBis = serviceBis.getTrafficTrain("rers")
                             resultatBis.result.rers.map {
                                 val traffic = Traffic(0, it.line, it.slug, it.title, it.message)
-                                trafficDao?.addTraffic(traffic)
+                                trafficDao.addTraffic(traffic)
                             }
                             trafficDao = database.getTrafficDao()
-                            val trafBis = trafficDao?.getTraffic()
+                            val trafBis = trafficDao.getTraffic()
                             progress_bar_traffic.visibility = View.GONE
                             val type = "RER"
                             recyclerviewMetro.adapter =
-                                TrafficAdapter ( trafBis!!, type)
+                                TrafficAdapter ( trafBis, type)
                         }
                         deffbis.await()
                     }
@@ -133,19 +133,19 @@ class TrafficActivity : AppCompatActivity(), BottomNavigationView.OnNavigationIt
                 R.id.navbar_tram -> {
                     runBlocking {
                         val deffter = async {
-                            trafficDao?.deleteAllTraffic()
+                            trafficDao.deleteAllTraffic()
                             val serviceTer = retrofit().create(TramLinesBySearch::class.java)
                             val resultatTer = serviceTer.getTrafficTram("tramways")
                             resultatTer.result.tramways.map {
                                 val traffic = Traffic(0, it.line, it.slug, it.title, it.message)
-                                trafficDao?.addTraffic(traffic)
+                                trafficDao.addTraffic(traffic)
                             }
                             trafficDao = database.getTrafficDao()
-                            val trafTer = trafficDao?.getTraffic()
+                            val trafTer = trafficDao.getTraffic()
                             progress_bar_traffic.visibility = View.GONE
                             val type = "Tramway"
                             recyclerviewMetro.adapter =
-                                TrafficAdapter ( trafTer!!, type)
+                                TrafficAdapter ( trafTer, type)
                         }
                         deffter.await()
                     }

@@ -29,7 +29,7 @@ import kotlinx.coroutines.runBlocking
 
 class TramTimeActivity : AppCompatActivity() {
 
-    private var tramLineDao: TramLineDao? = null
+    private lateinit var tramLineDao: TramLineDao
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,20 +58,20 @@ class TramTimeActivity : AppCompatActivity() {
 
         if (isNetworkConnected()) {
             runBlocking {
-                if (tramLineDao!!.getTramLines().isEmpty()) {
+                if (tramLineDao.getTramLines().isEmpty()) {
                     val service = retrofit().create(TramLinesBySearch::class.java)
                     val resultat = service.getlistTramLine()
                     resultat.result.tramways.map {
                         val tramway = TramLine(0, it.code, it.name, it.directions, it.id)
-                        tramLineDao?.addTramLines(tramway)
+                        tramLineDao.addTramLines(tramway)
                     }
                 }
                 tramLineDao = database.getTramLineDao()
-                val tramStation = tramLineDao?.getTramLines()
+                val tramStation = tramLineDao.getTramLines()
                 progress_bar_tram.visibility = View.GONE
                 recyclerviewTram.adapter =
                     TramLineAdapter(
-                        tramStation ?: emptyList()
+                        tramStation
                     )
             }
         } else {

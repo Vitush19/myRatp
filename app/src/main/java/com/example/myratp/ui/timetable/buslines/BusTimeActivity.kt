@@ -29,7 +29,7 @@ import kotlinx.coroutines.runBlocking
 
 class BusTimeActivity : AppCompatActivity() {
 
-    private var busLineDao: BusLineDao? = null
+    private lateinit var busLineDao: BusLineDao
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,20 +58,20 @@ class BusTimeActivity : AppCompatActivity() {
 
         if (isNetworkConnected()) {
             runBlocking {
-                if (busLineDao!!.getBusLines().isEmpty()) {
+                if (busLineDao.getBusLines().isEmpty()) {
                     val service = retrofit().create(BusLinesBySearch::class.java)
                     val resultat = service.getlistBusLine()
                     resultat.result.buses.map {
                         val bus = BusLine(0, it.code, it.name, it.directions, it.id)
-                        busLineDao?.addBusLines(bus)
+                        busLineDao.addBusLines(bus)
                     }
                 }
                 busLineDao = database.getBusLineDao()
-                val bs = busLineDao?.getBusLines()
+                val bs = busLineDao.getBusLines()
                 progress_bar_bus_ligne.visibility = View.GONE
                 recyclerviewBus.adapter =
                     BusLinesAdapter(
-                        bs ?: emptyList()
+                        bs
                     )
             }
         } else {

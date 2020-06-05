@@ -31,7 +31,7 @@ class TramSchedulesActivity : AppCompatActivity() {
 
     private var code: String? = ""
     private var name: String? = ""
-    private var scheduleDao: ScheduleDao? = null
+    private lateinit var scheduleDao: ScheduleDao
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,12 +71,12 @@ class TramSchedulesActivity : AppCompatActivity() {
         if (isNetworkConnected()) {
             runBlocking {
                 val deffered = async {
-                    scheduleDao?.deleteAllSchedule()
+                    scheduleDao.deleteAllSchedule()
                     val service = retrofit().create(TramLinesBySearch::class.java)
                     val resultat = service.getScheduleTram("tramways", "$code", "$name", "A")
                     resultat.result.schedules.map {
                         val tramSchedule = Schedule(0, it.message, it.destination)
-                        scheduleDao?.addSchedule(tramSchedule)
+                        scheduleDao.addSchedule(tramSchedule)
                         txtAller.text = it.destination
                     }
                     scheduleDao = database.getScheduleDao()
@@ -84,22 +84,22 @@ class TramSchedulesActivity : AppCompatActivity() {
                     progress_bar_tram_schedule.visibility = View.GONE
                     recyclerviewTramScheduleAller.adapter =
                         TramScheduleAdapter(
-                            scheduleAller ?: emptyList()
+                            scheduleAller
                         )
 
-                    scheduleDao?.deleteAllSchedule()
+                    scheduleDao.deleteAllSchedule()
                     val resultatBis = service.getScheduleTram("tramways", "$code", "$name", "R")
                     resultatBis.result.schedules.map {
                         val tramSchedule = Schedule(0, it.message, it.destination)
-                        scheduleDao?.addSchedule(tramSchedule)
+                        scheduleDao.addSchedule(tramSchedule)
                         txtRetour.text = it.destination
                     }
                     scheduleDao = database.getScheduleDao()
-                    val scheduleRetour = scheduleDao?.getSchedule()
+                    val scheduleRetour = scheduleDao.getSchedule()
                     progress_bar_tram_schedule.visibility = View.GONE
                     recyclerviewTramScheduleRetour.adapter =
                         TramScheduleAdapter(
-                            scheduleRetour ?: emptyList()
+                            scheduleRetour
                         )
                 }
                 deffered.await()

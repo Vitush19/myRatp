@@ -38,8 +38,8 @@ class MetroSchedulesActivity : AppCompatActivity() {
     private var code: String? = ""
     private var name: String? = ""
     private var parts: List<String> = emptyList()
-    private var correspondance: String? = ""
-    private var scheduleDao: ScheduleDao? = null
+    private lateinit var correspondance: String
+    private lateinit var scheduleDao: ScheduleDao
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,9 +51,7 @@ class MetroSchedulesActivity : AppCompatActivity() {
         correspondance = intent.getStringExtra("correspondance") ?: ""
 
         val delimiter = "-"
-        if (correspondance != null) {
-            parts = correspondance!!.split(delimiter)
-        }
+        parts = correspondance.split(delimiter)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_metro_schedule)
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
@@ -86,12 +84,12 @@ class MetroSchedulesActivity : AppCompatActivity() {
         if (isNetworkConnected()) {
             runBlocking {
                 val deffered = async {
-                    scheduleDao?.deleteAllSchedule()
+                    scheduleDao.deleteAllSchedule()
                     val service = retrofit().create(MetroLinesBySearch::class.java)
                     val resultat = service.getScheduleMetro("metros", "$code", "$name", "A")
                     resultat.result.schedules.map {
                         val metroSchedule = Schedule(0, it.message, it.destination)
-                        scheduleDao?.addSchedule(metroSchedule)
+                        scheduleDao.addSchedule(metroSchedule)
                         txtAller.text = it.destination
                     }
                     scheduleDao = database.getScheduleDao()
@@ -99,22 +97,22 @@ class MetroSchedulesActivity : AppCompatActivity() {
                     progress_bar_metro_schedule.visibility = View.GONE
                     recyclerviewMetroScheduleAller.adapter =
                         MetroScheduleAdapter(
-                            scheduleAller ?: emptyList()
+                            scheduleAller
                         )
 
-                    scheduleDao?.deleteAllSchedule()
+                    scheduleDao.deleteAllSchedule()
                     val resultatBis = service.getScheduleMetro("metros", "$code", "$name", "R")
                     resultatBis.result.schedules.map {
                         val metroSchedule = Schedule(0, it.message, it.destination)
-                        scheduleDao?.addSchedule(metroSchedule)
+                        scheduleDao.addSchedule(metroSchedule)
                         txtRetour.text = it.destination
                     }
                     scheduleDao = database.getScheduleDao()
-                    val scheduleRetour = scheduleDao?.getSchedule()
+                    val scheduleRetour = scheduleDao.getSchedule()
                     progress_bar_metro_schedule.visibility = View.GONE
                     recyclerviewMetroScheduleRetour.adapter =
                         MetroScheduleAdapter(
-                            scheduleRetour ?: emptyList()
+                            scheduleRetour
                         )
                 }
                 deffered.await()
@@ -199,21 +197,21 @@ class MetroSchedulesActivity : AppCompatActivity() {
             myLinearBis.addView(recyclerview)
             runBlocking {
                 val deffered = async {
-                    scheduleDao?.deleteAllSchedule()
+                    scheduleDao.deleteAllSchedule()
                     var destination = ""
                     val service = retrofit().create(MetroLinesBySearch::class.java)
                     val resultat = service.getScheduleMetro("metros", num, "$name", x)
                     resultat.result.schedules.map {
                         val metroSchedule = Schedule(0, it.message, it.destination)
-                        scheduleDao?.addSchedule(metroSchedule)
+                        scheduleDao.addSchedule(metroSchedule)
                         destination = it.destination
                     }
                     txt.text = destination
                     scheduleDao = database.getScheduleDao()
-                    val schedule = scheduleDao?.getSchedule()
+                    val schedule = scheduleDao.getSchedule()
                     recyclerview.adapter =
                         MetroScheduleAdapter(
-                            schedule ?: emptyList()
+                            schedule
                         )
                 }
                 deffered.await()

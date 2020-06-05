@@ -29,7 +29,7 @@ class MetroStationsActivity : AppCompatActivity() {
 
     private var code: String? = ""
     private var idMetro: Int? = 0
-    private var stationDao: StationsDao? = null
+    private lateinit var stationDao: StationsDao
     private var newFavoris: Boolean = false
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -62,8 +62,8 @@ class MetroStationsActivity : AppCompatActivity() {
                 val resultat = service.getMetroStations("metros", "$code")
                 resultat.result.stations.map {
                     var co = ""
-                    val listStation = stationDao?.getStationsByName(it.name)
-                    if (listStation!!.isNotEmpty()) {
+                    val listStation = stationDao.getStationsByName(it.name)
+                    if (listStation.isNotEmpty()) {
                         for (x in listStation.indices) {
                             if ("$code" != listStation[x].id_ligne) {
                                 val newLine: String = listStation[x].id_ligne
@@ -93,11 +93,11 @@ class MetroStationsActivity : AppCompatActivity() {
                 //}
                 stationDao = database.getStationsDao()
 
-                val s = stationDao?.getStationsByLine("$code")
+                val s = stationDao.getStationsByLine("$code")
                 progress_bar_metro_station.visibility = View.GONE
                 recyclerviewMetroStation.adapter =
                     MetroStationAdapter(
-                        s ?: emptyList(), "$code"
+                        s,"$code"
                     )
             }
         } else {

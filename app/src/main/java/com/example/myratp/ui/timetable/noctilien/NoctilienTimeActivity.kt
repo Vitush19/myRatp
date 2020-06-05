@@ -31,7 +31,7 @@ import java.util.*
 
 class NoctilienTimeActivity : AppCompatActivity() {
 
-    private var noctilienDao: NoctilienDao? = null
+    private lateinit var noctilienDao: NoctilienDao
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,20 +67,20 @@ class NoctilienTimeActivity : AppCompatActivity() {
 
         if (isNetworkConnected()) {
             runBlocking {
-                if (noctilienDao!!.getNoctilien().isEmpty()) {
+                if (noctilienDao.getNoctilien().isEmpty()) {
                     val service = retrofit().create(NoctiLineBySearch::class.java)
                     val resultat = service.getlistNoctiLine()
                     resultat.result.noctiliens.map {
                         val nocti = Noctilien(0, it.code, it.name, it.directions, it.id)
-                        noctilienDao?.addNoctilien(nocti)
+                        noctilienDao.addNoctilien(nocti)
                     }
                 }
                 noctilienDao = database.getNoctilienDao()
-                val noc = noctilienDao?.getNoctilien()
+                val noc = noctilienDao.getNoctilien()
                 progress_bar_nocti_ligne.visibility = View.GONE
                 recyclerviewNocti.adapter =
                     NoctilienAdapter(
-                        noc ?: emptyList()
+                        noc
                     )
             }
         } else {

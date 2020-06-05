@@ -31,7 +31,7 @@ class BusSchedulesActivity : AppCompatActivity() {
 
     private var code: String? = ""
     private var name: String? = ""
-    private var scheduleDao: ScheduleDao? = null
+    private lateinit var scheduleDao: ScheduleDao
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,35 +71,35 @@ class BusSchedulesActivity : AppCompatActivity() {
         if (isNetworkConnected()) {
             runBlocking {
                 val deffered = async {
-                    scheduleDao?.deleteAllSchedule()
+                    scheduleDao.deleteAllSchedule()
                     val service = retrofit().create(BusLinesBySearch::class.java)
                     val resultat = service.getScheduleBus("buses", "$code", "$name", "A")
                     resultat.result.schedules.map {
                         val busSchedule = Schedule(0, it.message, it.destination)
-                        scheduleDao?.addSchedule(busSchedule)
+                        scheduleDao.addSchedule(busSchedule)
                         txtAller.text = it.destination
                     }
                     scheduleDao = database.getScheduleDao()
-                    val scheduleAller = scheduleDao?.getSchedule()
+                    val scheduleAller = scheduleDao.getSchedule()
                     progress_bar_bus_schedule.visibility = View.GONE
                     recyclerviewBusScheduleAller.adapter =
                         BusScheduleAdapter(
-                            scheduleAller ?: emptyList()
+                            scheduleAller
                         )
 
-                    scheduleDao?.deleteAllSchedule()
+                    scheduleDao.deleteAllSchedule()
                     val resultatBis = service.getScheduleBus("buses", "$code", "$name", "R")
                     resultatBis.result.schedules.map {
                         val busSchedule = Schedule(0, it.message, it.destination)
-                        scheduleDao?.addSchedule(busSchedule)
+                        scheduleDao.addSchedule(busSchedule)
                         txtRetour.text = it.destination
                     }
                     scheduleDao = database.getScheduleDao()
-                    val scheduleRetour = scheduleDao?.getSchedule()
+                    val scheduleRetour = scheduleDao.getSchedule()
                     progress_bar_bus_schedule.visibility = View.GONE
                     recyclerviewBusScheduleRetour.adapter =
                         BusScheduleAdapter(
-                            scheduleRetour ?: emptyList()
+                            scheduleRetour
                         )
                 }
                 deffered.await()

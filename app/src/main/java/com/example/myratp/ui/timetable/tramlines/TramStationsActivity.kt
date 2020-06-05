@@ -30,7 +30,7 @@ class TramStationsActivity : AppCompatActivity() {
 
     private var code: String? = ""
     private var idTram: String? = ""
-    private var stationDao: StationsDao? = null
+    private lateinit var stationDao: StationsDao
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,14 +72,14 @@ class TramStationsActivity : AppCompatActivity() {
                             type = Type.Tram,
                             code = "$code"
                         )
-                    stationDao?.addStations(station)
+                    stationDao.addStations(station)
                 }
                 stationDao = database.getStationsDao()
-                val station = stationDao?.getStationsByLine("$idTram")
+                val station = stationDao.getStationsByLine("$idTram")
                 progress_bar_tram_station.visibility = View.GONE
                 recyclerviewTramStation.adapter =
                     TramStationAdapter(
-                        station ?: emptyList(),
+                        station,
                         "$code"
                     )
             }
