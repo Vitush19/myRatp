@@ -15,11 +15,18 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
         <ImageView
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_margin="5dp"
             android:layout_gravity="center_vertical|start"
             android:src="@drawable/bus"
+            android:contentDescription="@string/bus" />
+        <ImageView
+            android:id="@+id/img_bus_line"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_vertical|start"
             android:contentDescription="@string/bus" />
         <LinearLayout
             android:layout_width="0dp"

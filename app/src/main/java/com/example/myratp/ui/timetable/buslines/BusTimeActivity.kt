@@ -71,7 +71,7 @@ class BusTimeActivity : AppCompatActivity() {
                 progress_bar_bus_ligne.visibility = View.GONE
                 recyclerviewBus.adapter =
                     BusLinesAdapter(
-                        bs
+                        bs, this@BusTimeActivity
                     )
             }
         } else {

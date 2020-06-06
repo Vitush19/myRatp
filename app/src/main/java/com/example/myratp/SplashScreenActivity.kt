@@ -9,6 +9,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.room.Room
@@ -20,12 +21,18 @@ import com.example.myratp.ui.timetable.noctilien.NoctiLineBySearch
 import com.example.myratp.ui.timetable.trainlines.TrainLinesBySearch
 import com.example.myratp.ui.timetable.tramlines.TramLinesBySearch
 import com.example.myratp.utils.retrofit
+import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import kotlinx.android.synthetic.main.activity_splash_screen.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import okio.Utf8
+import java.io.BufferedReader
+import java.io.File
+import java.io.InputStream
+import java.io.InputStreamReader
+import java.nio.charset.Charset
 
 class SplashScreenActivity : AppCompatActivity() {
 
@@ -78,62 +85,18 @@ class SplashScreenActivity : AppCompatActivity() {
             .build()
         noctilienDao = databaseNocti.getNoctilienDao()
 
+
+
+
         if (isNetworkConnected()) {
             CoroutineScope(IO).launch {
                 async {
-                    if (trafficDao!!.getTraffic().isEmpty()) {
-                        val service = retrofit().create(MetroLinesBySearch::class.java)
-                        val resultat = service.getTrafficMetro("metros")
-                        resultat.result.metros.map {
-                            val traffic = Traffic(0, it.line, it.slug, it.title, it.message)
-                            trafficDao?.addTraffic(traffic)
-                        }
-                    }
-
                     if (metroLineDao!!.getMetroLines().isEmpty()) {
                         val service = retrofit().create(MetroLinesBySearch::class.java)
                         val resultat = service.getlistMetroLine()
                         resultat.result.metros.map {
                             val metro = MetroLine(0, it.code, it.name, it.directions, it.id)
                             metroLineDao?.addMetroLines(metro)
-                        }
-                    }
-
-                    if (busLineDao!!.getBusLines().isEmpty()) {
-                        val service = retrofit().create(BusLinesBySearch::class.java)
-                        val resultat = service.getlistBusLine()
-                        resultat.result.buses.map {
-                            val bus = BusLine(0, it.code, it.name, it.directions, it.id)
-                            if (bus.code != busLineDao?.getBusLinesByCode(it.code)?.code) {
-                                busLineDao?.addBusLines(bus)
-                            }
-                        }
-                    }
-
-                    if (trainLineDao!!.getTrainLines().isEmpty()) {
-                        val service = retrofit().create(TrainLinesBySearch::class.java)
-                        val resultat = service.getlistTrainLine()
-                        resultat.result.rers.map {
-                            val train = TrainLine(0, it.code, it.name, it.directions, it.id)
-                            trainLineDao?.addTrainLines(train)
-                        }
-                    }
-
-                    if (tramLineDao!!.getTramLines().isEmpty()) {
-                        val service = retrofit().create(TramLinesBySearch::class.java)
-                        val resultat = service.getlistTramLine()
-                        resultat.result.tramways.map {
-                            val tramway = TramLine(0, it.code, it.name, it.directions, it.id)
-                            tramLineDao?.addTramLines(tramway)
-                        }
-                    }
-
-                    if (noctilienDao!!.getNoctilien().isEmpty()) {
-                        val service = retrofit().create(NoctiLineBySearch::class.java)
-                        val resultat = service.getlistNoctiLine()
-                        resultat.result.noctiliens.map {
-                            val nocti = Noctilien(0, it.code, it.name, it.directions, it.id)
-                            noctilienDao?.addNoctilien(nocti)
                         }
                     }
 
@@ -178,6 +141,54 @@ class SplashScreenActivity : AppCompatActivity() {
                                     )
                                 stationDao?.addStations(station)
                             }
+                        }
+                    }
+                }.await()
+                async {
+                    if (trafficDao!!.getTraffic().isEmpty()) {
+                        val service = retrofit().create(MetroLinesBySearch::class.java)
+                        val resultat = service.getTrafficMetro("metros")
+                        resultat.result.metros.map {
+                            val traffic = Traffic(0, it.line, it.slug, it.title, it.message)
+                            trafficDao?.addTraffic(traffic)
+                        }
+                    }
+
+                    if (busLineDao!!.getBusLines().isEmpty()) {
+                        val service = retrofit().create(BusLinesBySearch::class.java)
+                        val resultat = service.getlistBusLine()
+                        resultat.result.buses.map {
+                            val bus = BusLine(0, it.code, it.name, it.directions, it.id)
+                            if (bus.code != busLineDao?.getBusLinesByCode(it.code)?.code) {
+                                busLineDao?.addBusLines(bus)
+                            }
+                        }
+                    }
+
+                    if (trainLineDao!!.getTrainLines().isEmpty()) {
+                        val service = retrofit().create(TrainLinesBySearch::class.java)
+                        val resultat = service.getlistTrainLine()
+                        resultat.result.rers.map {
+                            val train = TrainLine(0, it.code, it.name, it.directions, it.id)
+                            trainLineDao?.addTrainLines(train)
+                        }
+                    }
+
+                    if (tramLineDao!!.getTramLines().isEmpty()) {
+                        val service = retrofit().create(TramLinesBySearch::class.java)
+                        val resultat = service.getlistTramLine()
+                        resultat.result.tramways.map {
+                            val tramway = TramLine(0, it.code, it.name, it.directions, it.id)
+                            tramLineDao?.addTramLines(tramway)
+                        }
+                    }
+
+                    if (noctilienDao!!.getNoctilien().isEmpty()) {
+                        val service = retrofit().create(NoctiLineBySearch::class.java)
+                        val resultat = service.getlistNoctiLine()
+                        resultat.result.noctiliens.map {
+                            val nocti = Noctilien(0, it.code, it.name, it.directions, it.id)
+                            noctilienDao?.addNoctilien(nocti)
                         }
                     }
                 }

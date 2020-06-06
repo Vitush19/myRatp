@@ -86,4 +86,9 @@ dependencies {
     //animation
     implementation 'com.airbnb.android:lottie:3.4.0'
 
+    //csv
+    implementation 'com.github.doyaaaaaken:kotlin-csv-jvm:0.10.1'
+
+    //glide vector
+    implementation 'com.github.corouteam:GlideToVectorYou:v2.0.0'
 }
