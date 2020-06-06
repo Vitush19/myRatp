@@ -23,6 +23,7 @@ import com.example.myratp.data.StationsDao
 import com.example.myratp.model.Station
 import com.example.myratp.model.Type
 import com.example.myratp.ui.qrcode.QrCodeActivity
+import com.example.myratp.ui.saved.SavedActivity
 import com.example.myratp.ui.timetable.metrolines.MetroSchedulesActivity
 import kotlinx.coroutines.runBlocking
 
@@ -129,13 +130,17 @@ class DashboardFragment : Fragment(), View.OnClickListener {
 
         val bTraffic = root.findViewById<CardView>(R.id.traffic_button)
         val bQrCode = root.findViewById<CardView>(R.id.qr_code_button)
-
+        val bSaved = root.findViewById<CardView>(R.id.favoris_button)
         bQrCode.setOnClickListener {
             val intent = Intent(requireContext(), QrCodeActivity::class.java)
             startActivity(intent)
         }
         bTraffic.setOnClickListener{
             val intent = Intent(requireContext(),TrafficActivity::class.java)
+            startActivity(intent)
+        }
+        bSaved.setOnClickListener{
+            val intent = Intent(requireContext(),SavedActivity::class.java)
             startActivity(intent)
         }
 
@@ -146,15 +151,11 @@ class DashboardFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
         view.findViewById<CardView>(R.id.timetable_button).setOnClickListener(this)
-        //view.findViewById<CardView>(R.id.plans_button).setOnClickListener(this)
-        view.findViewById<CardView>(R.id.favoris_button).setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.timetable_button -> navController.navigate(R.id.action_dashboardFragment_to_timetableFragment)
-            //R.id.plans_button -> navController.navigate(R.id.action_dashboardFragment_to_plansFragment)
-            R.id.favoris_button -> navController.navigate(R.id.action_dashboardFragment_to_savedFragment)
         }
     }
 

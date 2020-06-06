@@ -13,75 +13,10 @@
         <action
             android:id="@+id/action_dashboardFragment_to_timetableFragment"
             app:destination="@id/timetableFragment" />
-        <action
-            android:id="@+id/action_dashboardFragment_to_plansFragment"
-            app:destination="@id/plansFragment" />
-        <action
-            android:id="@+id/action_dashboardFragment_to_savedFragment"
-            app:destination="@id/savedFragment" />
-        <action
-            android:id="@+id/action_dashboardFragment_to_qrcodeFragment"
-            app:destination="@id/qrcodeFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/plansFragment"
-        android:name="com.example.myratp.ui.PlansFragment"
-        android:label="fragment_plans"
-        tools:layout="@layout/fragment_plans" >
-        <action
-            android:id="@+id/action_plansFragment_to_metroPlansFragment"
-            app:destination="@id/metroPlansFragment" />
-        <action
-            android:id="@+id/action_plansFragment_to_busPlansFragment"
-            app:destination="@id/busPlansFragment" />
-        <action
-            android:id="@+id/action_plansFragment_to_trainPlansFragment"
-            app:destination="@id/trainPlansFragment" />
-        <action
-            android:id="@+id/action_plansFragment_to_tramwayPlansFragment"
-            app:destination="@id/tramwayPlansFragment" />
-        <action
-            android:id="@+id/action_plansFragment_to_noctilienPlansFragment"
-            app:destination="@id/noctilienPlansFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/qrcodeFragment"
-        android:name="com.example.myratp.ui.QrcodeFragment"
-        android:label="fragment_qrcode"
-        tools:layout="@layout/fragment_qrcode" />
-    <fragment
-        android:id="@+id/savedFragment"
-        android:name="com.example.myratp.ui.saved.SavedFragment"
-        android:label="fragment_saved"
-        tools:layout="@layout/fragment_saved" />
     <fragment
         android:id="@+id/timetableFragment"
         android:name="com.example.myratp.ui.TimetableFragment"
         android:label="fragment_timetable"
         tools:layout="@layout/fragment_timetable" />
-    <fragment
-        android:id="@+id/busPlansFragment"
-        android:name="com.example.myratp.ui.plans.BusPlansFragment"
-        android:label="fragment_bus_plans"
-        tools:layout="@layout/fragment_bus_plans" />
-    <fragment
-        android:id="@+id/metroPlansFragment"
-        android:name="com.example.myratp.ui.plans.MetroPlansFragment"
-        android:label="fragment_metro_plans"
-        tools:layout="@layout/fragment_metro_plans" />
-    <fragment
-        android:id="@+id/noctilienPlansFragment"
-        android:name="com.example.myratp.ui.plans.NoctilienPlansFragment"
-        android:label="fragment_noctilien_plans"
-        tools:layout="@layout/fragment_noctilien_plans" />
-    <fragment
-        android:id="@+id/trainPlansFragment"
-        android:name="com.example.myratp.ui.plans.TrainPlansFragment"
-        android:label="fragment_train_plans"
-        tools:layout="@layout/fragment_train_plans" />
-    <fragment
-        android:id="@+id/tramwayPlansFragment"
-        android:name="com.example.myratp.ui.plans.TramwayPlansFragment"
-        android:label="fragment_tramway_plans"
-        tools:layout="@layout/fragment_tramway_plans" />
 </navigation>

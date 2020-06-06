@@ -1,13 +1,12 @@
 package com.example.myratp.ui.saved
 
-import android.app.Activity
+import android.graphics.Color
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import android.widget.RelativeLayout
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -16,33 +15,32 @@ import com.example.myratp.adapters.StationAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.StationsDao
 import kotlinx.coroutines.runBlocking
-import com.example.myratp.MainActivity as MainActivity
+
+class SavedActivity : AppCompatActivity(){
 
 
-/**
- * A simple [Fragment] subclass.
- */
-class SavedFragment : Fragment() {
     private lateinit var stationsDao: StationsDao
-    private lateinit var stationRecyclerview: RecyclerView
-    private var activityfrag= activity
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val root: View = inflater.inflate(R.layout.fragment_saved, container, false)
 
-        val noFav = root.findViewById<RelativeLayout>(R.id.linear_no_fav)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_saved)
 
-        stationRecyclerview =
-            root.findViewById<View>(R.id.activities_recyclerview_station_fav) as RecyclerView
+        val toolbar: Toolbar = findViewById(R.id.toolbar_saved)
+        toolbar.setTitleTextColor(Color.parseColor("#F8F7F2"))
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
+        toolbar.title = "Vos Stations"
+        setSupportActionBar(toolbar)
+
+        val noFav = findViewById<RelativeLayout>(R.id.linear_no_fav)
+
+        val stationRecyclerview =
+            findViewById<View>(R.id.activities_recyclerview_station_fav) as RecyclerView
         stationRecyclerview.layoutManager =
-            LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         val database =
             Room.databaseBuilder(
-                requireActivity().baseContext,
+                this,
                 AppDatabase::class.java,
                 "stationmetro"
             )
@@ -50,7 +48,7 @@ class SavedFragment : Fragment() {
 
         val databaseBus =
             Room.databaseBuilder(
-                requireActivity().baseContext,
+                this,
                 AppDatabase::class.java,
                 "stationbus"
             )
@@ -58,7 +56,7 @@ class SavedFragment : Fragment() {
 
         val databaseTrain =
             Room.databaseBuilder(
-                requireActivity().baseContext,
+                this,
                 AppDatabase::class.java,
                 "stationtrain"
             )
@@ -66,7 +64,7 @@ class SavedFragment : Fragment() {
 
         val databaseTram =
             Room.databaseBuilder(
-                requireActivity().baseContext,
+                this,
                 AppDatabase::class.java,
                 "stationtram"
             )
@@ -74,7 +72,7 @@ class SavedFragment : Fragment() {
 
         val databaseNotilien =
             Room.databaseBuilder(
-                requireActivity().baseContext,
+                this,
                 AppDatabase::class.java,
                 "stationnoctilien"
             )
@@ -103,15 +101,17 @@ class SavedFragment : Fragment() {
                 noFav.visibility = View.GONE
             }
 
-            stationRecyclerview.adapter = StationAdapter(favtotal)
+            stationRecyclerview.adapter = StationAdapter(favtotal, this@SavedActivity)
 
         }
-        return root
     }
-
-    override fun onResume() {
-        super.onResume()
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
-
 }
-

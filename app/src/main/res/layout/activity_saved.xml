@@ -6,9 +6,14 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
-    tools:context=".ui.saved.SavedFragment">
+    tools:context=".ui.saved.SavedActivity">
+
+    <include
+        android:id="@+id/toolbar_saved"
+        layout="@layout/toolbar" />
 
     <RelativeLayout
+        android:layout_marginTop="?attr/actionBarSize"
         android:id="@+id/linear_no_fav"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

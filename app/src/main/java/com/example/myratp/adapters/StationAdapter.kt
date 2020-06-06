@@ -28,7 +28,7 @@ import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import kotlinx.android.synthetic.main.station_view.view.*
 import kotlinx.coroutines.runBlocking
 
-class StationAdapter(private val list_stations: List<Station>) :
+class StationAdapter(private val list_stations: List<Station>, private val activity: Activity) :
     RecyclerView.Adapter<StationAdapter.StationViewHolder>() {
     class StationViewHolder(val stationsView: View) : RecyclerView.ViewHolder(stationsView)
 
@@ -64,7 +64,38 @@ class StationAdapter(private val list_stations: List<Station>) :
         var databaseSaved =
             Room.databaseBuilder(context, AppDatabase::class.java, "stationtrain")
                 .build()
-         if (station.type == Type.Metro){
+        if(station.type == Type.Train){
+            val img = holder.stationsView.station_image_view
+            val csv = context.resources.openRawResource(R.raw.pictogrammes)
+            val list: List<Map<String, String>> = csvReader().readAllWithHeader(csv)
+            run loop@{
+                list.map { itMap ->
+                    itMap.map { itIn ->
+                        if(itIn.value == "RER ${station.code}"){
+                            val url = itMap["noms_des_fichiers"].toString()
+                            if(url != "null" && url.isNotEmpty() ){
+                                val uri = Uri.parse(url)
+                                GlideToVectorYou.justLoadImage(activity, uri, img)
+                            }
+                            return@loop
+                        }
+                    }
+                }
+            }
+            if("RER ${station.code}" == "RER C"){
+                img.setBackgroundResource(imageMetro("C"))
+            }
+            if("RER ${station.code}" == "RER D"){
+                img.setBackgroundResource(imageMetro("D"))
+            }
+            if("RER ${station.code}" == "RER E"){
+                img.setBackgroundResource(imageMetro("E"))
+            }
+            databaseSaved =
+                Room.databaseBuilder(context, AppDatabase::class.java, "stationtrain")
+                    .build()
+        }
+         else if (station.type == Type.Metro){
              holder.stationsView.station_image_view.setBackgroundResource(
                  imageMetro(
                      station.id_ligne
@@ -74,15 +105,72 @@ class StationAdapter(private val list_stations: List<Station>) :
                  Room.databaseBuilder(context, AppDatabase::class.java, "stationmetro")
                      .build()
          }else if (station.type == Type.Bus) {
+             val img = holder.stationsView.station_image_view
+             val csv = context.resources.openRawResource(R.raw.pictogrammes)
+             val list: List<Map<String, String>> = csvReader().readAllWithHeader(csv)
+             run loop@{
+                 list.map { itMap ->
+                     itMap.map { itIn ->
+                         if(itIn.value == "${station.code}"){
+                             val url = itMap["noms_des_fichiers"].toString()
+                             if(url != "null" && url.isNotEmpty() ){
+                                 val uri = Uri.parse(url)
+                                 GlideToVectorYou.justLoadImage(activity, uri, img)
+                             }
+                             return@loop
+                         }
+                     }
+                 }
+             }
              databaseSaved =
                  Room.databaseBuilder(context, AppDatabase::class.java, "stationbus")
                      .build()
 
          }else if (station.type == Type.Tram){
+             val img = holder.stationsView.station_image_view
+             val csv = context.resources.openRawResource(R.raw.pictogrammes)
+             val list: List<Map<String, String>> = csvReader().readAllWithHeader(csv)
+             run loop@{
+                 list.map { itMap ->
+                     itMap.map { itIn ->
+                         if(itIn.value == "T${station.code}"){
+                             val url = itMap["noms_des_fichiers"].toString()
+                             if(url != "null" && url.isNotEmpty() ){
+                                 val uri = Uri.parse(url)
+                                 GlideToVectorYou.justLoadImage(activity, uri, img)
+                             }
+                             return@loop
+                         }
+                     }
+                 }
+             }
+             if("T${station.code}" == "T4"){
+                 img.setBackgroundResource(imageMetro("T4"))
+             }
+             if("T${station.code}" == "T11"){
+                 img.setBackgroundResource(imageMetro("T11"))
+             }
              databaseSaved =
                  Room.databaseBuilder(context, AppDatabase::class.java, "stationtram")
                      .build()
          }else if (station.type == Type.Noctilien){
+             val img = holder.stationsView.station_image_view
+             val csv = context.resources.openRawResource(R.raw.pictogrammes)
+             val list: List<Map<String, String>> = csvReader().readAllWithHeader(csv)
+             run loop@{
+                 list.map { itMap ->
+                     itMap.map { itIn ->
+                         if(itIn.value == "N${station.code}"){
+                             val url = itMap["noms_des_fichiers"].toString()
+                             if(url != "null" && url.isNotEmpty() ){
+                                 val uri = Uri.parse(url)
+                                 GlideToVectorYou.justLoadImage(activity, uri, img)
+                             }
+                             return@loop
+                         }
+                     }
+                 }
+             }
              databaseSaved =
                  Room.databaseBuilder(context, AppDatabase::class.java, "stationnoctilien")
                      .build()

@@ -49,6 +49,7 @@
         <activity android:name=".ui.plans.NoctiPlansActivity" />
         <activity android:name=".ui.timetable.noctilien.NoctilienStationsActivity" />
         <activity android:name=".ui.timetable.noctilien.NoctilienSchedulesActivity" />
+        <activity android:name=".ui.saved.SavedActivity" />
     </application>
 
 </manifest>
