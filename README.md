@@ -18,4 +18,11 @@ L'application dispose de 4 onglets :
 On retrouve également cette barre de recherche pour les lignes de bus, celles-ci étant assez nombreuses.
 * L'utilisateur peut accéder après avoir un transport, une carte affichant les lignes via un boutton flottant.
 * L'utilisateur peut glisser vers le bas la page affichant les horaires afin de les actualiser.
- 
+
+## QR CODE
+
+* ![](images/Bus-La%20civette-183.png)
+* ![](images/Nation-QRCode)
+* ![](images/Noctilien-Diderot-N13)
+* ![](images/Train-Nanterre-Prefecture-RER%20A)
+* ![](images/Tramway-Henry%20Farman-T2)
