@@ -21,13 +21,8 @@ On retrouve également cette barre de recherche pour les lignes de bus, celles-c
 
 ## QR CODE
 
-### Bus
-![](images/Bus-La%20civette-183.png)
 ### Metro
 ![](images/Nation-QRCode)
-### RER
-![](images/Train-Nanterre-Prefecture-RER%20A)
-### Tramway
-![](images/Tramway-Henry%20Farman-T2)
-### Noctilien
-![](images/Noctilien-Diderot-N13)
+
+* Voici un exemple de QR Code
+
