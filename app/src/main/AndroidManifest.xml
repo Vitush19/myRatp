@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.myratp">
 
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-feature android:name="android.hardware.camera"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -14,42 +16,118 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.timetable.metrolines.MetroTimeActivity" />
-        <activity android:name=".ui.timetable.buslines.BusTimeActivity" />
-        <activity android:name=".ui.timetable.metrolines.MetroStationsActivity" />
+        <activity
+            android:name=".ui.timetable.metrolines.MetroTimeActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.timetable.buslines.BusTimeActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.timetable.metrolines.MetroStationsActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
 
         <activity
             android:name=".SplashScreenActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
-        </activity>
-        <activity android:name=".ui.timetable.trainlines.TrainTimeActivity" />
-        <activity android:name=".ui.timetable.trainlines.TrainStationsActivity" />
-        <activity android:name=".ui.timetable.buslines.BusStationsActivity" />
-        <activity android:name=".ui.timetable.metrolines.MetroSchedulesActivity" />
-        <activity android:name=".ui.timetable.buslines.BusSchedulesActivity" />
-        <activity android:name=".ui.TrafficActivity" />
-        <activity android:name=".ui.plans.MetroPlansActivity" />
-        <activity android:name=".ui.plans.BusPlansActivity" />
-        <activity android:name=".ui.timetable.trainlines.TrainScheduleActivity" />
-        <activity android:name=".ui.plans.TrainPlansActivity" />
-        <activity android:name=".utils.ErreurTrainLine" />
-        <activity android:name=".ui.qrcode.QrCodeActivity" />
-        <activity android:name=".ui.timetable.tramlines.TramTimeActivity" />
-        <activity android:name=".ui.plans.TramPlansActivity" />
-        <activity android:name=".ui.timetable.tramlines.TramStationsActivity" />
-        <activity android:name=".ui.timetable.tramlines.TramSchedulesActivity" />
-        <activity android:name=".ui.timetable.noctilien.NoctilienTimeActivity" />
-        <activity android:name=".ui.plans.NoctiPlansActivity" />
-        <activity android:name=".ui.timetable.noctilien.NoctilienStationsActivity" />
-        <activity android:name=".ui.timetable.noctilien.NoctilienSchedulesActivity" />
-        <activity android:name=".ui.saved.SavedActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.timetable.trainlines.TrainTimeActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.timetable.trainlines.TrainStationsActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.timetable.buslines.BusStationsActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.timetable.metrolines.MetroSchedulesActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.timetable.buslines.BusSchedulesActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.traffic.TrafficActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.plans.MetroPlansActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.plans.BusPlansActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.timetable.trainlines.TrainScheduleActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.plans.TrainPlansActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".utils.ErreurTrainLine"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.qrcode.QrCodeActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.timetable.tramlines.TramTimeActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.plans.TramPlansActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.timetable.tramlines.TramStationsActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.timetable.tramlines.TramSchedulesActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.timetable.noctilien.NoctilienTimeActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.plans.NoctiPlansActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.timetable.noctilien.NoctilienStationsActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.timetable.noctilien.NoctilienSchedulesActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.saved.SavedActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
     </application>
 
 </manifest>

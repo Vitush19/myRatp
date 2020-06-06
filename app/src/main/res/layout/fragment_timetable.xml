@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/carte_metrobis"
-    android:orientation="vertical"
-    tools:context=".ui.PlansFragment">
+    android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
 

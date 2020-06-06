@@ -25,6 +25,7 @@ import com.example.myratp.model.Type
 import com.example.myratp.ui.qrcode.QrCodeActivity
 import com.example.myratp.ui.saved.SavedActivity
 import com.example.myratp.ui.timetable.metrolines.MetroSchedulesActivity
+import com.example.myratp.ui.traffic.TrafficActivity
 import kotlinx.coroutines.runBlocking
 
 
@@ -136,7 +137,8 @@ class DashboardFragment : Fragment(), View.OnClickListener {
             startActivity(intent)
         }
         bTraffic.setOnClickListener{
-            val intent = Intent(requireContext(),TrafficActivity::class.java)
+            val intent = Intent(requireContext(),
+                TrafficActivity::class.java)
             startActivity(intent)
         }
         bSaved.setOnClickListener{

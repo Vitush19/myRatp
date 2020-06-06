@@ -1,4 +1,4 @@
-package com.example.myratp.ui
+package com.example.myratp.ui.traffic
 
 import android.content.Context
 import android.graphics.Color
