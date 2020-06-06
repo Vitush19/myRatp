@@ -21,8 +21,6 @@ On retrouve également cette barre de recherche pour les lignes de bus, celles-c
 
 ## QR CODE
 
-### Metro
-![](images/Nation-QRCode)
-
-* Voici un exemple de QR Code
+### Bus
+![](images/Bus-La%20civette-183)
 
