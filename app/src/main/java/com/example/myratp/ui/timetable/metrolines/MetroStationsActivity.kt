@@ -88,7 +88,7 @@ class MetroStationsActivity : AppCompatActivity() {
                             code = "$code"
                         )
 
-                    stationDao?.updateStations(station)
+                    stationDao.updateStations(station)
                 }
                 //}
                 stationDao = database.getStationsDao()

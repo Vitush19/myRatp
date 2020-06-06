@@ -1,14 +1,17 @@
 package com.example.myratp.ui.timetable.noctilien
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -23,6 +26,8 @@ import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.ScheduleDao
 import com.example.myratp.model.Schedule
 import com.example.myratp.utils.retrofit
+import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
+import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import kotlinx.android.synthetic.main.activity_nocti_schedule.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
@@ -32,6 +37,7 @@ class NoctilienSchedulesActivity : AppCompatActivity() {
     private var code: String? = ""
     private var name: String? = ""
     private lateinit var scheduleDao: ScheduleDao
+    private var activity: Activity = this@NoctilienSchedulesActivity
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,8 +56,27 @@ class NoctilienSchedulesActivity : AppCompatActivity() {
         val txtAller = findViewById<TextView>(R.id.nocti_schedule_txt_aller)
         val txtRetour = findViewById<TextView>(R.id.nocti_schedule_txt_retour)
         val txtStation = findViewById<TextView>(R.id.nocti_schedule_txt_station)
+        val imgNocti = findViewById<ImageView>(R.id.image_nocti_schedule)
 
-        val stationName = "$name"
+        val csv = resources.openRawResource(R.raw.pictogrammes)
+        val list: List<Map<String, String>> = csvReader().readAllWithHeader(csv)
+        run loop@{
+            list.map { itMap ->
+                itMap.map { itIn ->
+                    if (itIn.value == "N$code") {
+                        val url = itMap["noms_des_fichiers"].toString()
+                        if (url != "null" && url.isNotEmpty()) {
+                            val uri = Uri.parse(url)
+                            GlideToVectorYou.justLoadImage(activity, uri, imgNocti)
+                        }
+                        return@loop
+                    }
+                }
+            }
+        }
+
+
+            val stationName = "$name"
         txtStation.text = stationName
 
         val recyclerviewNoctiScheduleAller =
@@ -84,7 +109,7 @@ class NoctilienSchedulesActivity : AppCompatActivity() {
                     progress_bar_nocti_schedule.visibility = View.GONE
                     recyclerviewNoctiScheduleAller.adapter =
                         NoctilienScheduleAdapter(
-                            scheduleAller ?: emptyList()
+                            scheduleAller
                         )
 
                     scheduleDao.deleteAllSchedule()
@@ -99,7 +124,7 @@ class NoctilienSchedulesActivity : AppCompatActivity() {
                     progress_bar_nocti_schedule.visibility = View.GONE
                     recyclerviewNoctiScheduleRetour.adapter =
                         NoctilienScheduleAdapter(
-                            scheduleRetour ?: emptyList()
+                            scheduleRetour
                         )
                 }
                 deffered.await()

@@ -35,6 +35,12 @@
                     app:lottie_autoPlay="true"
                     app:lottie_loop="true"
                     app:lottie_rawRes="@raw/loading" />
+                <ImageView
+                    android:id="@+id/image_tram_schedule"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:contentDescription="@string/tramway" />
 
                 <TextView
                     android:id="@+id/tram_schedule_txt_station"

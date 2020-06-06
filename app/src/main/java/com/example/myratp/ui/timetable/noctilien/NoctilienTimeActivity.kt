@@ -80,7 +80,7 @@ class NoctilienTimeActivity : AppCompatActivity() {
                 progress_bar_nocti_ligne.visibility = View.GONE
                 recyclerviewNocti.adapter =
                     NoctilienAdapter(
-                        noc
+                        noc, this@NoctilienTimeActivity
                     )
             }
         } else {

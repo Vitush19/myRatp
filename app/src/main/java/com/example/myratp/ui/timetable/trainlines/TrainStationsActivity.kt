@@ -78,7 +78,8 @@ class TrainStationsActivity : AppCompatActivity() {
                 recyclerviewTrainStation.adapter =
                     TrainStationAdapter(
                         trainStation,
-                        "$code"
+                        "$code",
+                        this@TrainStationsActivity
                     )
             }
         } else {

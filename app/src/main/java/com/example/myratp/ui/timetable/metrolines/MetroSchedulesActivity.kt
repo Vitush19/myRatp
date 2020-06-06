@@ -93,7 +93,7 @@ class MetroSchedulesActivity : AppCompatActivity() {
                         txtAller.text = it.destination
                     }
                     scheduleDao = database.getScheduleDao()
-                    val scheduleAller = scheduleDao?.getSchedule()
+                    val scheduleAller = scheduleDao.getSchedule()
                     progress_bar_metro_schedule.visibility = View.GONE
                     recyclerviewMetroScheduleAller.adapter =
                         MetroScheduleAdapter(

@@ -76,6 +76,16 @@ fun imageMetro(line:String):Int{
         "Métro 3B"-> R.drawable.metro3bis
         "Métro 7B"-> R.drawable.metro7bis
         "Fun"-> R.drawable.funiculaire
+        "RER C"-> R.drawable.rer_c
+        "C"-> R.drawable.rer_c
+        "RER D"-> R.drawable.rer_d
+        "D"-> R.drawable.rer_d
+        "RER E"-> R.drawable.rer_e
+        "E"-> R.drawable.rer_e
+        "t4"->R.drawable.t4
+        "T4"->R.drawable.t4
+        "t11"->R.drawable.t11
+        "T11"->R.drawable.t11
         else-> R.drawable.metro_bleu
     }
 }

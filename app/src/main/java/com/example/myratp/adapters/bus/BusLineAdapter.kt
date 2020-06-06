@@ -17,7 +17,7 @@ import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import kotlinx.android.synthetic.main.busline_view.view.*
 
-class BusLinesAdapter(private val listBusLines: List<BusLine>, val activity: Activity) :
+class BusLinesAdapter(private val listBusLines: List<BusLine>, private val activity: Activity) :
     RecyclerView.Adapter<BusLinesAdapter.BusLinesViewHolder>() {
     class BusLinesViewHolder(val busLinesView: View) : RecyclerView.ViewHolder(busLinesView)
 
@@ -49,10 +49,7 @@ class BusLinesAdapter(private val listBusLines: List<BusLine>, val activity: Act
         run loop@{
             list.map { itMap ->
                 itMap.map { itIn ->
-                    Log.d("ghj", "${busLines.code}")
-                    Log.d("ghj", "value : ${itIn.value}")
-                    if(itIn.value == "${busLines.code}"){
-                        Log.d("ghj", itMap["noms_des_fichiers"].toString())
+                    if(itIn.value == busLines.code){
                         val url = itMap["noms_des_fichiers"].toString()
                         if(url != "null" && url.isNotEmpty() ){
                             val uri = Uri.parse(url)

@@ -87,8 +87,7 @@ class NoctilienStationsActivity : AppCompatActivity() {
                 progress_bar_nocti_station.visibility = View.GONE
                 recyclerviewNoctiStation.adapter =
                     NoctilienStationAdapter(
-                        station ?: emptyList(),
-                        "$code"
+                        station,"$code", this@NoctilienStationsActivity
                     )
             }
         } else {

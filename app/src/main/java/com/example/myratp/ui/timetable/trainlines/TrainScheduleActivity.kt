@@ -1,14 +1,18 @@
 package com.example.myratp.ui.timetable.trainlines
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -22,7 +26,10 @@ import com.example.myratp.adapters.train.TrainScheduleAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.ScheduleDao
 import com.example.myratp.model.Schedule
+import com.example.myratp.utils.imageMetro
 import com.example.myratp.utils.retrofit
+import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
+import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import kotlinx.android.synthetic.main.activity_train_schedule.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
@@ -31,6 +38,7 @@ class TrainScheduleActivity : AppCompatActivity() {
     private var code: String? = ""
     private var name: String? = ""
     private lateinit var scheduleDao: ScheduleDao
+    private var activity: Activity = this@TrainScheduleActivity
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +57,28 @@ class TrainScheduleActivity : AppCompatActivity() {
         val txtAller = findViewById<TextView>(R.id.train_schedule_txt_aller)
         val txtRetour = findViewById<TextView>(R.id.train_schedule_txt_retour)
         val txtStation = findViewById<TextView>(R.id.train_schedule_txt_station)
+        val imgTrain = findViewById<ImageView>(R.id.image_train_schedule)
+
+        val csv = resources.openRawResource(R.raw.pictogrammes)
+        val list: List<Map<String, String>> = csvReader().readAllWithHeader(csv)
+        run loop@{
+            list.map { itMap ->
+                itMap.map { itIn ->
+                    if("RER $code" == "RER E"){
+                        Log.d("tyui","setbge")
+                        imgTrain.setBackgroundResource(imageMetro("E"))
+                    }
+                    if (itIn.value == "RER $code") {
+                        val url = itMap["noms_des_fichiers"].toString()
+                        if (url != "null" || url.isNotEmpty()) {
+                            val uri = Uri.parse(url)
+                            GlideToVectorYou.justLoadImage(activity, uri, imgTrain)
+                        }
+                        return@loop
+                    }
+                }
+            }
+        }
 
         val stationName = "$name"
         txtStation.text = stationName

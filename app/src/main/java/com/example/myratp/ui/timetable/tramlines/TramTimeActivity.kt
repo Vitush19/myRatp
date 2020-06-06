@@ -71,7 +71,7 @@ class TramTimeActivity : AppCompatActivity() {
                 progress_bar_tram.visibility = View.GONE
                 recyclerviewTram.adapter =
                     TramLineAdapter(
-                        tramStation
+                        tramStation, this@TramTimeActivity
                     )
             }
         } else {

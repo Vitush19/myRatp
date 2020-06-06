@@ -1,14 +1,18 @@
 package com.example.myratp.ui.timetable.tramlines
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -22,7 +26,10 @@ import com.example.myratp.adapters.tramway.TramScheduleAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.ScheduleDao
 import com.example.myratp.model.Schedule
+import com.example.myratp.utils.imageMetro
 import com.example.myratp.utils.retrofit
+import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
+import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import kotlinx.android.synthetic.main.activity_tram_schedule.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
@@ -31,6 +38,7 @@ class TramSchedulesActivity : AppCompatActivity() {
 
     private var code: String? = ""
     private var name: String? = ""
+    private val activity: Activity = this@TramSchedulesActivity
     private lateinit var scheduleDao: ScheduleDao
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -50,6 +58,32 @@ class TramSchedulesActivity : AppCompatActivity() {
         val txtAller = findViewById<TextView>(R.id.tram_schedule_txt_aller)
         val txtRetour = findViewById<TextView>(R.id.tram_schedule_txt_retour)
         val txtStation = findViewById<TextView>(R.id.tram_schedule_txt_station)
+        val imgTram = findViewById<ImageView>(R.id.image_tram_schedule)
+
+        val csv = resources.openRawResource(R.raw.pictogrammes)
+        val list: List<Map<String, String>> = csvReader().readAllWithHeader(csv)
+        run loop@{
+            list.map { itMap ->
+                itMap.map { itIn ->
+                    if(itIn.value == "T${code}"){
+                        val url = itMap["noms_des_fichiers"].toString()
+                        if(url != "null" && url.isNotEmpty() ){
+                            val uri = Uri.parse(url)
+                            GlideToVectorYou.justLoadImage(activity, uri, imgTram)
+                        }
+                        return@loop
+                    }
+                }
+            }
+        }
+        if("T${code}" == "T4"){
+            Log.d("tyui","T4")
+            imgTram.setBackgroundResource(imageMetro("T4"))
+        }
+        if("T${code}" == "T11"){
+            Log.d("tyui","T11")
+            imgTram.setBackgroundResource(imageMetro("T11"))
+        }
 
         val stationName = "$name"
         txtStation.text = stationName
@@ -80,7 +114,7 @@ class TramSchedulesActivity : AppCompatActivity() {
                         txtAller.text = it.destination
                     }
                     scheduleDao = database.getScheduleDao()
-                    val scheduleAller = scheduleDao?.getSchedule()
+                    val scheduleAller = scheduleDao.getSchedule()
                     progress_bar_tram_schedule.visibility = View.GONE
                     recyclerviewTramScheduleAller.adapter =
                         TramScheduleAdapter(

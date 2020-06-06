@@ -71,7 +71,7 @@ class TrainTimeActivity : AppCompatActivity() {
                 progress_bar_train.visibility = View.GONE
                 recyclerviewTrain.adapter =
                     TrainLinesAdapter(
-                        trainStation
+                        trainStation, this@TrainTimeActivity
                     )
             }
         } else {

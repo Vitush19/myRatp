@@ -1,14 +1,17 @@
 package com.example.myratp.ui.timetable.buslines
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -23,6 +26,8 @@ import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.ScheduleDao
 import com.example.myratp.model.Schedule
 import com.example.myratp.utils.retrofit
+import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
+import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import kotlinx.android.synthetic.main.activity_bus_schedule.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
@@ -31,6 +36,7 @@ class BusSchedulesActivity : AppCompatActivity() {
 
     private var code: String? = ""
     private var name: String? = ""
+    private val activity : Activity = this@BusSchedulesActivity
     private lateinit var scheduleDao: ScheduleDao
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -50,6 +56,24 @@ class BusSchedulesActivity : AppCompatActivity() {
         val txtAller = findViewById<TextView>(R.id.bus_schedule_txt_aller)
         val txtRetour = findViewById<TextView>(R.id.bus_schedule_txt_retour)
         val txtStation = findViewById<TextView>(R.id.bus_schedule_txt_station)
+        val imgBus = findViewById<ImageView>(R.id.image_bus_schedule)
+
+        val csv = resources.openRawResource(R.raw.pictogrammes)
+        val list: List<Map<String, String>> = csvReader().readAllWithHeader(csv)
+        run loop@{
+            list.map { itMap ->
+                itMap.map { itIn ->
+                    if(itIn.value == "$code"){
+                        val url = itMap["noms_des_fichiers"].toString()
+                        if(url != "null" && url.isNotEmpty() ){
+                            val uri = Uri.parse(url)
+                            GlideToVectorYou.justLoadImage(activity, uri, imgBus)
+                        }
+                        return@loop
+                    }
+                }
+            }
+        }
 
         val stationName = "$name"
         txtStation.text = stationName

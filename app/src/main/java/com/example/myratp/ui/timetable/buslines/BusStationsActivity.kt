@@ -78,7 +78,7 @@ class BusStationsActivity : AppCompatActivity() {
                 progress_bar_bus_station.visibility = View.GONE
                 recyclerviewBusStation.adapter =
                     BusStationAdapter(
-                        station,"$code"
+                        station,"$code", this@BusStationsActivity
                     )
             }
         } else {

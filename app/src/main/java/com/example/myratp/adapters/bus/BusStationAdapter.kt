@@ -1,8 +1,10 @@
 package com.example.myratp.adapters.bus
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,14 +18,16 @@ import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.StationsDao
 import com.example.myratp.model.Station
 import com.example.myratp.ui.timetable.buslines.BusSchedulesActivity
+import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
+import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import kotlinx.android.synthetic.main.station_bus_view.view.*
 import kotlinx.coroutines.runBlocking
 
-class BusStationAdapter(private val list_stations: List<Station>, val code: String) :
+class BusStationAdapter(private val list_stations: List<Station>, private val code: String, private val activity: Activity) :
     RecyclerView.Adapter<BusStationAdapter.BusStationViewHolder>() {
     class BusStationViewHolder(val stationsView: View) : RecyclerView.ViewHolder(stationsView)
 
-    private var stationsDao: StationsDao? = null
+    private lateinit var stationsDao: StationsDao
     private lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusStationViewHolder {
@@ -44,6 +48,25 @@ class BusStationAdapter(private val list_stations: List<Station>, val code: Stri
         val station = list_stations[position]
         holder.stationsView.station_name_textview_bus.text = "Station : ${station.name}"
 
+        val img = holder.stationsView.station_image_view
+
+        val csv = context.resources.openRawResource(R.raw.pictogrammes)
+        val list: List<Map<String, String>> = csvReader().readAllWithHeader(csv)
+        run loop@{
+            list.map { itMap ->
+                itMap.map { itIn ->
+                    if(itIn.value == station.code){
+                        val url = itMap["noms_des_fichiers"].toString()
+                        if(url != "null" && url.isNotEmpty() ){
+                            val uri = Uri.parse(url)
+                            GlideToVectorYou.justLoadImage(activity, uri, img)
+                        }
+                        return@loop
+                    }
+                }
+            }
+        }
+
         val databaseSaved =
             Room.databaseBuilder(context, AppDatabase::class.java, "stationbus")
                 .build()
@@ -60,7 +83,7 @@ class BusStationAdapter(private val list_stations: List<Station>, val code: Stri
                 holder.stationsView.fav_bouton_bus.setBackgroundResource(R.drawable.ic_favorite_blue_24dp)
                 station.favoris = true
                 runBlocking {
-                    stationsDao?.updateStations(station)
+                    stationsDao.updateStations(station)
                 }
                 val inflater = LayoutInflater.from(context)
                 val v : View = holder.itemView
@@ -79,7 +102,7 @@ class BusStationAdapter(private val list_stations: List<Station>, val code: Stri
                 holder.stationsView.fav_bouton_bus.setBackgroundResource(R.drawable.ic_favorite_border_blue_24dp)
                 station.favoris = false
                 runBlocking {
-                    stationsDao?.updateStations(station)
+                    stationsDao.updateStations(station)
                 }
                 val inflater = LayoutInflater.from(context)
                 val v : View = holder.itemView

@@ -66,7 +66,7 @@ class TrafficActivity : AppCompatActivity(), BottomNavigationView.OnNavigationIt
                     trafficDao.addTraffic(traffic)
                 }
                 trafficDao = database.getTrafficDao()
-                val traf = trafficDao?.getTraffic()
+                val traf = trafficDao.getTraffic()
                 progress_bar_traffic.visibility = View.GONE
                 val type = "Metro"
                 recyclerviewMetro.adapter =
