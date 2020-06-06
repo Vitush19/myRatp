@@ -21,8 +21,13 @@ On retrouve également cette barre de recherche pour les lignes de bus, celles-c
 
 ## QR CODE
 
-* ![](images/Bus-La%20civette-183.png)
-* ![](images/Nation-QRCode)
-* ![](images/Noctilien-Diderot-N13)
-* ![](images/Train-Nanterre-Prefecture-RER%20A)
-* ![](images/Tramway-Henry%20Farman-T2)
+### Bus
+![](images/Bus-La%20civette-183.png)
+### Metro
+![](images/Nation-QRCode)
+### RER
+![](images/Train-Nanterre-Prefecture-RER%20A)
+### Tramway
+![](images/Tramway-Henry%20Farman-T2)
+### Noctilien
+![](images/Noctilien-Diderot-N13)
