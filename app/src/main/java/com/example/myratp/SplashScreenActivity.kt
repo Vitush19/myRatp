@@ -20,18 +20,11 @@ import com.example.myratp.ui.timetable.noctilien.NoctiLineBySearch
 import com.example.myratp.ui.timetable.trainlines.TrainLinesBySearch
 import com.example.myratp.ui.timetable.tramlines.TramLinesBySearch
 import com.example.myratp.utils.retrofit
-import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import kotlinx.android.synthetic.main.activity_splash_screen.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import okio.Utf8
-import java.io.BufferedReader
-import java.io.File
-import java.io.InputStream
-import java.io.InputStreamReader
-import java.nio.charset.Charset
 
 class SplashScreenActivity : AppCompatActivity() {
 

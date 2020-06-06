@@ -1,11 +1,13 @@
 package com.example.myratp.ui.saved
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -14,6 +16,7 @@ import com.example.myratp.adapters.StationAdapter
 import com.example.myratp.data.AppDatabase
 import com.example.myratp.data.StationsDao
 import kotlinx.coroutines.runBlocking
+import com.example.myratp.MainActivity as MainActivity
 
 
 /**
@@ -21,7 +24,8 @@ import kotlinx.coroutines.runBlocking
  */
 class SavedFragment : Fragment() {
     private lateinit var stationsDao: StationsDao
-
+    private lateinit var stationRecyclerview: RecyclerView
+    private var activityfrag= activity
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,7 +35,7 @@ class SavedFragment : Fragment() {
 
         val noFav = root.findViewById<RelativeLayout>(R.id.linear_no_fav)
 
-        val stationRecyclerview =
+        stationRecyclerview =
             root.findViewById<View>(R.id.activities_recyclerview_station_fav) as RecyclerView
         stationRecyclerview.layoutManager =
             LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
@@ -100,6 +104,7 @@ class SavedFragment : Fragment() {
             }
 
             stationRecyclerview.adapter = StationAdapter(favtotal)
+
         }
         return root
     }

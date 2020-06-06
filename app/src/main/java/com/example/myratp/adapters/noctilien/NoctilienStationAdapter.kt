@@ -6,7 +6,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -124,7 +123,6 @@ class NoctilienStationAdapter(private val list_stations: List<Station>, private 
             val intent = Intent(it.context, NoctilienSchedulesActivity::class.java)
             intent.putExtra("code", code)
             intent.putExtra("name", station.name)
-            Log.d("oct", station.toString())
             it.context.startActivity(intent)
         }
     }

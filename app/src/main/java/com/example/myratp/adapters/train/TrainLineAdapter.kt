@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,10 +49,7 @@ class TrainLinesAdapter(private val list_trainLines: List<TrainLine>, private va
         run loop@{
             list.map { itMap ->
                 itMap.map { itIn ->
-                    Log.d("tyui","RER ${trainLines.code}")
-
                     if (itIn.value == "RER ${trainLines.code}") {
-                        Log.d("tyui","inglide")
                         val url = itMap["noms_des_fichiers"].toString()
                         if (url != "null" || url.isNotEmpty()) {
                             val uri = Uri.parse(url)
@@ -65,15 +61,12 @@ class TrainLinesAdapter(private val list_trainLines: List<TrainLine>, private va
             }
         }
         if("RER ${trainLines.code}" == "RER C"){
-            Log.d("tyui","setbgc")
             img.setBackgroundResource(imageMetro("C"))
         }
         if("RER ${trainLines.code}" == "RER D"){
-            Log.d("tyui","setbgd")
             img.setBackgroundResource(imageMetro("D"))
         }
         if("RER ${trainLines.code}" == "RER E"){
-            Log.d("tyui","setbge")
             img.setBackgroundResource(imageMetro("E"))
         }
 
@@ -81,7 +74,6 @@ class TrainLinesAdapter(private val list_trainLines: List<TrainLine>, private va
             if(trainLines.code == "A" || trainLines.code == "B" || trainLines.code == "E"){
             holder.trainLinesView.setOnClickListener {
                 val intent = Intent(it.context, TrainStationsActivity::class.java)
-                Log.d("tyui", "dans le intent")
                 intent.putExtra("code", trainLines.code)
                 intent.putExtra("id", trainLines.id)
                 it.context.startActivity(intent)
@@ -90,7 +82,6 @@ class TrainLinesAdapter(private val list_trainLines: List<TrainLine>, private va
         if(trainLines.code == "C" || trainLines.code == "D"){
             holder.trainLinesView.setOnClickListener {
                 val intent = Intent(it.context, ErreurTrainLine::class.java)
-                Log.d("tyui", "dans le intent")
                 intent.putExtra("code", trainLines.code)
                 it.context.startActivity(intent)
             }

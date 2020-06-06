@@ -1,8 +1,10 @@
 package com.example.myratp.adapters
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +23,8 @@ import com.example.myratp.ui.timetable.metrolines.MetroSchedulesActivity
 import com.example.myratp.ui.timetable.noctilien.NoctilienSchedulesActivity
 import com.example.myratp.ui.timetable.trainlines.TrainScheduleActivity
 import com.example.myratp.ui.timetable.tramlines.TramSchedulesActivity
+import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
+import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import kotlinx.android.synthetic.main.station_view.view.*
 import kotlinx.coroutines.runBlocking
 
@@ -73,6 +77,7 @@ class StationAdapter(private val list_stations: List<Station>) :
              databaseSaved =
                  Room.databaseBuilder(context, AppDatabase::class.java, "stationbus")
                      .build()
+
          }else if (station.type == Type.Tram){
              databaseSaved =
                  Room.databaseBuilder(context, AppDatabase::class.java, "stationtram")
@@ -104,6 +109,7 @@ class StationAdapter(private val list_stations: List<Station>) :
                     R.layout.custom_toast_add,
                     custom
                 )
+                notifyDataSetChanged()
                 with(Toast(context)) {
                     duration = Toast.LENGTH_SHORT
                     view = toastView
@@ -122,6 +128,7 @@ class StationAdapter(private val list_stations: List<Station>) :
                     R.layout.custom_toast_delete,
                     custom
                 )
+                notifyDataSetChanged()
                 with(Toast(context)) {
                     duration = Toast.LENGTH_SHORT
                     view = toastView

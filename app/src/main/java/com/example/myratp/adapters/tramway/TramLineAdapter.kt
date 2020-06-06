@@ -6,7 +6,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,11 +62,9 @@ class TramLineAdapter(private val listTramLines: List<TramLine>, private val act
             }
         }
         if("T${tram.code}" == "T4"){
-            Log.d("tyui","T4")
             img.setBackgroundResource(imageMetro("T4"))
         }
         if("T${tram.code}" == "T11"){
-            Log.d("tyui","T11")
             img.setBackgroundResource(imageMetro("T11"))
         }
 

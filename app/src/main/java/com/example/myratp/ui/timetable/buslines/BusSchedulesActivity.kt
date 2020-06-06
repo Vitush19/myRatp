@@ -36,7 +36,7 @@ class BusSchedulesActivity : AppCompatActivity() {
 
     private var code: String? = ""
     private var name: String? = ""
-    private val activity : Activity = this@BusSchedulesActivity
+    private val activity: Activity = this@BusSchedulesActivity
     private lateinit var scheduleDao: ScheduleDao
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -63,9 +63,9 @@ class BusSchedulesActivity : AppCompatActivity() {
         run loop@{
             list.map { itMap ->
                 itMap.map { itIn ->
-                    if(itIn.value == "$code"){
+                    if (itIn.value == "$code") {
                         val url = itMap["noms_des_fichiers"].toString()
-                        if(url != "null" && url.isNotEmpty() ){
+                        if (url != "null" && url.isNotEmpty()) {
                             val uri = Uri.parse(url)
                             GlideToVectorYou.justLoadImage(activity, uri, imgBus)
                         }

@@ -1,7 +1,6 @@
 package com.example.myratp.utils
 
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -14,7 +13,6 @@ class ErreurTrainLine : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.erreur_train_line)
-        Log.d("tyui", "ErreurTrainLine")
         code = intent.getStringExtra("code")
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_train_erreur)

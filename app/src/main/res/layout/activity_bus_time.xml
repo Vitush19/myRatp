@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinator_layout_bus"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -30,7 +31,31 @@
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize">
 
+        <AutoCompleteTextView
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="20dp"
+            android:id="@+id/auto_completion_bus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:completionThreshold="1"
+            android:elevation="10dp"
+            android:focusable="true"
+            android:textColor="@color/black"
+            android:drawableStart="@drawable/ic_search_blue_24dp"
+            android:dropDownAnchor="@id/txt_autocompletion_start_bus"
+            android:popupBackground="@color/specialWhite"
+            android:background="@drawable/rounded_button_transparent"
+            android:hint="@string/saisissez_votre_station" />
+        <TextView
+            android:layout_below="@+id/auto_completion_bus"
+            android:id="@+id/txt_autocompletion_start_bus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            />
+
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@+id/auto_completion_bus"
             android:id="@+id/activities_recyclerview_bus"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -70,7 +70,7 @@ class TrafficActivity : AppCompatActivity(), BottomNavigationView.OnNavigationIt
                 progress_bar_traffic.visibility = View.GONE
                 val type = "Metro"
                 recyclerviewMetro.adapter =
-                    TrafficAdapter(traf, type)
+                    TrafficAdapter(traf, type, this@TrafficActivity)
             }
         }
     }
@@ -103,7 +103,7 @@ class TrafficActivity : AppCompatActivity(), BottomNavigationView.OnNavigationIt
                             progress_bar_traffic.visibility = View.GONE
                             val type = "Metro"
                             recyclerviewMetro.adapter =
-                                TrafficAdapter(traf, type)
+                                TrafficAdapter(traf, type, this@TrafficActivity)
                         }
                         deff.await()
                     }
@@ -124,7 +124,7 @@ class TrafficActivity : AppCompatActivity(), BottomNavigationView.OnNavigationIt
                             progress_bar_traffic.visibility = View.GONE
                             val type = "RER"
                             recyclerviewMetro.adapter =
-                                TrafficAdapter ( trafBis, type)
+                                TrafficAdapter ( trafBis, type, this@TrafficActivity)
                         }
                         deffbis.await()
                     }
@@ -145,7 +145,7 @@ class TrafficActivity : AppCompatActivity(), BottomNavigationView.OnNavigationIt
                             progress_bar_traffic.visibility = View.GONE
                             val type = "Tramway"
                             recyclerviewMetro.adapter =
-                                TrafficAdapter ( trafTer, type)
+                                TrafficAdapter ( trafTer, type, this@TrafficActivity)
                         }
                         deffter.await()
                     }

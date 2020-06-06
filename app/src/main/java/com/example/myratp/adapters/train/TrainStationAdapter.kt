@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,7 +55,6 @@ class TrainStationAdapter(private val list_stations: List<Station>, private val 
             list.map { itMap ->
                 itMap.map { itIn ->
                     if("RER $code" == "RER E"){
-                        Log.d("tyui","setbge")
                         img.setBackgroundResource(imageMetro("E"))
                     }
                     if (itIn.value == "RER $code") {
