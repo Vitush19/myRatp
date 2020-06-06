@@ -27,30 +27,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
-                    android:layout_gravity="start"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_marginStart="5dp"
                     android:contentDescription="@string/metro"
                     android:src="@drawable/metro_bleu" />
 
+                <ImageView
+                    android:layout_marginStart="5dp"
+                    android:id="@+id/metro_image_view"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:contentDescription="@string/metro" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     tools:ignore="UseCompoundDrawables">
 
-                    <ImageView
-                        android:id="@+id/metro_image_view"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:contentDescription="@string/metro" />
+
 
                     <TextView
                         android:id="@+id/metroline_destination_textview"
